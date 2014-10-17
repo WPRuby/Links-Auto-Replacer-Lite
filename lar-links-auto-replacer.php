@@ -37,11 +37,11 @@ function lar_action_init(){
 
 }
 
-require_once(WP_PLUGIN_DIR . '/popeditor/admin/admin-functions.php');
+require_once(WP_PLUGIN_DIR . '/lar/admin/admin-functions.php');
 
-require_once(WP_PLUGIN_DIR . '/popeditor/admin/admin-interface.php');
+require_once(WP_PLUGIN_DIR . '/lar/admin/admin-interface.php');
 
-require_once(WP_PLUGIN_DIR . '/popeditor/admin/settings.php');
+require_once(WP_PLUGIN_DIR . '/lar/admin/settings.php');
 
 
 

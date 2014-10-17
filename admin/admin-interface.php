@@ -11,19 +11,32 @@ function propanel_siteoptions_add_admin() {
 
     global $query_string;
    
-    if ( isset($_REQUEST['page']) && $_REQUEST['page'] == 'popEditor_options' ) {
+    if ( isset($_REQUEST['page']) && $_REQUEST['page'] == 'lar_options_page' ) {
 		if (isset($_REQUEST['of_save']) && 'reset' == $_REQUEST['of_save']) {
 			$options =  get_option('of_template'); 
-			propanel_of_reset_options($options,'popEditor_options');
-			header("Location: admin.php?page=popEditor_options&reset=true");
+			propanel_of_reset_options($options,'lar_options');
+			header("Location: admin.php?page=lar_options_page&reset=true");
 			die;
 		}
     }
 		
   // $tt_page = add_theme_page('PopEditor', 'PopEditor', 'edit_theme_options', 'popEditor_options','propanel_siteoptions_options_page');
-    $tt_page = add_menu_page( 'PopEditor', 'PopEditor', 'manage_options', 'popEditor_options', 'propanel_siteoptions_options_page' );
+  /*  $tt_page = add_menu_page( 'Links Auto Replacer', 'Links Auto Replacer', 'manage_options', 'popEditor_options', 'propanel_siteoptions_options_page' );
+	
+    add_submenu_page( 'propanel_siteoptions_options_page', 'My Custom Page', 'My Custom Page', 'popEditor_options', 'propanel_siteoptions_options_page');
+    add_submenu_page( 'propanel_siteoptions_options_page', 'My Custom Page', 'My Custom Page', 'manage_options', 'propanel_siteoptions_options_page');
+	*/
+
+$tt_page = add_menu_page('Links Auto Replacer', 'Links Auto Replacer', 'manage_options','lar_options_page','propanel_siteoptions_options_page' );
+
+add_submenu_page( 'lar_options_page', 'Settings', 'Settings', 'manage_options', 'lar_options_page');
+$lar_links_manager_page =  add_submenu_page( 'lar_options_page', 'Links Manager', 'Links Manager', 'manage_options', 'lar_links_manager','lar_links_manager');
+add_submenu_page( 'lar_options_page', 'Help and Support', 'Help and Support', 'manage_options', 'lar-help','lar-help');
+
+
 	add_action("admin_print_scripts-$tt_page", 'propanel_of_load_only');
 	add_action("admin_print_styles-$tt_page",'propanel_of_style_only');
+	add_action("admin_print_styles-$lar_links_manager_page",'links_manager_styles');
 } 
 
 add_action('admin_menu', 'propanel_siteoptions_add_admin');
@@ -57,6 +70,15 @@ function propanel_of_reset_options($options,$page = ''){
 /*-----------------------------------------------------------------------------------*/
 /* Build the Options Page
 /*-----------------------------------------------------------------------------------*/
+function lar_links_manager(){
+	include_once 'pages/lar_links_manager.php';
+}
+
+function links_manager_styles() {
+	wp_enqueue_style('links_manager_styles', plugins_url( 'css/links_manager.css' , __FILE__ ) );
+	
+
+}
 
 function propanel_siteoptions_options_page(){
     $options =  get_option('of_template');
@@ -130,14 +152,14 @@ function propanel_of_style_only() {
 		}
 
 
-	wp_enqueue_script(
+	/*wp_enqueue_script(
 		'fancybox',
 		plugin_dir_url(__FILE__).'js/fancybox/jquery.fancybox.pack.js',
 		array( 'jquery' )
 	);
 	wp_enqueue_style(
 		'fancybox-css',
-		plugin_dir_url(__FILE__).'js/fancybox/jquery.fancybox.css');
+		plugin_dir_url(__FILE__).'js/fancybox/jquery.fancybox.css');*/
 
 }
 
@@ -253,21 +275,7 @@ function propanel_of_load_only() {
 			  <?php } ?>
 
 
-		 jQuery('#popeditor_form_action').change(function(){ // change the code if user change thr action link
-		 			jQuery('#form_code_div').find('form').attr('action',jQuery(this).val());
-		 			jQuery('#popeditor_form_code').html(jQuery('#form_code_div').html());
-		 });
-
-
-
-
-
-
-		 jQuery('#popeditor_form_method3').change(function(){
-		 			jQuery('#form_code_div').find('form').attr('method',jQuery(this).val());
-
-		 			jQuery('#popeditor_form_code').html(jQuery('#form_code_div').html());
-		 });
+		 
 
 
 
@@ -277,70 +285,9 @@ function propanel_of_load_only() {
 
 
 
-		  jQuery('#popeditor_form_code').on('change paste', function() { // retrieve the new values if the user paste a new code
-		 			   //////////
-		 			    var form_code = _.unescape( jQuery(this).val());
-		 			     jQuery('#form_code_div').html('');
-		 			      
-					  	jQuery('#form_code_div').html(form_code);
-					  	/////////
-					  ////////ACTION
-					    var action = jQuery('#form_code_div').find('form').attr('action');
-					  
-			        	jQuery('#popeditor_form_action').val(action);
-			        	//////// METHOD
-			        	var method = jQuery('#form_code_div').find('form').attr('method');
-			        	if(!method){
-			        			jQuery('#popeditor_form_method3').val('get');
-			        	}else{
-			        			jQuery('#popeditor_form_method3').val(method);
-			        	}
-			        	/////////////// FORM NAME AND EMAIL
-
-			        	jQuery("#popeditor_form_name").html('');
-			        	jQuery("#popeditor_form_email").html('');
-			        	var formname_select = jQuery("#popeditor_form_name");
-			        	var formemail_select = jQuery("#popeditor_form_email");
-			        	var name_terms = ['name','prenom','nom'];
-			        	var email_terms = ['email',]
-			        	var hidden_fields = '';
-			        	 jQuery('#form_code_div input').each(function(){
-			        	 	if(jQuery(this).attr('type')=='hidden'){
-			        	 		 var s = jQuery(this).clone().wrap('<p>').parent().html();
-			        	 		 hidden_fields = hidden_fields + s+'\n ';
-    							 
-			        	 	}
-			        	 	
-
-			        	 	if(jQuery(this).attr('type')!='hidden' && jQuery(this).attr('type')!='submit'){
-			        	 		formname_select.append(jQuery('<option></option>').attr("value", jQuery(this).attr('name')).text(jQuery(this).attr('name')));
-			        	 		formemail_select.append(jQuery('<option></option>').attr("value", jQuery(this).attr('name')).text(jQuery(this).attr('name')));
-			        	 		//jQuery('#popeditor_form_name').
-			        	 		var inputs = jQuery(this);
-			        	 		jQuery.each(name_terms,function(key, value){
-
-			        	 				if(jQuery(inputs).attr('name').toLowerCase().indexOf(value) >= 0){
-
-			        	 					jQuery("#popeditor_form_name").val(jQuery(inputs).attr('name'));
-			        	 				}
-			        	 		});
-			        	 		 jQuery.each(email_terms,function(key, value){
-			        	 		 	if(jQuery(inputs).attr('name').toLowerCase().indexOf(value) >= 0){
-			        	 					jQuery("#popeditor_form_email").val(jQuery(inputs).attr('name'));
-			        	 			}
-
-			        	 		 });
-			        	 		
-			        	 	}
-			        	 			
-			        	 });
-					jQuery('#popeditor_form_hidden_fields').val(encodeURIComponent(hidden_fields));
 
 
-					/////////////// FORM NAME AND EMAIL
 
-			        	  
-		 });  // on Change
 
 
 		});
@@ -353,47 +300,14 @@ function propanel_of_load_only() {
 		?>
 <script type="text/javascript">
 
-function set_style(id,type){
 
-	jQuery('#popeditor_form_style').val(id);
-	jQuery('#form_style_preview').html('<img src="<?php echo plugins_url( "/optinforms/images/style_" , __FILE__ ) ?>'+id+'.png" />');
-	switch(type){
-		case 1:
-		    jQuery("#popeditor_form_name").removeAttr('disabled');
-			jQuery("#popeditor_form_email").removeAttr('disabled');
-			jQuery("#popeditor_form_button_text").removeAttr('disabled');
-			//jQuery('#popeditor_custom_button_div').hide();
-		break;
-
-		case 2:
-				jQuery("#popeditor_form_name").attr('disabled','disabled');
-				jQuery("#popeditor_form_email").removeAttr('disabled');
-				jQuery("#popeditor_form_button_text").removeAttr('disabled');
-
-				//jQuery('#popeditor_custom_button_div').hide();
-		break;
-
-		case 3:
-			jQuery("#popeditor_form_name").attr('disabled','disabled');
-			jQuery("#popeditor_form_email").attr('disabled','disabled');
-			jQuery("#popeditor_form_button_text").attr('disabled','disabled');
-
-			//jQuery('#popeditor_custom_button_div').show();
-
-
-		break;
-	}
-	jQuery.fancybox.close();
-}
 			jQuery(document).ready(function(){
-			//	jQuery('#popeditor_custom_button_div').hide();
+			
+		
 
-
-					// Choose Form Style Fancybox Init
-
-		jQuery(".various").fancybox({
-		/*maxWidth	: 800,
-		maxHeight	: 600,*/
+	/*	jQuery(".various").fancybox({
+		//maxWidth	: 800,
+		//maxHeight	: 600,
 		fitToView	: false,
 		width		: '700px',
 		height		: '500px',
@@ -407,7 +321,7 @@ function set_style(id,type){
      			 
    		} 
    		
-	});
+	});*/
 
 
 
@@ -660,7 +574,7 @@ jQuery(document).ready( function(){
 				
 					 //var data = {data : serializedReturn};
 					var data = {
-						<?php if(isset($_REQUEST['page']) && $_REQUEST['page'] == 'popEditor_options'){ ?>
+						<?php if(isset($_REQUEST['page']) && $_REQUEST['page'] == 'lar_options_page'){ ?>
 						type: 'options',
 						<?php } ?>
 

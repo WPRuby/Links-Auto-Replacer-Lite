@@ -103,46 +103,5 @@ jQuery('.themes-php #message2').html(message);
 
 
 add_action('admin_head', 'propanel_siteoptions_admin_head');
-add_action( 'init', 'cmb_initialize_cmb_meta_boxes', 9999 );
-/**
- * Initialize the metabox class.
- */
-function cmb_initialize_cmb_meta_boxes() {
 
-	if ( ! class_exists( 'cmb_Meta_Box' ) )
-		require_once 'cmw/init.php';
-
-}
-add_filter( 'cmb_meta_boxes', 'cmb_enable_popeditor_metabox' );
-function cmb_enable_popeditor_metabox(){
-	// Start with an underscore to hide fields from custom fields list
-	
-	$prefix = '_popeditor_';
-	$post_types = get_post_types( '', 'names' ); 
-	/**
-	 * Sample metabox to demonstrate each field type included
-	 */
-	$meta_boxes['popeditor_metabox'] = array(
-		'id'         => 'popeditor_metabox',
-		'title'      => __( 'PopEditor Settings', 'popeditor' ),
-		'pages'      => $post_types, // Post type
-		'context'    => 'normal',
-		'priority'   => 'high',
-		'show_names' => true, // Show field names on the left
-		// 'cmb_styles' => true, // Enqueue the CMB stylesheet on the frontend
-		'fields'     => array(
-			array(
-				'name' => __( 'Enable PopEditor', 'popeditor' ),
-				'desc' => __( '', 'popeditor' ),
-				'id'   => $prefix . 'enable_popeditor',
-				'type' => 'checkbox',
-			),
-       
-		
-		),
-	);
-
-
-	return $meta_boxes;
-}
 ?>
