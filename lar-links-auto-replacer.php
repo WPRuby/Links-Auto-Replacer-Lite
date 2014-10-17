@@ -47,6 +47,28 @@ require_once(WP_PLUGIN_DIR . '/lar/admin/settings.php');
 
 
 
+function lar_activate() {
+global $wpdb;
+    $sql = '
+
+CREATE TABLE IF NOT EXISTS `'.$wpdb->prefix.'lar_links` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `keyword` text NOT NULL,
+  `keyword_url` text NOT NULL,
+  `dofollow` int(1) NOT NULL,
+  `open_in` varchar(255) NOT NULL,
+  `cloack` int(1) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `created` int(11) NOT NULL,
+  `updated` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+';
+
+$wpdb->query($sql);
+}
+register_activation_hook( __FILE__, 'lar_activate' );
+
 
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
@@ -73,4 +95,23 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 	//require_once( plugin_dir_path( __FILE__ ) . 'admin/class-plugin-name-admin.php' );
 	//add_action( 'plugins_loaded', array( 'Plugin_Name_Admin', 'get_instance' ) );
 
+}
+
+if(is_admin()){
+
+
+
+add_action( 'wp_ajax_delete_link', 'lar_delete_link_callback' );
+
+function lar_delete_link_callback() {
+	global $wpdb; // this is how you get access to the database
+
+	$link_id = intval( $_POST['link_id'] );
+
+	$wpdb->delete($wpdb->prefix.'lar_links',array('id'=>$link_id));
+
+        
+
+	die(); // this is required to terminate immediately and return a proper response
+}
 }

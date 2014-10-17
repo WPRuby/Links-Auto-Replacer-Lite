@@ -37,6 +37,7 @@ add_submenu_page( 'lar_options_page', 'Help and Support', 'Help and Support', 'm
 	add_action("admin_print_scripts-$tt_page", 'propanel_of_load_only');
 	add_action("admin_print_styles-$tt_page",'propanel_of_style_only');
 	add_action("admin_print_styles-$lar_links_manager_page",'links_manager_styles');
+	add_action("admin_print_scripts-$lar_links_manager_page", 'links_manager_scripts');
 } 
 
 add_action('admin_menu', 'propanel_siteoptions_add_admin');
@@ -71,13 +72,66 @@ function propanel_of_reset_options($options,$page = ''){
 /* Build the Options Page
 /*-----------------------------------------------------------------------------------*/
 function lar_links_manager(){
-	include_once 'pages/lar_links_manager.php';
+	
+	if($_POST and $_REQUEST['link_id']==''){ // add link
+		global $wpdb;
+		$link['keyword'] = $_POST['keyword'];
+		$link['keyword_url'] = $_POST['keyword_url'];
+		$link['dofollow'] = ($_POST['dofollow']  == 1)?1:0;
+		$link['open_in'] = $_POST['target'];
+		$link['cloack'] = ($_POST['cloack'] == 1 )?1:0;
+		$link['slug'] = $_POST['slug'];
+		$link['created'] = time();
+		$link['updated'] = time();
+		
+		$link_id = $wpdb->insert($wpdb->prefix.'lar_links',$link);
+
+		if(is_numeric($link_id)){
+			ob_clean();
+			wp_redirect('admin.php?page=lar_links_manager&success=true');
+			exit;
+		}
+		
+		
+		
+		
+
+	}elseif($_REQUEST['link_id']!='' and $_POST){ // edit link
+
+		global $wpdb; 
+		$link['keyword'] = $_POST['keyword'];
+		$link['keyword_url'] = $_POST['keyword_url'];
+		$link['dofollow'] = ($_POST['dofollow']  == 'on')?1:0;
+		$link['open_in'] = $_POST['target'];
+		$link['cloack'] = ($_POST['cloack'] == 'on' )?1:0;
+		$link['slug'] = $_POST['slug'];
+		$link['updated'] = time();
+		
+		$link_id = $wpdb->update($wpdb->prefix.'lar_links',$link,array('id'=>$_REQUEST['link_id']));
+
+		if($link_id !== false){
+			
+			wp_redirect('admin.php?page=lar_links_manager&edited=true');
+			exit;
+		}
+
+	}
+	if($_GET['link_id'] == ''){
+		include_once 'pages/lar_links_manager.php';
+	}else{
+		include_once 'pages/lar_links_edit.php';
+	}
+	
 }
 
 function links_manager_styles() {
 	wp_enqueue_style('links_manager_styles', plugins_url( 'css/links_manager.css' , __FILE__ ) );
 	
 
+}
+function links_manager_scripts() {
+		wp_register_script('notifyjs', plugins_url( 'js/notify.js' , __FILE__ ) , array( 'jquery' ));
+		wp_enqueue_script('notifyjs');
 }
 
 function propanel_siteoptions_options_page(){
