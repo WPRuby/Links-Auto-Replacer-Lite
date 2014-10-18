@@ -5,7 +5,7 @@ global $wpdb;
 
 <div id='lar_main_wrap'>
 
- <h1>Manage Your Links</h1>
+ <h1><?php echo __('Manage Your Links','lar-links-auto-replacer'); ?></h1>
 
 <h2 class="lar_subheading">New Link</h2>
 <div id="lar_add_links_form">
@@ -84,7 +84,7 @@ global $wpdb;
 
 
 
-<h2 class="lar_subheading">Your Links</h2>
+<h2 class="lar_subheading"><?php echo __('Your Links', 'lar-links-auto-replacer'); ?></h2>
 
 <table class="widefat fixed">
   

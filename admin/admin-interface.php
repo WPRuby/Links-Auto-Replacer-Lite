@@ -121,5 +121,15 @@ function lar_help(){
 }
 
 function lar_settings_page(){
+	if(isset($_POST['submit'])){
+		if($_POST['lar_enable'] == 'on'){
+			update_option('lar_enable' , 1 );
+		}else{
+			update_option('lar_enable' , 0 );
+		}
+
+		wp_redirect('admin.php?page=lar_options_page&edited=true');
+		exit;
+	}
 	include_once 'pages/settings.php';
 }
