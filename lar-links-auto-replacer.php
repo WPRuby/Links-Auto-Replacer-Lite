@@ -37,11 +37,8 @@ function lar_action_init(){
 
 }
 
-require_once(WP_PLUGIN_DIR . '/lar/admin/admin-functions.php');
 
-require_once(WP_PLUGIN_DIR . '/lar/admin/admin-interface.php');
 
-require_once(WP_PLUGIN_DIR . '/lar/admin/settings.php');
 
 
 
@@ -122,33 +119,22 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 if(is_admin()){
 
+	require_once(WP_PLUGIN_DIR . '/lar/admin/admin-interface.php');
 
 
-add_action( 'wp_ajax_delete_link', 'lar_delete_link_callback' );
 
-function lar_delete_link_callback() {
-	global $wpdb; // this is how you get access to the database
+	add_action( 'wp_ajax_delete_link', 'lar_delete_link_callback' );
 
-	$link_id = intval( $_POST['link_id'] );
+	function lar_delete_link_callback() {
+		global $wpdb; // this is how you get access to the database
 
-	$wpdb->delete($wpdb->prefix.'lar_links',array('id'=>$link_id));
+		$link_id = intval( $_POST['link_id'] );
 
-        
+		$wpdb->delete($wpdb->prefix.'lar_links',array('id'=>$link_id));
 
-	die(); // this is required to terminate immediately and return a proper response
+	        
+
+		die(); // this is required to terminate immediately and return a proper response
+	}
 }
-}
 
-add_action( 'init', 'create_post_type' );
-function create_post_type() {
-  register_post_type( 'acme_product',
-    array(
-      'labels' => array(
-        'name' => __( 'Products' ),
-        'singular_name' => __( 'Product' )
-      ),
-      'public' => true,
-      'has_archive' => true,
-    )
-  );
-}
