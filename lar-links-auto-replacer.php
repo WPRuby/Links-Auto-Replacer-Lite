@@ -138,3 +138,17 @@ function lar_delete_link_callback() {
 	die(); // this is required to terminate immediately and return a proper response
 }
 }
+
+add_action( 'init', 'create_post_type' );
+function create_post_type() {
+  register_post_type( 'acme_product',
+    array(
+      'labels' => array(
+        'name' => __( 'Products' ),
+        'singular_name' => __( 'Product' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+    )
+  );
+}
