@@ -100,22 +100,7 @@ function lar_auto_replace_links($content){
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 
-/*
- * @TODO:
- *
- * - replace `class-plugin-name-admin.php` with the name of the plugin's admin file
- * - replace Plugin_Name_Admin with the name of the class defined in
- *   `class-plugin-name-admin.php`
- *
- * If you want to include Ajax within the dashboard, change the following
- * conditional to:
- *
- * if ( is_admin() ) {
- *   ...
- * }
- *
- * The code below is intended to to give the lightest footprint possible.
- */
+
 if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 	//require_once( plugin_dir_path( __FILE__ ) . 'admin/class-plugin-name-admin.php' );
@@ -144,3 +129,21 @@ if(is_admin()){
 	}
 }
 
+
+
+/*----------------------------------------------------------------------------*
+ * Add rewrite rules
+ *----------------------------------------------------------------------------*/
+
+function keywords_create_rewrite_rules( $rewrite ) {
+	global $wp_rewrite;
+	
+	// add rewrite tokens
+	$keytag_token = '%to%';
+	$wp_rewrite->add_rewrite_tag( $keytag_token, '(.+)', 'to=' );
+	
+	$keywords_structure = $wp_rewrite->root . "go/$keytag_token";
+	$keywords_rewrite = $wp_rewrite->generate_rewrite_rules( $keywords_structure );
+	
+	return ( $rewrite + $keywords_rewrite );
+}
