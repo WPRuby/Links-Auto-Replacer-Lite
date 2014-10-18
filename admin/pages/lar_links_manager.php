@@ -13,13 +13,14 @@ global $wpdb;
     <table cellspacing="5" cellpadding="3" class="widefat fixed">
        <thead>
           <tr>
-            <th><label><?php echo __('Keyword','lar-links-auto-replacer'); ?></label></th>
-            <th style="width:280px"> <label><?php echo __('URL (Link)','lar-links-auto-replacer'); ?></label></th>
-            <th><label><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></label></th>
-            <th><label><?php echo __('Open in','lar-links-auto-replacer'); ?></label></th>
-            <th><label><?php echo __('Cloack','lar-links-auto-replacer'); ?></label></th>
-            <th ><label><?php echo __('Slug','lar-links-auto-replacer'); ?></label></th>
-            <th></th>
+            <th><?php echo __('Keyword','lar-links-auto-replacer'); ?></th>
+            <th style="width:280px"> <?php echo __('URL (Link)','lar-links-auto-replacer'); ?></th>
+            <th style="width: 66px;"><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></th>
+            <th><?php echo __('Open in','lar-links-auto-replacer'); ?></th>
+            <th style="width: 45px;"><?php echo __('Cloack','lar-links-auto-replacer'); ?></th>
+            <th ><?php echo __('Slug','lar-links-auto-replacer'); ?></th>
+            <th style="width: 75px;"></th>
+            
           </tr>
           
         </thead>
@@ -90,12 +91,12 @@ global $wpdb;
   <thead>
     
     <tr>
-            <th>#</th>
+            <th style="width:20px;">#</th>
             <th><?php echo __('Keyword','lar-links-auto-replacer'); ?></th>
-            <th> <?php echo __('URL (Link)','lar-links-auto-replacer'); ?></th>
-            <th><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></th>
+            <th style="width:310px"> <?php echo __('URL (Link)','lar-links-auto-replacer'); ?></th>
+            <th style="width: 65px;"><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></th>
             <th><?php echo __('Open in','lar-links-auto-replacer'); ?></th>
-            <th><?php echo __('Cloack','lar-links-auto-replacer'); ?></th>
+            <th style="width:50px"><?php echo __('Cloack','lar-links-auto-replacer'); ?></th>
             <th><?php echo __('Slug','lar-links-auto-replacer'); ?></th>
             <th></th>
           </tr>

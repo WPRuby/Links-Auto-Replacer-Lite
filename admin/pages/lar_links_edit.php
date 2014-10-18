@@ -17,11 +17,11 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
           <tr>
             <th><?php echo __('Keyword','lar-links-auto-replacer'); ?></th>
             <th style="width:280px"> <?php echo __('URL (Link)','lar-links-auto-replacer'); ?></th>
-            <th><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></th>
+            <th style="width: 66px;"><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></th>
             <th><?php echo __('Open in','lar-links-auto-replacer'); ?></th>
-            <th><?php echo __('Cloack','lar-links-auto-replacer'); ?></th>
+            <th style="width: 45px;"><?php echo __('Cloack','lar-links-auto-replacer'); ?></th>
             <th ><?php echo __('Slug','lar-links-auto-replacer'); ?></th>
-            <th></th>
+            <th style="width: 75px;"></th>
           </tr>
           
         </thead>
