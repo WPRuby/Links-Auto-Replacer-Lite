@@ -48,26 +48,49 @@ require_once(WP_PLUGIN_DIR . '/lar/admin/settings.php');
 
 
 function lar_activate() {
-global $wpdb;
-    $sql = '
+			global $wpdb;
+			    $sql = '
 
-CREATE TABLE IF NOT EXISTS `'.$wpdb->prefix.'lar_links` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `keyword` text NOT NULL,
-  `keyword_url` text NOT NULL,
-  `dofollow` int(1) NOT NULL,
-  `open_in` varchar(255) NOT NULL,
-  `cloack` int(1) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `created` int(11) NOT NULL,
-  `updated` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-';
+			CREATE TABLE IF NOT EXISTS `'.$wpdb->prefix.'lar_links` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `keyword` text NOT NULL,
+			  `keyword_url` text NOT NULL,
+			  `dofollow` int(1) NOT NULL,
+			  `open_in` varchar(255) NOT NULL,
+			  `cloack` int(1) NOT NULL,
+			  `slug` varchar(255) NOT NULL,
+			  `created` int(11) NOT NULL,
+			  `updated` int(11) NOT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+			';
 
-$wpdb->query($sql);
+			$wpdb->query($sql);
 }
 register_activation_hook( __FILE__, 'lar_activate' );
+
+
+/// Replace The links
+add_filter('the_content','lar_auto_replace_links');
+
+function lar_auto_replace_links($content){
+	global $wpdb; 
+
+	$links = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.'lar_links');
+
+	foreach ($links as $link) {
+		$dofollow = '';
+		if($link->dofollow != 1){
+			$dofollow = 'rel="nofollow"';
+		}
+		$url = '<a href="'.$link->keyword_url.'" '.$dofollow.' target="'.$link->open_in.'">'.$link->keyword.'</a>';
+		$content = preg_replace('/\b'.$link->keyword.'\b/u', $url, $content);
+
+		
+	}
+
+	return $content;
+}
 
 
 /*----------------------------------------------------------------------------*
