@@ -1,11 +1,18 @@
 ## Links Auto Replacer
 Contributors: waseem_senjer
+
 Donate link: http://www.waseem-senjer.com
+
 Tags: affiliate, links, automation,keywords,cloak,cloaking
+
 Requires at least: 3.5.1
+
 Tested up to: 4.0
+
 Stable tag: 1.0.0
+
 License: GPLv2 or later
+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Links Auto Replacer is a Wordpress plugin that helps you to replace a specific keywords to links automatically.
