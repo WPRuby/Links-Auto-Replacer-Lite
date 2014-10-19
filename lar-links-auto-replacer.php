@@ -92,8 +92,18 @@ function lar_auto_replace_links($content){
 		if($link->dofollow != 1){
 			$dofollow = 'rel="nofollow"';
 		}
-		$url = '<a href="'.$link->keyword_url.'" '.$dofollow.' target="'.$link->open_in.'">'.$link->keyword.'</a>';
-		$content = preg_replace('/\b'.$link->keyword.'\b/u', $url, $content);
+
+		if ( get_option('permalink_structure') != '' ) {
+			$url = ($link->slug != '')? site_url().'/go/'.$link->slug : $link->keyword_url;
+		
+		}else{
+			$url = ($link->slug != '')? site_url().'/index.php?go='.$link->slug : $link->keyword_url;
+		
+		}
+
+		
+		$final_url = '<a href="'.$url.'" '.$dofollow.' target="'.$link->open_in.'">'.$link->keyword.'</a>';
+		$content = preg_replace('/\b'.$link->keyword.'\b/u', $final_url, $content);
 
 		
 	}
