@@ -1,9 +1,9 @@
 <?php
 /**
- * The WordPress Plugin Boilerplate.
+ * Links Auto Replacer
  *
- * A foundation off of which to build well-documented WordPress plugins that
- * also follow WordPress Coding Standards and PHP best practices.
+ * 
+ * Links Auto Replacer is a Wordpress plugin that helps you to replace a specific keywords to links automatically.
  *
  * @package   Links Auto Replacer
  * @author    Waseem Senjer <waseem.senjer@gmail.com>
