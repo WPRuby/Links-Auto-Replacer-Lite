@@ -67,6 +67,12 @@ function lar_activate() {
 			// Add the default options
 			add_option('lar_enable' , 1);
 
+
+			// rewrite rules
+			//keywords_create_rewrite_rules();
+			 global $wp_rewrite;
+    		 $wp_rewrite->flush_rules();
+
 }
 register_activation_hook( __FILE__, 'lar_activate' );
 
@@ -132,18 +138,46 @@ if(is_admin()){
 
 
 /*----------------------------------------------------------------------------*
- * Add rewrite rules
+ * @TODO Add rewrite rules
  *----------------------------------------------------------------------------*/
+ 
 
-function keywords_create_rewrite_rules( $rewrite ) {
-	global $wp_rewrite;
+
+add_filter('rewrite_rules_array', 'lar_setup_rewrite_rules');
+function lar_setup_rewrite_rules($rules)
+{
+    $newrules['^go/([^/]*)/?$'] = 'index.php?go=$matches[1]';
+    $newrules['^index.php?go=([^/]*)?$'] = 'index.php?go=$matches[1]';
+    return $newrules + $rules;
+}
+
+
+
+
+add_filter('query_vars', 'add_go_variable');
+function add_go_variable($vars)
+{
+    array_push($vars, 'go');
+    return $vars;
+}
+
+
+
+
+
+add_action('template_redirect','lar_redirect');
+
+function lar_redirect(){
+	global $wp_query;
 	
-	// add rewrite tokens
-	$keytag_token = '%to%';
-	$wp_rewrite->add_rewrite_tag( $keytag_token, '(.+)', 'to=' );
+	if(isset($wp_query->query_vars['go'])){
+		global $wpdb;
+		$link = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."lar_links WHERE slug='".$wp_query->query_vars['go']."'");
+		if(!is_null($link)){
+			wp_redirect($link->keyword_url);
+			exit;
+		}
+		
+	}
 	
-	$keywords_structure = $wp_rewrite->root . "go/$keytag_token";
-	$keywords_rewrite = $wp_rewrite->generate_rewrite_rules( $keywords_structure );
-	
-	return ( $rewrite + $keywords_rewrite );
 }
