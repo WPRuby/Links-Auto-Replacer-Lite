@@ -1,4 +1,4 @@
-=== Links Auto Replacer ===
+## Links Auto Replacer
 Contributors: waseem_senjer
 Donate link: http://www.waseem-senjer.com
 Tags: affiliate, links, automation,keywords,cloak,cloaking
@@ -11,24 +11,24 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Links Auto Replacer is a Wordpress plugin that helps you to replace a specific keywords to links automatically.
 	
 
-== Description ==
+## Description
 
 - Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
 - Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has the cloaking feature to hide and protect your links.
  
 
-== Installation ==
+## Installation
 
 
 
-= Using The WordPress Dashboard =
+### Using The WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Search for 'Links Auto Replacer'
 3. Click 'Install Now'
 4. Activate the plugin on the Plugin dashboard
 
-= Uploading in WordPress Dashboard =
+### Uploading in WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Navigate to the 'Upload' area
@@ -36,7 +36,7 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 4. Click 'Install Now'
 5. Activate the plugin in the Plugin dashboard
 
-= Using FTP =
+### Using FTP
 
 1. Download `lar-links-auto-replacer.zip`
 2. Extract the `lar-links-auto-replacer` directory to your computer
@@ -44,7 +44,7 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 4. Activate the plugin in the Plugin dashboard
 
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions 
 
 = Is the plugin support cloaking? =
 
@@ -52,16 +52,16 @@ Yes, it is. You can mark the link to be cloaked and provide a readable slug to u
 
 
 
-== Screenshots ==
+## Screenshots
 
 1. The post before adding the links
 2. Links management.
 3. The auto replacement of the keywords in the post.
 
-== Changelog ==
+## Changelog
 
-= 1.0 =
+### 1.0
 * Initial release.
 
-== Upgrade Notice == 
+## Upgrade Notice
 * Initial release.
