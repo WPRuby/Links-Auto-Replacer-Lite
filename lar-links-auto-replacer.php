@@ -24,9 +24,7 @@
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/wsenjer/Links-Replacer
  */
-add_action('init',function(){
-	add_option('leafletmapsmarkerpro_license_key','1') OR update_option('leafletmapsmarkerpro_license_key','1');
-});
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -45,7 +43,7 @@ function lar_action_init(){
 
 
 
-
+register_activation_hook( __FILE__, 'lar_activate' );
 function lar_activate() {
 			global $wpdb;
 			    $sql = '
@@ -70,13 +68,14 @@ function lar_activate() {
 			add_option('lar_enable' , 1);
 
 
+			do_action('lar_plugin_activation');
+
 			// rewrite rules
 			//keywords_create_rewrite_rules();
 			 global $wp_rewrite;
     		 $wp_rewrite->flush_rules();
 
 }
-register_activation_hook( __FILE__, 'lar_activate' );
 
 
 /// Replace The links
@@ -110,6 +109,9 @@ function lar_auto_replace_links($content){
 		
 	}
 
+	// Replace Content Filter
+	$content = apply_filters('lar_replace_content', $content);
+
 	return $content;
 }
 
@@ -118,33 +120,9 @@ function lar_auto_replace_links($content){
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 
-
-if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-
-	//require_once( plugin_dir_path( __FILE__ ) . 'admin/class-plugin-name-admin.php' );
-	//add_action( 'plugins_loaded', array( 'Plugin_Name_Admin', 'get_instance' ) );
-
-}
-
 if(is_admin()){
 
 	require_once( plugin_dir_path( __FILE__ ).'/admin/admin-interface.php');
-
-
-
-	add_action( 'wp_ajax_delete_link', 'lar_delete_link_callback' );
-
-	function lar_delete_link_callback() {
-		global $wpdb; // this is how you get access to the database
-
-		$link_id = intval( $_POST['link_id'] );
-
-		$wpdb->delete($wpdb->prefix.'lar_links',array('id'=>$link_id));
-
-	        
-
-		die(); // this is required to terminate immediately and return a proper response
-	}
 }
 
 
@@ -192,4 +170,8 @@ function lar_redirect(){
 		
 	}
 	
+}
+// Links Auto Replacer Pro Features
+if ( file_exists( 'pro/lar_pro.php' ) ){
+	include 'pro/lar_pro.php';
 }
