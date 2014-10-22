@@ -4,7 +4,7 @@ global $wpdb;
  $lar_links = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.'lar_links',ARRAY_A);
 $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_REQUEST['link_id'],ARRAY_A);
   ?>
-
+<?php include 'lar_menu.php'; ?>
 <div id='lar_main_wrap'>
 
  <h1><?php echo __('Edit Link','lar-links-auto-replacer'); ?></h1>

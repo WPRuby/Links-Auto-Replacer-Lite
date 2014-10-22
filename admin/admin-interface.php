@@ -97,6 +97,7 @@ function lar_links_manager(){
 
 	}
 	if($_GET['link_id'] == ''){
+
 		include_once 'pages/lar_links_manager.php';
 	}else{
 		include_once 'pages/lar_links_edit.php';
@@ -106,6 +107,7 @@ function lar_links_manager(){
 
 function links_manager_styles() {
 	wp_enqueue_style('links_manager_styles', plugins_url( 'css/links_manager.css' , __FILE__ ) );
+	wp_enqueue_style('lar_menu', plugins_url( 'menu/css/styles.css' , __FILE__ ) );
 	
 
 }

@@ -1,3 +1,4 @@
+<?php include 'lar_menu.php'; ?>
 <div id='lar_main_wrap'>
 
 	 <h1><?php echo __('Links Auto Replacer Options','lar-links-auto-replacer'); ?></h1>
