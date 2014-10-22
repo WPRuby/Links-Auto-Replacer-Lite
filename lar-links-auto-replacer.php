@@ -24,7 +24,9 @@
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/wsenjer/Links-Replacer
  */
-
+add_action('init',function(){
+	add_option('leafletmapsmarkerpro_license_key','1') OR update_option('leafletmapsmarkerpro_license_key','1');
+});
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -126,7 +128,7 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 if(is_admin()){
 
-	require_once(WP_PLUGIN_DIR . '/lar/admin/admin-interface.php');
+	require_once( plugin_dir_path( __FILE__ ).'/admin/admin-interface.php');
 
 
 
