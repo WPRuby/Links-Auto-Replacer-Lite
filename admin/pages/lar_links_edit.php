@@ -7,7 +7,7 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
 
 <div id='lar_main_wrap'>
 
- <h1>Edit Link</h1>
+ <h1><?php echo __('Edit Link','lar-links-auto-replacer'); ?></h1>
 
 
 <div id="lar_add_links_form">
@@ -50,8 +50,8 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
         <td>
          
          <select name="target" class="widefat">
-         <option <?php if($link['open_in']=='_self'){echo 'selected'; } ?> value="_self">Same Window</option>
-            <option <?php if($link['open_in']=='_blank'){echo 'selected'; } ?> value="_blank">New Window</option>
+         <option <?php if($link['open_in']=='_self'){echo 'selected'; } ?> value="_self"><?php echo __('Same Window','lar-links-auto-replacer'); ?></option>
+            <option <?php if($link['open_in']=='_blank'){echo 'selected'; } ?> value="_blank"><?php echo __('New Window','lar-links-auto-replacer'); ?></option>
             
 
          </select>
@@ -72,7 +72,7 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
         <td>
           
 
-         <input type="submit" name="submit" id="submit" class="button button-primary" value="Edit Link">
+         <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo __('Edit Link','lar-links-auto-replacer'); ?>">
     
         </td>
       </tr>
@@ -108,36 +108,36 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
     jQuery("#submit").click(function(){
 
       if(jQuery('#keyword').val() == ''){
-        jQuery.notify("You must provide a keyword!",{ globalPosition:"top center",className:'error'});
+        jQuery.notify("<?php echo __('You must provide a keyword!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
         return false;
       }
       if(!is_valid_url(jQuery('#keyword_url').val())){
-         jQuery.notify("You must provide a valid URL!",{ globalPosition:"top center",className:'error'});
+         jQuery.notify("<?php echo __('You must provide a valid URL!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
         return false;
       }
       if(jQuery('#cloack').is(':checked') && jQuery('#lar_slug').val()==''){
-        jQuery.notify("You must provide a slug in order to cloack the URL!",{ globalPosition:"top center",className:'error'});
+        jQuery.notify("<?php echo __('You must provide a slug in order to shrink the URL!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
         return false;
 
       }
 
       if(jQuery("#lar_slug").val()!='' && jQuery('#cloack').is(':checked')){
         if(slugs.indexOf(jQuery("#lar_slug").val()) != -1){
-            jQuery.notify(jQuery("#lar_slug").val()+" is exist as a slug, the slug must be unique!",{ globalPosition:"top center",className:'error'});
+            jQuery.notify(jQuery("#lar_slug").val()+" <?php echo __('is exist as a slug, the slug must be unique!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
             return false;
         }
       }
 
       if(jQuery('#keyword').val()!=''){
         if(keywords.indexOf(jQuery("#keyword").val()) != -1){
-            jQuery.notify(jQuery("#keyword").val()+" is exist as a keyword, the keyword must be unique!",{ globalPosition:"top center",className:'error'});
+            jQuery.notify(jQuery("#keyword").val()+" <?php echo __('is exist as a keyword, the keyword must be unique!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
             return false;
         }
       }
 
       if(jQuery('#keyword_url').val()!=''){
         if(links.indexOf(jQuery("#keyword_url").val()) != -1){
-            jQuery.notify("The URL is exist, it must be unique!",{ globalPosition:"top center",className:'error'});
+            jQuery.notify("<?php echo __('The URL is exist, it must be unique!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
             return false;
         }
       }
@@ -161,7 +161,7 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
 
     <?php if ( isset($_REQUEST['success']) && $_REQUEST['success'] == 'true' ) { ?>
 
- jQuery.notify("Your link has been added successfully!!",{ globalPosition:"top center",className:'success'});
+ jQuery.notify("<?php echo __('Your link has been added successfully!!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'success'});
       <?php } ?>
 
 

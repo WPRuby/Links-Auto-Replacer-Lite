@@ -20,7 +20,7 @@
 	jQuery(document).ready(function(){
 		 <?php if ( isset($_REQUEST['edited']) && $_REQUEST['edited'] == 'true' ) { ?>
 
- 			jQuery.notify("Settings have been successfully updated!!",{ globalPosition:"top center",className:'success'});
+ 			jQuery.notify("<?php echo __('Settings have been successfully updated!!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'success'});
       	
       	<?php } ?>
 	});	
