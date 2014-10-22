@@ -15,10 +15,10 @@ global $wpdb;
           <tr>
             <th><?php echo __('Keyword','lar-links-auto-replacer'); ?></th>
             <th style="width:280px"> <?php echo __('URL (Link)','lar-links-auto-replacer'); ?></th>
-            <th style="width: 66px;"><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></th>
+            <th style="width: 81px;"><?php echo __('Dofollow?','lar-links-auto-replacer'); ?><img id="dofollow-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/></th>
             <th><?php echo __('Open in','lar-links-auto-replacer'); ?></th>
-            <th style="width: 45px;"><?php echo __('Cloack','lar-links-auto-replacer'); ?></th>
-            <th ><?php echo __('Slug','lar-links-auto-replacer'); ?></th>
+            <th style="width: 65px;"><?php echo __('Shrink','lar-links-auto-replacer'); ?>?<img id="cloak-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/></th>
+            <th ><?php echo __('Slug','lar-links-auto-replacer'); ?> <img id="slug-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/></th>
             <th style="width: 75px;"></th>
             
           </tr>
@@ -123,6 +123,40 @@ global $wpdb;
 
 <script>
   jQuery(document).ready(function(){
+
+
+
+    jQuery("#slug-info").hover(function(){
+                
+                jQuery(this).notify(
+                  "The slug for the shortened link", 
+                     
+                  { position:"top center", className: "info"}
+                );
+
+    }).mouseleave(function(){
+        jQuery('.notifyjs-wrapper').trigger('notify-hide');
+    });
+
+
+    jQuery("#cloak-info").hover(function(){
+                jQuery(this).notify(
+                    "The link will be shortened (e.g example.com/go/amazon)",
+                  { position:"top center", className: "info"}
+                );
+    }).mouseleave(function(){
+        jQuery('.notifyjs-wrapper').trigger('notify-hide');
+    });
+
+
+    jQuery("#dofollow-info").hover(function(){
+                jQuery(this).notify(
+                    "if you checked this, you will allow search engines to follow this link and use it in ranking.", 
+                  { position:"top center", className: "info"}
+                );
+    }).mouseleave(function(){
+        jQuery('.notifyjs-wrapper').trigger('notify-hide');
+    });
 
     var slugs = [];
     var keywords = [];
