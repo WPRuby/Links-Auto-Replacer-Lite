@@ -1,7 +1,14 @@
 <?php
+
+
 /*-----------------------------------------------------------------------------------*/
-/* ProPanel Version 2.0
+/* Setup include path
 /*-----------------------------------------------------------------------------------*/
+
+$lar_include = apply_filters('lar_include_path',$lar_include);
+
+
+
 
 /*-----------------------------------------------------------------------------------*/
 /* Admin Interface
@@ -108,9 +115,9 @@ function lar_links_manager(){
 	}
 	if($_GET['link_id'] == ''){
 
-		include_once 'pages/lar_links_manager.php';
+		include_once $lar_include . 'pages/lar_links_manager.php';
 	}else{
-		include_once 'pages/lar_links_edit.php';
+		include_once $lar_include . 'pages/lar_links_edit.php';
 	}
 	
 }
@@ -129,7 +136,7 @@ function links_manager_scripts() {
 
 
 function lar_help(){
-	include_once 'pages/help_support.php';
+	include_once $lar_include . 'pages/help_support.php';
 }
 
 function lar_settings_page(){
@@ -143,7 +150,7 @@ function lar_settings_page(){
 		wp_redirect('admin.php?page=lar_options_page&edited=true');
 		exit;
 	}
-	include_once 'pages/settings.php';
+	include_once $lar_include . 'pages/settings.php';
 }
 
 
