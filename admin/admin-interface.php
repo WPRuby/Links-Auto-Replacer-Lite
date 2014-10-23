@@ -1,13 +1,6 @@
 <?php
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Setup include path
-/*-----------------------------------------------------------------------------------*/
-
-$lar_include = apply_filters('lar_include_path',$lar_include);
-
-
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -63,7 +56,9 @@ function propanel_siteoptions_add_admin() {
 /* Build the Options Page
 /*-----------------------------------------------------------------------------------*/
 function lar_links_manager(){
-	
+	$lar_include = apply_filters('lar_include_path',$lar_include);
+
+
 	if($_POST and $_REQUEST['link_id']==''){ // add link
 		global $wpdb;
 		$link['keyword'] = $_POST['keyword'];
@@ -136,6 +131,7 @@ function links_manager_scripts() {
 
 
 function lar_help(){
+	$lar_include = apply_filters('lar_include_path',$lar_include);
 	include_once $lar_include . 'pages/help_support.php';
 }
 
@@ -150,6 +146,7 @@ function lar_settings_page(){
 		wp_redirect('admin.php?page=lar_options_page&edited=true');
 		exit;
 	}
+	$lar_include = apply_filters('lar_include_path',$lar_include);
 	include_once $lar_include . 'pages/settings.php';
 }
 
