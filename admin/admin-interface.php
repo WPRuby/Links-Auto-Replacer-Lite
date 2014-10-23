@@ -24,7 +24,9 @@ function propanel_siteoptions_add_admin() {
     }
 		
 
-	$tt_page = add_menu_page('Links Auto Replacer', 'Links Auto Replacer', 'manage_options','lar_options_page','lar_settings_page' ,'dashicons-admin-links');
+	$tt_page = add_menu_page(apply_filters('lar_plugin_name','Links Auto Replacer'),
+	 apply_filters('lar_plugin_name','Links Auto Replacer'),
+	  'manage_options','lar_options_page','lar_settings_page' ,'dashicons-admin-links');
 
 	add_submenu_page( 'lar_options_page', 'Settings', 'Settings', 'manage_options', 'lar_options_page');
 	$lar_links_manager_page =  add_submenu_page( 'lar_options_page', 'Links Manager', 'Links Manager', 'manage_options', 'lar_links_manager','lar_links_manager');
