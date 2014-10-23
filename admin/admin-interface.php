@@ -134,7 +134,7 @@ function lar_help(){
 	$lar_include = apply_filters('lar_include_path',$lar_include);
 	include_once $lar_include . 'pages/help_support.php';
 }
-
+ 
 function lar_settings_page(){
 	if(isset($_POST['submit'])){
 		if($_POST['lar_enable'] == 'on'){
