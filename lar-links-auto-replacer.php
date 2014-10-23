@@ -172,6 +172,6 @@ function lar_redirect(){
 	
 }
 // Links Auto Replacer Pro Features
-if ( file_exists( 'pro/lar_pro.php' ) ){
-	include 'pro/lar_pro.php';
+if ( file_exists( plugin_dir_path( __FILE__ ).'/pro/lar_pro.php' ) ){
+	require_once( plugin_dir_path( __FILE__ ).'/pro/lar_pro.php');
 }

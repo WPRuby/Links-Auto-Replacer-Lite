@@ -1,7 +1,7 @@
 <?php
-/*-----------------------------------------------------------------------------------*/
-/* ProPanel Version 2.0
-/*-----------------------------------------------------------------------------------*/
+
+
+
 
 /*-----------------------------------------------------------------------------------*/
 /* Admin Interface
@@ -56,7 +56,9 @@ function propanel_siteoptions_add_admin() {
 /* Build the Options Page
 /*-----------------------------------------------------------------------------------*/
 function lar_links_manager(){
-	
+	$lar_include = apply_filters('lar_include_path',$lar_include);
+
+
 	if($_POST and $_REQUEST['link_id']==''){ // add link
 		global $wpdb;
 		$link['keyword'] = $_POST['keyword'];
@@ -108,9 +110,9 @@ function lar_links_manager(){
 	}
 	if($_GET['link_id'] == ''){
 
-		include_once 'pages/lar_links_manager.php';
+		include_once $lar_include . 'pages/lar_links_manager.php';
 	}else{
-		include_once 'pages/lar_links_edit.php';
+		include_once $lar_include . 'pages/lar_links_edit.php';
 	}
 	
 }
@@ -129,9 +131,10 @@ function links_manager_scripts() {
 
 
 function lar_help(){
-	include_once 'pages/help_support.php';
+	$lar_include = apply_filters('lar_include_path',$lar_include);
+	include_once $lar_include . 'pages/help_support.php';
 }
-
+ 
 function lar_settings_page(){
 	if(isset($_POST['submit'])){
 		if($_POST['lar_enable'] == 'on'){
@@ -143,7 +146,8 @@ function lar_settings_page(){
 		wp_redirect('admin.php?page=lar_options_page&edited=true');
 		exit;
 	}
-	include_once 'pages/settings.php';
+	$lar_include = apply_filters('lar_include_path',$lar_include);
+	include_once $lar_include . 'pages/settings.php';
 }
 
 
