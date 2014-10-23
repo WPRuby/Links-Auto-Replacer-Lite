@@ -7,6 +7,9 @@
 /* Admin Interface
 /*-----------------------------------------------------------------------------------*/
 
+
+add_action('admin_menu', 'propanel_siteoptions_add_admin');
+
 function propanel_siteoptions_add_admin() {
 
     global $query_string;
@@ -38,7 +41,6 @@ function propanel_siteoptions_add_admin() {
 
 } 
 
-add_action('admin_menu', 'propanel_siteoptions_add_admin');
 
 
 
@@ -63,7 +65,10 @@ function lar_links_manager(){
 		$link['slug'] = $_POST['slug'];
 		$link['created'] = time();
 		$link['updated'] = time();
-		
+
+		// Create Link Filter
+		$link = apply_filters('lar_create_link',$link);
+
 		$link_id = $wpdb->insert($wpdb->prefix.'lar_links',$link);
 
 		if(is_numeric($link_id)){
@@ -86,7 +91,10 @@ function lar_links_manager(){
 		$link['cloack'] = ($_POST['cloack'] == 'on' )?1:0;
 		$link['slug'] = $_POST['slug'];
 		$link['updated'] = time();
-		
+
+		// Update Link Filter
+		$link = apply_filters('lar_update_link',$link);
+
 		$link_id = $wpdb->update($wpdb->prefix.'lar_links',$link,array('id'=>$_REQUEST['link_id']));
 
 		if($link_id !== false){
@@ -97,6 +105,7 @@ function lar_links_manager(){
 
 	}
 	if($_GET['link_id'] == ''){
+
 		include_once 'pages/lar_links_manager.php';
 	}else{
 		include_once 'pages/lar_links_edit.php';
@@ -106,6 +115,7 @@ function lar_links_manager(){
 
 function links_manager_styles() {
 	wp_enqueue_style('links_manager_styles', plugins_url( 'css/links_manager.css' , __FILE__ ) );
+	wp_enqueue_style('lar_menu', plugins_url( 'menu/css/styles.css' , __FILE__ ) );
 	
 
 }
@@ -133,3 +143,25 @@ function lar_settings_page(){
 	}
 	include_once 'pages/settings.php';
 }
+
+
+	add_action( 'wp_ajax_delete_link', 'lar_delete_link_callback' );
+
+	function lar_delete_link_callback() {
+
+		$link_id = intval( $_POST['link_id'] );
+
+		// Before Delete a Link Action
+		do_action('lar_before_delete_link',$link_id);
+
+		global $wpdb; // this is how you get access to the database
+
+		
+
+		$wpdb->delete($wpdb->prefix.'lar_links',array('id'=>$link_id));
+
+	    // After Deleting a Link Action    
+		do_action('lar_after_delete_link',$link_id);
+
+		die(); // this is required to terminate immediately and return a proper response
+	}
