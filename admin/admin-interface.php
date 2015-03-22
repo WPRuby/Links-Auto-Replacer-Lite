@@ -7,6 +7,7 @@
 /* Admin Interface
 /*-----------------------------------------------------------------------------------*/
 
+require 'meta-box.php';
 
 add_action('admin_menu', 'propanel_siteoptions_add_admin');
 
@@ -57,11 +58,11 @@ function propanel_siteoptions_add_admin() {
 /*-----------------------------------------------------------------------------------*/
 function lar_links_manager(){
 	$lar_include = apply_filters('lar_include_path',$lar_include);
-
+	$last_link_id = get_links_last_id(); 
 
 	if($_POST and $_REQUEST['link_id']==''){ // add link
 		global $wpdb;
-		$link['keyword'] = $_POST['keyword'];
+		$link['keyword'] = $_POST['keywords'];
 		$link['keyword_url'] = $_POST['keyword_url'];
 		$link['dofollow'] = ($_POST['dofollow']  == 1)?1:0;
 		$link['open_in'] = $_POST['target'];
@@ -119,6 +120,7 @@ function lar_links_manager(){
 
 function links_manager_styles() {
 	wp_enqueue_style('links_manager_styles', plugins_url( 'css/links_manager.css' , __FILE__ ) );
+	wp_enqueue_style('select2', plugins_url( 'css/select2.min.css' , __FILE__ ) );
 	wp_enqueue_style('lar_menu', plugins_url( 'menu/css/styles.css' , __FILE__ ) );
 	
 
@@ -126,6 +128,8 @@ function links_manager_styles() {
 function links_manager_scripts() {
 		wp_register_script('notifyjs', plugins_url( 'js/notify.js' , __FILE__ ) , array( 'jquery' ));
 		wp_enqueue_script('notifyjs');
+		wp_register_script('select2-js', plugins_url( 'js/select2.min.js' , __FILE__ ) , array( 'jquery' ));
+		wp_enqueue_script('select2-js');
 }
 
 
@@ -171,3 +175,35 @@ function lar_settings_page(){
 
 		die(); // this is required to terminate immediately and return a proper response
 	}
+
+
+
+function get_links_last_id(){
+	global $wpdb;
+	$id = $wpdb->get_var(  
+            "
+                SELECT ID 
+                FROM ".$wpdb->prefix."lar_links
+                ORDER BY ID DESC limit 0,1
+            "
+         );
+
+	return ($id == null)?base62encode(100):base62encode($id+100);
+}
+
+
+function base62encode($data) {
+	$outstring = '';
+	$l = strlen($data);
+	for ($i = 0; $i < $l; $i += 8) {
+		$chunk = substr($data, $i, 8);
+		$outlen = ceil((strlen($chunk) * 8)/6); //8bit/char in, 6bits/char out, round up
+		$x = bin2hex($chunk);  //gmp won't convert from binary, so go via hex
+		$w = gmp_strval(gmp_init(ltrim($x, '0'), 16), 62); //gmp doesn't like leading 0s
+		$pad = str_pad($w, $outlen, '0', STR_PAD_LEFT);
+		$outstring .= $pad;
+	}
+	return $outstring;
+}
+
+

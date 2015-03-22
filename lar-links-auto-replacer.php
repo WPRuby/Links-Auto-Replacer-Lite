@@ -81,13 +81,22 @@ function lar_activate() {
 /// Replace The links
 if( get_option('lar_enable') == 1 ){
 	add_filter('the_content','lar_auto_replace_links');
+	add_filter('the_excerpt','lar_auto_replace_links');
+
+
 }
 
 function lar_auto_replace_links($content){
 	global $wpdb; 
+	global $post;
+
+	$is_disabled =  get_post_meta( $post->ID, 'lar_disabled'  , true );
+	
+	if($is_disabled == 'on') return $content;
+
 
 	$links = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.'lar_links');
-
+	
 	foreach ($links as $link) {
 		$dofollow = '';
 		if($link->dofollow != 1){
@@ -103,15 +112,21 @@ function lar_auto_replace_links($content){
 		}
 
 		
-		$final_url = '<a href="'.$url.'" '.$dofollow.' target="'.$link->open_in.'">'.$link->keyword.'</a>';
-		$content = preg_replace('/\b'.$link->keyword.'\b/u', $final_url, $content);
-
+		
+		$keywords = explode(',', $link->keyword);
+		foreach($keywords as $keyword){
+			$final_url = ' <a href="'.$url.'" '.$dofollow.' target="'.$link->open_in.'">'.$keyword.'</a> ';
+			$post_content = $content;
+			$content =  preg_replace('/\s'.$keyword.'\s/u', $final_url, $post_content);
+			
+		}
+		
 		
 	}
 
 	// Replace Content Filter
 	$content = apply_filters('lar_replace_content', $content);
-
+	
 	return $content;
 }
 
