@@ -59,7 +59,7 @@ function lar_activate() {
 						  `created` int(11) NOT NULL,
 						  `updated` int(11) NOT NULL,
 						  PRIMARY KEY (`id`)
-						) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+						) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 			';
 
 			$wpdb->query($sql);
@@ -117,7 +117,7 @@ function lar_auto_replace_links($content){
 		foreach($keywords as $keyword){
 			$final_url = ' <a href="'.$url.'" '.$dofollow.' target="'.$link->open_in.'">'.$keyword.'</a> ';
 			$post_content = $content;
-			$content =  preg_replace('/\s'.$keyword.'\s/u', $final_url, $post_content);
+			$content =  preg_replace('/\s'.$keyword.'\s/iu', $final_url, $post_content);
 			
 		}
 		
