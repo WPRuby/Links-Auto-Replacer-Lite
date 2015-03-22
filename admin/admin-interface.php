@@ -89,7 +89,9 @@ function lar_links_manager(){
 	}elseif($_REQUEST['link_id']!='' and $_POST){ // edit link
 
 		global $wpdb; 
-		$link['keyword'] = $_POST['keyword'];
+		$last_link_id = base62encode($_REQUEST['link_id'] + 100); 
+
+		$link['keyword'] = $_POST['keywords'];
 		$link['keyword_url'] = $_POST['keyword_url'];
 		$link['dofollow'] = ($_POST['dofollow']  == 'on')?1:0;
 		$link['open_in'] = $_POST['target'];

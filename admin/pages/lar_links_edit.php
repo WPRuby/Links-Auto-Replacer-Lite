@@ -12,75 +12,86 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
 
 <div id="lar_add_links_form">
     <form action="<?php echo admin_url('admin.php?page=lar_links_manager&link_id='.$_REQUEST['link_id'].'&noheader=true'); ?>" method='post'>
-    <table cellspacing="5" cellpadding="3" class="widefat fixed">
-       <thead>
-          <tr>
-            <th><?php echo __('Keyword','lar-links-auto-replacer'); ?></th>
-            <th style="width:280px"> <?php echo __('URL (Link)','lar-links-auto-replacer'); ?></th>
-            <th style="width: 66px;"><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></th>
-            <th><?php echo __('Open in','lar-links-auto-replacer'); ?></th>
-            <th style="width: 45px;"><?php echo __('Cloack','lar-links-auto-replacer'); ?></th>
-            <th ><?php echo __('Slug','lar-links-auto-replacer'); ?></th>
-            <th style="width: 75px;"></th>
-          </tr>
-          
-        </thead>
-      <tr>
- 
-        <td>
-          
-          
-         <input type="text" id="keyword" class="widefat" name="keyword" value="<?php echo $link['keyword']; ?>" />
-         
-        </td>
-
-        <td>
-          
-         <input type="url" id="keyword_url" class="widefat"  name="keyword_url" value="<?php echo $link['keyword_url']; ?>" placeholder="http://" />
-         
-
-        </td>
-
-        <td>
-          
-           
-         <input type="checkbox" name="dofollow" <?php if($link['dofollow']==1){ echo 'checked'; } ?> />
-
-        </td>
-        <td>
-         
-         <select name="target" class="widefat">
-         <option <?php if($link['open_in']=='_self'){echo 'selected'; } ?> value="_self"><?php echo __('Same Window','lar-links-auto-replacer'); ?></option>
-            <option <?php if($link['open_in']=='_blank'){echo 'selected'; } ?> value="_blank"><?php echo __('New Window','lar-links-auto-replacer'); ?></option>
-            
-
-         </select>
-        </td>
-        <td>
-          
-         
-         <input id="cloack" name="cloack" type="checkbox" <?php if($link['cloack']==1){ echo 'checked'; } ?> />
-
-        </td>
-
-        <td >
-             
-         <input type="text" class="widefat" value="<?php echo $link['slug'] ?>" id="lar_slug" name="slug" <?php if($link['cloack']!=1){ echo 'disabled'; } ?> placeholder='slug' />
-
-        </td>
-
-        <td>
-          
-
-         <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo __('Edit Link','lar-links-auto-replacer'); ?>">
-    
-        </td>
-      </tr>
-    </table>
+   
    
     
      
+      <table id="lar_add_link_table" cellspacing="5" cellpadding="3" class="widefat fixed">
+       
+      <tr>
+        <td style="width:100px;"><?php echo __('Keyword/s','lar-links-auto-replacer'); ?></td>
+        <td>
+        
+        <select  class="keyword widefat" name="keyword" multiple="multiple">
+            <?php foreach(explode(',',$link['keyword']) as $keyword): ?>
+                <option value="<?php echo  $keyword; ?>" data-select2-tag="true"><?php echo  $keyword; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <input type="hidden" value="<?php echo $link['keyword']; ?>" id="keywords" name="keywords" />
+          <p>You can use one keyword or multiple keywords separated by comma (,) </p>
+          
+        </td>
+      </tr>
+
+      <tr>
+          <td><?php echo __('URL (Link)','lar-links-auto-replacer'); ?></td>
+        <td><input type="url" id="keyword_url"   name="keyword_url" value="<?php echo $link['keyword_url']; ?>" placeholder="http://" /></td>
+      </tr>
+
+
+      <tr>
+        <td><?php echo __('Dofollow?','lar-links-auto-replacer'); ?>
+        <!-- <img id="dofollow-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/> -->
+          
+        </td>
+        <td><input type="checkbox" name="dofollow"  <?php if($link['dofollow']==1){ echo 'checked'; } ?> />
+        <p><?php echo __('if you checked this option, you will allow search engines to follow this link and use it in ranking.','lar-links-auto-replacer'); ?></p>
+        </td>
+      </tr>
+
+      <tr>
+
+          <td><?php echo __('Open in','lar-links-auto-replacer'); ?></td>
+          <td>
+             <select name="target" >
+                <option <?php if($link['open_in']=='_self'){echo 'selected'; } ?> value="_self"><?php echo __('Same Window','lar-links-auto-replacer'); ?></option>
+                <option <?php if($link['open_in']=='_blank'){echo 'selected'; } ?> value="_blank"><?php echo __('New Window','lar-links-auto-replacer'); ?></option>
+            </select>
+          </td>
+
+      </tr>
+
+
+
+
+        <tr>
+            <td><?php echo __('Shrink','lar-links-auto-replacer'); ?>?
+            <!-- <img id="cloak-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/> -->
+            </td>
+            <td><input id="cloack" name="cloack" type="checkbox" <?php if($link['cloack']==1){ echo 'checked'; } ?> />
+              <p><?php echo __('The link will be shortened (e.g example.com/go/amazon)','lar-links-auto-replacer'); ?></p>
+            </td>
+        </tr>
+
+      <tr>  
+          <td><?php echo __('Slug','lar-links-auto-replacer'); ?> 
+              <!-- <img id="slug-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/> -->
+
+          </td>
+
+          <td ><input type="text" <?php if($link['cloack']!=1){ echo 'disabled'; } ?> value="<?php echo $link['slug'] ?>" id="lar_slug" name="slug" disabled="" placeholder='slug' />
+                  <p><?php echo __('The slug for the shortened link','lar-links-auto-replacer'); ?> <span id="lar_slug_example"><?php if($link['slug']!=''){ echo home_url().'/go/'.$link['slug'];  }?></span></p>
+          </td>
+      </tr>
+
+
+
+      <tr>
+            <td><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo __('Edit Link','lar-links-auto-replacer'); ?>"></td>
+            <td></td>
+        </tr>
       
+    </table>
     </form>
 
 
@@ -94,6 +105,20 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
 
 <script>
   jQuery(document).ready(function(){
+    jQuery('.keyword').select2({
+       tags: true,
+       tokenSeparators: [',']
+       
+    });
+    var keywords_val = [<?php foreach(explode(',',$link['keyword']) as $keyword): ?><?php echo '"'.$keyword.'",'; ?><?php endforeach; ?>];
+    jQuery(".keyword").select2("val",keywords_val);
+    jQuery('.keyword').on("change", function(e){
+        
+            jQuery('#keywords').val(jQuery(".keyword").select2("val"));
+          
+
+    });
+
 
     var slugs = [];
     var keywords = [];
@@ -151,12 +176,22 @@ $link = $wpdb->get_row('SELECT * FROM '.$wpdb->prefix.'lar_links WHERE id='.$_RE
         var attr = jQuery('#lar_slug').attr('disabled');
         if (typeof attr !== typeof undefined && attr !== false) {
               jQuery('#lar_slug').removeAttr('disabled');
+              jQuery('#lar_slug').val('<?php echo $last_link_id; ?>'); 
+              jQuery("#lar_slug").trigger('change');
         }else{
               
               jQuery('#lar_slug').attr('disabled','disabled');
               jQuery('#lar_slug').val('');
         }
         
+    });
+
+    jQuery("#lar_slug").bind('change paste keyup', function(){
+          if(jQuery(this).val()!=''){
+            jQuery("#lar_slug_example").html('<?php echo home_url(); ?>/go/' + jQuery(this).val());
+          }else{
+            jQuery("#lar_slug_example").html('');
+          }
     });
 
     <?php if ( isset($_REQUEST['success']) && $_REQUEST['success'] == 'true' ) { ?>
