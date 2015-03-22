@@ -10,76 +10,8 @@ global $wpdb;
 <h2 class="lar_subheading"><?php echo __('New Link','lar-links-auto-replacer'); ?></h2>
 <div id="lar_add_links_form">
     <form action="<?php echo admin_url('admin.php?page=lar_links_manager&noheader=true'); ?>" method='post'>
-   <!-- <table cellspacing="5" cellpadding="3" class="widefat fixed">
-       <thead>
-          <tr>
-            <th><?php echo __('Keyword','lar-links-auto-replacer'); ?></th>
-            <th style="width:280px"> <?php echo __('URL (Link)','lar-links-auto-replacer'); ?></th>
-            <th style="width: 81px;"><?php echo __('Dofollow?','lar-links-auto-replacer'); ?><img id="dofollow-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/></th>
-            <th><?php echo __('Open in','lar-links-auto-replacer'); ?></th>
-            <th style="width: 65px;"><?php echo __('Shrink','lar-links-auto-replacer'); ?>?<img id="cloak-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/></th>
-            <th ><?php echo __('Slug','lar-links-auto-replacer'); ?> <img id="slug-info" src="<?php echo  plugins_url( '../images/info.png' , __FILE__ ); ?>"/></th>
-            <th style="width: 75px;"></th>
-            
-          </tr>
-          
-        </thead>
-      <tr>
- 
-        <td>
-          
-          
-         <input type="text" id="keyword" class="widefat" name="keyword" value="" />
-         
-        </td>
 
-        <td>
-          
-         <input type="url" id="keyword_url" class="widefat"  name="keyword_url" value="" placeholder="http://" />
-         
-
-        </td>
-
-        <td>
-          
-           
-         <input type="checkbox" name="dofollow" value="1" />
-
-        </td>
-        <td>
-         
-         <select name="target" class="widefat">
-         <option selected value="_self"><?php echo __('Same Window','lar-links-auto-replacer'); ?></option>
-            <option value="_blank"><?php echo __('New Window','lar-links-auto-replacer'); ?></option>
-            
-
-         </select>
-        </td>
-        <td>
-          
-         
-         <input id="cloack" name="cloack" type="checkbox" value="1" />
-
-        </td>
-
-        <td >
-             
-         <input type="text" class="widefat" value="" id="lar_slug" name="slug" disabled="" placeholder='slug' />
-
-        </td>
-
-        <td>
-          
-
-         <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo __('Add Link','lar-links-auto-replacer'); ?>">
-    
-        </td>
-      </tr>
-    </table>-->
    
-    
-     <!-- v2 form -->
-
 
      <table id="lar_add_link_table" cellspacing="5" cellpadding="3" class="widefat fixed">
        
