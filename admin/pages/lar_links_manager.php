@@ -26,19 +26,23 @@ global $wpdb;
             <th></th>
           </tr>
   </thead>
-
-  <?php foreach ($lar_links as $link): ?>
-            <tr id="link_row_<?php echo $link['id']; ?>">
-                <td><?php echo $link['id']; ?></td>
-                <td><?php echo $link['keyword']; ?></td>
-                <td><a href="<?php echo $link['keyword_url']; ?>" target="_blank"><?php echo $link['keyword_url']; ?></a></td>
-                <td><?php echo ($link['dofollow']==1)?'Yes':'No'; ?></td>
-                <td><?php echo ($link['open_in'] == '_blank')?'New Window':'Same Window'; ?></td>
-                <td><?php echo ($link['cloack']==1)?'Yes':'No'; ?></td>
-                <td><?php echo $link['slug']; ?></td>
-                <td><a href="<?php echo admin_url('admin.php?page=lar_links_manager&link_id='.$link['id']); ?>" class="lar_green"><?php echo __('Edit','lar-links-auto-replacer'); ?></a> | <a href="javascript:void(0)" onclick="delete_link('<?php echo $link['id']; ?>')" class="lar_red"><?php echo __('Delete','lar-links-auto-replacer'); ?></a></td>
-            </tr>
-  <?php endforeach; ?>
+  <?php if(!empty($lar_links)): ?>
+      <?php foreach ($lar_links as $link): ?>
+                <tr id="link_row_<?php echo $link['id']; ?>">
+                    <td><?php echo $link['id']; ?></td>
+                    <td><?php echo $link['keyword']; ?></td>
+                    <td><a href="<?php echo $link['keyword_url']; ?>" target="_blank"><?php echo $link['keyword_url']; ?></a></td>
+                    <td><?php echo ($link['dofollow']==1)?'Yes':'No'; ?></td>
+                    <td><?php echo ($link['open_in'] == '_blank')?'New Window':'Same Window'; ?></td>
+                    <td><?php echo ($link['cloack']==1)?'Yes':'No'; ?></td>
+                    <td><?php echo $link['slug']; ?></td>
+                    <td><a href="<?php echo admin_url('admin.php?page=lar_links_manager&link_id='.$link['id']); ?>" class="lar_green"><?php echo __('Edit','lar-links-auto-replacer'); ?></a> | <a href="javascript:void(0)" onclick="delete_link('<?php echo $link['id']; ?>')" class="lar_red"><?php echo __('Delete','lar-links-auto-replacer'); ?></a></td>
+                </tr>
+      
+         <?php endforeach; ?>
+     <?php else: ?>
+          <tr><td colspan="8"><?php _e('No links found.','lar-links-auto-replacer'); ?></td></tr>
+     <?php endif; ?> 
 </table>
 
 
