@@ -64,6 +64,21 @@ function lar_activate() {
 
 			$wpdb->query($sql);
 
+
+			/**
+			*  add case sensitivity
+			*  since 1.1.2
+			* 	
+			**/
+			$case_sensitive_sql = 'ALTER TABLE `'.$wpdb->prefix.'lar_links` ADD `is_sensitive` INT NOT NULL DEFAULT \'0\' AFTER `slug`;'; 
+
+			try{
+				$wpdb->query($case_sensitive_sql);
+			}catch(Exception $e){}
+
+
+
+
 			// Add the default options
 			add_option('lar_enable' , 1);
 
@@ -119,8 +134,9 @@ function lar_auto_replace_links($content){
 			
 			$final_url = ' <a href="'.$url.'" '.$dofollow.' target="'.$link->open_in.'">'.$keyword.'</a> ';
 			$post_content = html_entity_decode(($content));
-			
-			$content =  preg_replace('/\s'.($keyword).'/iu', $final_url, $post_content);
+			// sensitivity modifier
+			$i = ($link->is_sensitive != 1)?'i':'';
+			$content =  preg_replace('/\s'.($keyword).'/'.$i.'u', $final_url, $post_content);
 			
 		}
 		

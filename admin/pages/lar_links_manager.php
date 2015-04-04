@@ -23,6 +23,7 @@ global $wpdb;
             <th><?php echo __('Open in','lar-links-auto-replacer'); ?></th>
             <th style="width:50px"><?php echo __('Shrink?','lar-links-auto-replacer'); ?></th>
             <th><?php echo __('Slug','lar-links-auto-replacer'); ?></th>
+            <th><?php echo __('Case Sensitive?','lar-links-auto-replacer'); ?></th>
             <th></th>
           </tr>
   </thead>
@@ -36,6 +37,7 @@ global $wpdb;
                     <td><?php echo ($link['open_in'] == '_blank')?'New Window':'Same Window'; ?></td>
                     <td><?php echo ($link['cloack']==1)?'Yes':'No'; ?></td>
                     <td id="slug_<?php echo $link['id']; ?>"><?php echo $link['slug']; ?></td>
+                    <td><?php echo ($link['is_sensitive']==1)?'Yes':'No'; ?></td>
                     <td><a href="<?php echo admin_url('admin.php?page=lar_links_manager&link_id='.$link['id']); ?>" class="lar_green"><?php echo __('Edit','lar-links-auto-replacer'); ?></a> | <a href="javascript:void(0)" onclick="delete_link('<?php echo $link['id']; ?>')" class="lar_red"><?php echo __('Delete','lar-links-auto-replacer'); ?></a></td>
                 </tr>
       
@@ -118,6 +120,14 @@ global $wpdb;
                   <p><?php echo __('The slug for the shortened link','lar-links-auto-replacer'); ?> <span id="lar_slug_example"></span></p>
           </td>
       </tr>
+
+
+      <tr>
+            <td><?php echo __('Case Sensitive?','lar-links-auto-replacer'); ?></td>
+            <td><input id="is_sensitive" name="is_sensitive" type="checkbox" value="1" />
+              <p><?php echo __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','lar-links-auto-replacer'); ?></p>
+            </td>
+        </tr>
 
 
 
