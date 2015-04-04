@@ -115,9 +115,12 @@ function lar_auto_replace_links($content){
 		
 		$keywords = explode(',', $link->keyword);
 		foreach($keywords as $keyword){
+			$keyword = html_entity_decode(stripslashes(wptexturize($keyword)));
+			
 			$final_url = ' <a href="'.$url.'" '.$dofollow.' target="'.$link->open_in.'">'.$keyword.'</a> ';
-			$post_content = $content;
-			$content =  preg_replace('/\s'.$keyword.'\s/iu', $final_url, $post_content);
+			$post_content = html_entity_decode(($content));
+			
+			$content =  preg_replace('/\s'.($keyword).'/iu', $final_url, $post_content);
 			
 		}
 		
