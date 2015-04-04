@@ -267,6 +267,7 @@ global $wpdb;
               
               jQuery('#lar_slug').attr('disabled','disabled');
               jQuery('#lar_slug').val('');
+              jQuery("#lar_slug_example").html('');
         }
         
     });
