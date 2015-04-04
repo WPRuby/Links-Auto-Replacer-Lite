@@ -30,12 +30,12 @@ global $wpdb;
       <?php foreach ($lar_links as $link): ?>
                 <tr id="link_row_<?php echo $link['id']; ?>">
                     <td><?php echo $link['id']; ?></td>
-                    <td><?php echo $link['keyword']; ?></td>
-                    <td><a href="<?php echo $link['keyword_url']; ?>" target="_blank"><?php echo $link['keyword_url']; ?></a></td>
+                    <td id="keywords_<?php echo $link['id']; ?>"><?php echo $link['keyword']; ?></td>
+                    <td><a id="link_<?php echo $link['id']; ?>" href="<?php echo $link['keyword_url']; ?>" target="_blank"><?php echo $link['keyword_url']; ?></a></td>
                     <td><?php echo ($link['dofollow']==1)?'Yes':'No'; ?></td>
                     <td><?php echo ($link['open_in'] == '_blank')?'New Window':'Same Window'; ?></td>
                     <td><?php echo ($link['cloack']==1)?'Yes':'No'; ?></td>
-                    <td><?php echo $link['slug']; ?></td>
+                    <td id="slug_<?php echo $link['id']; ?>"><?php echo $link['slug']; ?></td>
                     <td><a href="<?php echo admin_url('admin.php?page=lar_links_manager&link_id='.$link['id']); ?>" class="lar_green"><?php echo __('Edit','lar-links-auto-replacer'); ?></a> | <a href="javascript:void(0)" onclick="delete_link('<?php echo $link['id']; ?>')" class="lar_red"><?php echo __('Delete','lar-links-auto-replacer'); ?></a></td>
                 </tr>
       
@@ -140,7 +140,12 @@ global $wpdb;
 
 
 <script>
+  var slugs = [];
+  var added_keywords = [];
+  var links = [];
+
   jQuery(document).ready(function(){
+     
     jQuery('.keyword').select2({
        tags: true,
        tokenSeparators: [',']
@@ -188,19 +193,26 @@ global $wpdb;
         jQuery('.notifyjs-wrapper').trigger('notify-hide');
     });
 
-    var slugs = [];
-    var keywords = [];
-    var links = [];
-     <?php foreach ($lar_links as $l): 
-            
-      ?>
-          slugs.push( '<?php echo $l['slug']; ?>');
-          keywords.push( '<?php echo $l['keyword']; ?>');
-          links.push( '<?php echo $l['keyword_url']; ?>');
+    
+     <?php foreach ($lar_links as $l): ?>
+
+          <?php if($l['slug'] != ''): ?>
+                slugs.push( '<?php echo $l['slug']; ?>');
+          <?php endif; ?>
+
+          <?php if($l['keyword_url'] != ''): ?>
+               links.push( '<?php echo $l['keyword_url']; ?>');
+          <?php endif; ?>
+
+          <?php foreach(explode(',',$l['keyword']) as $keyword): ?>
+                    added_keywords.push( '<?php echo $keyword; ?>');
+          <?php endforeach; ?>
+          
      <?php endforeach; ?>
+
     jQuery("#submit").click(function(){
 
-      if(jQuery('#keyword').val() == ''){
+      if(jQuery("#keywords").val() == ''){
         jQuery.notify("<?php echo __('You must provide a keyword!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
         return false;
       }
@@ -221,11 +233,15 @@ global $wpdb;
         }
       }
 
-      if(jQuery('#keyword').val()!=''){
-        if(keywords.indexOf(jQuery("#keyword").val()) != -1){
-            jQuery.notify(jQuery("#keyword").val()+" <?php echo __('is exist as a keyword, the keyword must be unique!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
-            return false;
+      if(jQuery("#keywords").val() !=''){
+        var user_keywords  = jQuery("#keywords").val().split(',');
+        for (index = 0; index < user_keywords.length; ++index) {
+            if(added_keywords.indexOf(user_keywords[index]) != -1){
+              jQuery.notify(user_keywords[index]+" <?php echo __('is exist as a keyword, the keyword must be unique!','lar-links-auto-replacer'); ?>",{ globalPosition:"top center",className:'error'});
+              return false;
+            }
         }
+        
       }
 
       if(jQuery('#keyword_url').val()!=''){
@@ -275,7 +291,6 @@ global $wpdb;
       <?php } ?>
       
 
-
   });
 
 
@@ -285,7 +300,19 @@ global $wpdb;
               'action': 'delete_link',
               'link_id': id
             };
-
+           
+            var link_keywords = jQuery('#keywords_' + id).html().split(',');
+            var link_url = jQuery('#link_' + id).html();
+            var link_slug = jQuery('#slug_' + id).html();
+            console.log(links);
+            console.log(slugs);
+            for(index =0; index < link_keywords.length; index++){
+                added_keywords.splice(added_keywords.indexOf(link_keywords[index]),1);
+            }
+            links.splice(links.indexOf(link_url),1);
+            slugs.splice(slugs.indexOf(link_slug),1);
+            console.log(links);
+            console.log(slugs);
             
             jQuery.post(ajaxurl, data, function(response) {
               jQuery("#link_row_"+id).css('background','red');
