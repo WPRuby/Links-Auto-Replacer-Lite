@@ -30,7 +30,7 @@ global $wpdb;
       <?php foreach ($lar_links as $link): ?>
                 <tr id="link_row_<?php echo $link['id']; ?>">
                     <td><?php echo $link['id']; ?></td>
-                    <td id="keywords_<?php echo $link['id']; ?>"><?php echo $link['keyword']; ?></td>
+                    <td id="keywords_<?php echo $link['id']; ?>"><?php echo stripslashes($link['keyword']); ?></td>
                     <td><a id="link_<?php echo $link['id']; ?>" href="<?php echo $link['keyword_url']; ?>" target="_blank"><?php echo $link['keyword_url']; ?></a></td>
                     <td><?php echo ($link['dofollow']==1)?'Yes':'No'; ?></td>
                     <td><?php echo ($link['open_in'] == '_blank')?'New Window':'Same Window'; ?></td>
