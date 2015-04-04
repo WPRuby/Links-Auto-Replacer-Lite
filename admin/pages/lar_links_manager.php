@@ -21,7 +21,7 @@ global $wpdb;
             <th style="width:310px"> <?php echo __('URL (Link)','lar-links-auto-replacer'); ?></th>
             <th style="width: 65px;"><?php echo __('Dofollow?','lar-links-auto-replacer'); ?></th>
             <th><?php echo __('Open in','lar-links-auto-replacer'); ?></th>
-            <th style="width:50px"><?php echo __('Cloack','lar-links-auto-replacer'); ?></th>
+            <th style="width:50px"><?php echo __('Shrink?','lar-links-auto-replacer'); ?></th>
             <th><?php echo __('Slug','lar-links-auto-replacer'); ?></th>
             <th></th>
           </tr>
