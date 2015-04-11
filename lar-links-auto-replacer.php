@@ -15,7 +15,7 @@
  * Plugin Name:       Links Auto Replacer
  * Plugin URI:        http://waseem-senjer.com/lar/
  * Description:       Auto replace your affiliate links and track them.
- * Version:           1.1.2
+ * Version:           1.2.1
  * Author:            Waseem Senjer
  * Author URI:        http://waseem-senjer.com
  * Text Domain:       lar-links-auto-replacer
@@ -132,7 +132,7 @@ function lar_auto_replace_links($content){
 		foreach($keywords as $keyword){
 			$keyword = html_entity_decode(stripslashes(wptexturize($keyword)));
 			
-			$final_url = ' <a href="'.$url.'" '.$dofollow.' target="'.$link->open_in.'">'.$keyword.'</a> ';
+			$final_url = ' <a href="'.$url.'" '.$dofollow.' target="'.$link->open_in.'">'.$keyword.'</a>';
 			$post_content = html_entity_decode(($content));
 			// sensitivity modifier
 			$i = ($link->is_sensitive != 1)?'i':'';

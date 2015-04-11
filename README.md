@@ -9,7 +9,7 @@ Requires at least: 3.5.1
 
 Tested up to: 4.1
 
-Stable tag: 1.1.3
+Stable tag: 1.2.1
 
 License: GPLv2 or later
 
@@ -66,6 +66,13 @@ Yes, it is. You can mark the link to be cloaked and provide a readable slug to u
 3. The auto replacement of the keywords in the post.
 
 ## Changelog
+
+
+### 1.2.0
+* User Interface fixes.
+* Validation enhancements.
+* Fixing the comma and quotes problem.
+* Adding case sensitivity feature
 
 ### 1.1.3
 * Fixing the comma replacing problem.
