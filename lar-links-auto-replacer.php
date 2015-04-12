@@ -95,8 +95,9 @@ function lar_activate() {
 
 /// Replace The links
 if( get_option('lar_enable') == 1 ){
-	add_filter('the_content','lar_auto_replace_links');
-	add_filter('the_excerpt','lar_auto_replace_links');
+	
+	 add_filter('the_content','lar_auto_replace_links');
+	 add_filter('the_excerpt','lar_auto_replace_links');
 
 
 }
@@ -136,13 +137,15 @@ function lar_auto_replace_links($content){
 			$post_content = html_entity_decode(($content));
 			// sensitivity modifier
 			$i = ($link->is_sensitive != 1)?'i':'';
-			$content =  preg_replace('/\s'.($keyword).'/'.$i.'u', $final_url, $post_content);
+			//$content =  preg_replace('/\s'.($keyword).'/'.$i.'u', $final_url, $post_content);
+			$content =  preg_replace("/<(img|a).*?{$keyword}.*?\/>(*SKIP)(*F)|{$keyword}/{$i}u", $final_url, $post_content);
+			
 			
 		}
 		
 		
 	}
-
+	
 	// Replace Content Filter
 	$content = apply_filters('lar_replace_content', $content);
 	

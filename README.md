@@ -67,6 +67,11 @@ Yes, it is. You can mark the link to be cloaked and provide a readable slug to u
 
 ## Changelog
 
+### 1.2.2
+* Stopping the replacement inside html tags.
+
+### 1.2.1
+* Add "Disable Auto Links" meta box to the pages.
 
 ### 1.2.0
 * User Interface fixes.
