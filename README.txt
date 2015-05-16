@@ -1,20 +1,26 @@
-=== Links Auto Replacer ===
+=== Plugin Name ===
 Contributors: waseem_senjer
-Donate link: http://www.waseem-senjer.com
-Tags: affiliate, links, automation,keywords,cloak,cloaking,marketing
-Requires at least: 3.5.1
-Tested up to: 4.1.1
-Stable tag: 1.2.1
+Donate link: http://waseem-senjer.com/product/links-auto-replacer-pro/
+Tags: affiliate, links, automation,keywords,cloak,cloaking
+Requires at least: 3.0.1
+Tested up to: 4.1.2
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Links Auto Replacer is a Wordpress plugin that helps you to replace a specific keywords to links automatically.
-	
+
 
 == Description ==
 
 - Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
-- Are you an affiliate marketer?, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has the cloaking feature to hide and protect your links.
+- Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has the cloaking feature to hide and protect your links.
+ 
+
+== Description ==
+
+- Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
+- Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has the cloaking feature to hide and protect your links.
  
 
 == Installation ==
@@ -44,11 +50,7 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 4. Activate the plugin in the Plugin dashboard
 
 
-== Frequently Asked Questions ==
 
-= Is the plugin support cloaking? =
-
-Yes, it is. You can mark the link to be cloaked and provide a readable slug to use it in the shortlink.  
 
 
 
@@ -60,6 +62,9 @@ Yes, it is. You can mark the link to be cloaked and provide a readable slug to u
 
 == Changelog ==
 
+= 2.0.0 =
+* A complete rewrite.
+* Stats Feature (Map, Countries, Browsers, OS)
 
 = 1.2.2 =
 * Stopping the replacement inside html tags.
