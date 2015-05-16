@@ -19,9 +19,9 @@
  *
  * @package    Links_Auto_Replacer_Pro
  * @subpackage Links_Auto_Replacer_Pro/includes
- * @author     Your Name <email@example.com>
+ * @author     Your Name <waseem.senjer@gmail.com>
  */
-class Links_Auto_Replacer_Pro_Loader {
+class Links_Auto_Replacer_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

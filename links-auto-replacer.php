@@ -10,10 +10,10 @@
  *
  * @link              http://waseem-senjer.com/product/links-auto-replacer-pro/
  * @since             1.0
- * @package           Links_Auto_Replacer_Pro
+ * @package           Links_Auto_Replacer
  *
  * @wordpress-plugin
- * Plugin Name:       Links Auto Replacer PRO
+ * Plugin Name:       Links Auto Replacer
  * Plugin URI:        http://waseem-senjer.com/product/links-auto-replacer-pro/
  * Description:       Auto replace your affiliate links and track them.
  * Version:           2.0.0
@@ -21,7 +21,7 @@
  * Author URI:        http://waseem-senjer.com/product/links-auto-replacer-pro//
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       links-auto-replacer-pro
+ * Text Domain:       links-auto-replacer
  * Domain Path:       /languages
  */
 
@@ -36,30 +36,30 @@ define('PLUGIN_PREFIX','_lar_links_');
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-lar-pro-activator.php
+ * This action is documented in includes/class-lar-activator.php
  */
-function activate_Links_Auto_Replacer_Pro() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-lar-pro-activator.php';
-	Links_Auto_Replacer_Pro_Activator::activate();
+function activate_Links_Auto_Replacer() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-lar-activator.php';
+	Links_Auto_Replacer_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-lar-pro-deactivator.php
+ * This action is documented in includes/class-lar-deactivator.php
  */
-function deactivate_Links_Auto_Replacer_Pro() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-lar-pro-deactivator.php';
-	Links_Auto_Replacer_Pro_Deactivator::deactivate();
+function deactivate_Links_Auto_Replacer() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-lar-deactivator.php';
+	Links_Auto_Replacer_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_Links_Auto_Replacer_Pro' );
-register_deactivation_hook( __FILE__, 'deactivate_Links_Auto_Replacer_Pro' );
+register_activation_hook( __FILE__, 'activate_Links_Auto_Replacer' );
+register_deactivation_hook( __FILE__, 'deactivate_Links_Auto_Replacer' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-lar-pro.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-lar.php';
 
 /**
  * Begins execution of the plugin.
@@ -70,25 +70,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-lar-pro.php';
  *
  * @since    2.0.0
  */
-function run_Links_Auto_Replacer_Pro() {
+function run_Links_Auto_Replacer() {
 
-	$plugin = new Links_Auto_Replacer_Pro();
+	$plugin = new Links_Auto_Replacer();
 	$plugin->run();
 
 }
-run_Links_Auto_Replacer_Pro();
-
-
-/**
- * Check if there is a new update
- *
- * The plugin will contact the plugin repository to check 
- * if there is a new update has been released
- * using this library: https://github.com/YahnisElsts/plugin-update-checker
- *
- * @since    2.0.0
- */
-require_once plugin_dir_path( __FILE__ ) .'admin/libs/update_checker/plugin-update-checker.php';
-$larUpdateChecker = PucFactory::buildUpdateChecker(
-    'http://www.waseem-senjer.com/plugins/lar-pro/metadata.json',
-    __FILE__);
+run_Links_Auto_Replacer();

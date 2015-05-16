@@ -3,11 +3,11 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       http://waseem-senjer.com/product/links-auto-replacer-pro/
+ * @link       http://waseem-senjer.com/product/links-auto-replacer-lite/
  * @since      2.0.0
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/admin
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/admin
- * @author     Your Name <email@example.com>
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/admin
+ * @author     Waseem Senjer <waseem.senjer@gmail.com>
  */
-class Links_Auto_Replacer_Pro_Admin {
+class Links_Auto_Replacer_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -29,7 +29,7 @@ class Links_Auto_Replacer_Pro_Admin {
 	 * @access   private
 	 * @var      string    $Links_Auto_Replacer_Pro    The ID of this plugin.
 	 */
-	private $Links_Auto_Replacer_Pro;
+	private $Links_Auto_Replacer;
 
 	/**
 	 * The version of this plugin.
@@ -54,9 +54,9 @@ class Links_Auto_Replacer_Pro_Admin {
 	 * @param      string    $Links_Auto_Replacer_Pro       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $Links_Auto_Replacer_Pro, $version ) {
+	public function __construct( $Links_Auto_Replacer, $version ) {
 
-		$this->Links_Auto_Replacer_Pro = $Links_Auto_Replacer_Pro;
+		$this->Links_Auto_Replacer = $Links_Auto_Replacer;
 		$this->version = $version;
 		$this->last_link_id = (function_exists('gmp_strval'))?base62encode(get_option('last_lar_link_id') + 100):base62::encode(get_option('last_lar_link_id') + 100); 
 		
@@ -82,9 +82,9 @@ class Links_Auto_Replacer_Pro_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->Links_Auto_Replacer_Pro, plugin_dir_url( __FILE__ ) . 'css/lar-links-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->Links_Auto_Replacer_Pro.'-jqvmap', plugin_dir_url( __FILE__ ) . 'js/jqvmap/jqvmap.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->Links_Auto_Replacer_Pro.'-select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->Links_Auto_Replacer, plugin_dir_url( __FILE__ ) . 'css/lar-links-admin.css', array(), $this->version, 'all' );
+		
+		
 
 
 	}
@@ -108,7 +108,7 @@ class Links_Auto_Replacer_Pro_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->Links_Auto_Replacer_Pro, plugin_dir_url( __FILE__ ) . 'js/lar-links-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->Links_Auto_Replacer, plugin_dir_url( __FILE__ ) . 'js/lar-links-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -222,17 +222,7 @@ class Links_Auto_Replacer_Pro_Admin {
 
 		///////////////
 
-		$add_links_box->add_field( array(
-			'name' => __( 'Link Type', 'links-auto-replacer-pro' ),
-			'id'   => PLUGIN_PREFIX . 'link_type',
-			'type' => 'select',
-			
-			'options' => array(
-					  'external' => __('External','links-auto-replacer-pro'),
-					  'internal' => __('Internal','links-auto-replacer-pro'),
-				),
-			'description' => __('','links-auto-replacer-pro'),
-		) );
+		
 
 
 		$add_links_box->add_field( array(
@@ -242,38 +232,31 @@ class Links_Auto_Replacer_Pro_Admin {
 			'type' => 'text_url',
 		) );
 
-		$add_links_box->add_field( array(
-			'name' => __( 'Internal URL (Link)', 'links-auto-replacer-pro' ),
-			
-			'id'   => PLUGIN_PREFIX . 'internal_url',
-			'type' => 'select',
-			'options' => array('0' => __('Select Post/Page','links-auto-replacer-pro' ))
-		) );
 		////////////////
 		
 
 		$add_links_box->add_field( array(
-			'name' => __( 'Dofollow?', 'links-auto-replacer-pro' ),
+			'name' => __( 'Dofollow?', 'links-auto-replacer' ),
 			'id'   => PLUGIN_PREFIX . 'do_follow',
 			'type' => 'checkbox',
 			'description' => __('if you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer-pro'),
 		) );
 
 		$add_links_box->add_field( array(
-			'name' => __( 'Open in:', 'links-auto-replacer-pro' ),
+			'name' => __( 'Open in:', 'links-auto-replacer' ),
 			'id'   => PLUGIN_PREFIX . 'open_in',
 			'type' => 'select',
 			'default' => '_self',
 			'options' => array(
-					  '_self' => __('Same Window','links-auto-replacer-pro'),
-					  '_blank' => __('New Window','links-auto-replacer-pro'),
+					  '_self' => __('Same Window','links-auto-replacer'),
+					  '_blank' => __('New Window','links-auto-replacer'),
 				),
 			'description' => __('If you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer-pro'),
 		) );
 
 
 		$add_links_box->add_field( array(
-			'name' => __( 'Shrink?', 'links-auto-replacer-pro' ),
+			'name' => __( 'Shrink?', 'links-auto-replacer' ),
 			'id'   => PLUGIN_PREFIX . 'shrink',
 			'type' => 'checkbox',
 			'description' => __('The link will be shortened (e.g example.com/go/amazon)','links-auto-replacer-pro'),
@@ -283,7 +266,7 @@ class Links_Auto_Replacer_Pro_Admin {
 		
 
 		$add_links_box->add_field( array(
-			'name' => __( 'Slug', 'links-auto-replacer-pro' ),
+			'name' => __( 'Slug', 'links-auto-replacer' ),
 			'default' => $this->last_link_id,
 			'id'   => PLUGIN_PREFIX . 'slug',
 			'type' => 'text_small',
@@ -293,7 +276,7 @@ class Links_Auto_Replacer_Pro_Admin {
 
 
 		$add_links_box->add_field( array(
-			'name' => __( 'Case Sensitive?', 'links-auto-replacer-pro' ),
+			'name' => __( 'Case Sensitive?', 'links-auto-replacer' ),
 			'default' => 'no',
 			'id'   => PLUGIN_PREFIX . 'is_sensitive',
 			'type' => 'checkbox',
@@ -318,12 +301,12 @@ class Links_Auto_Replacer_Pro_Admin {
 	    {
 	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer-pro');
 	    }
-	    if($link[PLUGIN_PREFIX . 'link_type'] == 'external'){
+	    
 		    if($link[PLUGIN_PREFIX.'url'] == '' OR filter_var($link[PLUGIN_PREFIX.'url'], FILTER_VALIDATE_URL) === false)
 		    {
 		    	$errors['url'] = __('Please provide a valid url','links-auto-replacer-pro');
 		    }
-		}
+		
 
 
 
@@ -339,16 +322,12 @@ class Links_Auto_Replacer_Pro_Admin {
 		   		}
 		    }
 
-		    if($link[PLUGIN_PREFIX . 'link_type'] == 'external'){
+		
 			    $urls = $this->get_meta_values(PLUGIN_PREFIX . 'url', 'lar_link','publish',$link['post_ID']);
 			    if(in_array($link[PLUGIN_PREFIX . 'url'], $urls)){
 			    	$errors['url'] = __('URL is already exist','links-auto-replacer-pro');
 			    }
-		    }else{
-		    	if(!is_numeric($link[PLUGIN_PREFIX . 'internal_url'])){
-			    	$errors['url'] = __('Choose internal link please.','links-auto-replacer-pro');
-		    	}
-		    }
+		    
 
 
 		    $slugs = $this->get_meta_values(PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
@@ -407,13 +386,9 @@ class Links_Auto_Replacer_Pro_Admin {
 	public function insert_validation_nonce(){
 
 	 	$link_slug = get_post_meta($_GET['post'], PLUGIN_PREFIX.'slug',true);
-	 	$link_internal = get_post_meta($_GET['post'], PLUGIN_PREFIX.'internal_url',true);
-		
 		
 	 	?>
 		 	<script type="text/javascript">
-		 		var internal_id = <?php echo ($link_internal)?$link_internal:"''"; ?>;
-		 		var internal_title = '<?php echo get_the_title($link_internal); ?>';
 		 		var validation_nonce = '<?php echo wp_create_nonce( 'my_pre_submit_validation' ); ?>'; 
 		 		var plugin_prefix = '<?php echo PLUGIN_PREFIX; ?>'; 
 		 		var last_link_id = '<?php echo ($link_slug!='')?$link_slug:$this->last_link_id; ?>'; 
@@ -421,36 +396,11 @@ class Links_Auto_Replacer_Pro_Admin {
 		 	</script>
 	 	<?php 
 	 	wp_enqueue_script( $this->Links_Auto_Replacer_Pro.'-validation', plugin_dir_url( __FILE__ ) . 'js/lar-links-validation.js', array( 'jquery' ), $this->version, false );	 	
-	 	wp_enqueue_script( $this->Links_Auto_Replacer_Pro.'-select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js', array( 'jquery' ), $this->version, false );	 	
-		
+
 
 	}
 
-	/**
-	 * A helper method to get all the values sored in wp_postmeta table that has one key.
-	 * @param	 string the meta key.
-	 * @param	 string the post type
-	 * @param	 string the post status
-	 * @param	 integer the post ID to exlude from the query
-	 * @return 	 stdObject	All the rows with the specified key.
-	 * @since    2.0.0
-	 */
-	public function alter_the_title_bfore_saving(  $post_ID, $post = null  ){
-		global $wpdb;
-		
-		if(get_post_type($post_ID) == 'lar_link'){
-	    	if(is_array($_POST[PLUGIN_PREFIX.'keywords'])){
-	    		$wpdb->update($wpdb->posts,
-						  array('post_title' => implode(',', $_POST[PLUGIN_PREFIX.'keywords']),
-						  		'post_status' => 'publish'),
-						  array('ID' => $post_ID)
-						);
-	    	}
-	    	
 
-		}
-			
-	}
 
 	/**
 	 * Adding a new meta box to disable the auto-replacement for a specific post,page.
@@ -515,27 +465,6 @@ class Links_Auto_Replacer_Pro_Admin {
 	}
 
 
-
-
-	/**
-	* Add the scripts of the stats page (the map and the chartjs library)
-	* @PRO
-	* @since    2.0.0
-	*/
-	public function insert_jqvmap(){
-		
-	 	wp_enqueue_script( $this->Links_Auto_Replacer_Pro.'-vmap', plugin_dir_url( __FILE__ ) . 'js/jqvmap/jquery.vmap.min.js', array( 'jquery' ), $this->version, false );	 	
-	 	wp_enqueue_script( $this->Links_Auto_Replacer_Pro.'-vmapworld', plugin_dir_url( __FILE__ ) . 'js/jqvmap/maps/jquery.vmap.world.js', array( 'jquery' ), $this->version, false );	 	
-	 	
-	 	wp_enqueue_script( $this->Links_Auto_Replacer_Pro.'-vmap-init', plugin_dir_url( __FILE__ ) . 'js/jqvmap/jquery.vmap.init.js', array( 'jquery' ), $this->version, false );	 	
-	 	// add chartjs
-	 	wp_enqueue_script( $this->Links_Auto_Replacer_Pro.'-chartjs', plugin_dir_url( __FILE__ ) . 'js/chartjs/Chart.min.js', array( 'jquery' ), $this->version, false );	 	
-	 	wp_enqueue_script( $this->Links_Auto_Replacer_Pro.'-chartjs-init', plugin_dir_url( __FILE__ ) . 'js/chartjs.init.js', array( $this->Links_Auto_Replacer_Pro.'-chartjs' ), $this->version, false );	 	
-
-
-	}
-
-
 	/**
 	* Change the default Wordpress colums heads for links post types.
 	* @param	 array default admin colums heads.
@@ -549,11 +478,10 @@ class Links_Auto_Replacer_Pro_Admin {
 			foreach($defaults as $key => $title) {
 			    if ($key=='taxonomy-links_category'){ // Put the Thumbnail column before the Author column
 			      		
-			      		$new['keywords'] = __('Keyword\s','links-auto-replacer-pro');
-		    			$new['total_clicks'] = __('Total Clicks','links-auto-replacer-pro');
-		    			$new['link'] = __('Link','links-auto-replacer-pro');
+			      		$new['keywords'] = __('Keyword/s','links-auto-replacer');	    		
+		    			$new['link'] = __('Link','links-auto-replacer');
 		    			
-		    			//$new['actions'] = __('Actions','links-auto-replacer-pro');
+		    			
 			  		}
 			    	$new[$key] = $title;
 			}
@@ -571,13 +499,6 @@ class Links_Auto_Replacer_Pro_Admin {
 	**/
 	public function lar_columns_content($column_name, $post_ID) {
 
-		    if ($column_name == 'total_clicks') {
-		        $stats = get_post_meta($post_ID, PLUGIN_PREFIX.'stats');
-
-		        echo (isset($stats[0]['total_visits']))?$stats[0]['total_visits']:'-';
-		        
-		    }
-
 		    if($column_name == 'link'){
 		    	echo '<input disabled type="text" value="'.Lar_Link::get_final_url($post_ID).'" />';
 		    }
@@ -592,7 +513,7 @@ class Links_Auto_Replacer_Pro_Admin {
 			    		<div class="row-actions">
 				    		<span class="edit"><a href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit this item">Edit</a> | </span>	
 				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a> | </span>
-				    		<?php if($stats[0]['total_visits']>0): ?><span class="stats"><a title="View Stats" href="<?php echo Lar_Stats::get_stats_link($post_ID); ?>">Stats</a> | </span><?php endif; ?>
+				    		
 				    		<span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> | </span>	
 			    		</div>
 
@@ -603,51 +524,6 @@ class Links_Auto_Replacer_Pro_Admin {
 		    	}
 		    	
 		    }
-	}
-
-
-
-
-
-
-	/**
-	*
-	* This method is called through Ajax request, it's used to search for posts,pages for internal links.
-	* @since    2.0.0
-	*
-	**/
-	public function search_internal_linking(){
-		$s = $_GET['q'];
-
-		$args = array(
-			'post_type' => array( 'post', 'page' ),
-			's' =>$s
-		);
-		$posts = get_posts($args);
-		 
-		$result  = array();
-		$i = 0;
-		foreach($posts as $p){
-			$single[$i]['id'] = $p->ID;
-			$single[$i]['text'] = $p->post_title.' ('.ucfirst(get_post_type($p->ID)).')';
-			array_push($result, $single);
-			$i++;
-		}
-		
-		echo json_encode($result[0]);
-		exit;
-
-
-	}
-	/**
-	* If the license key is not set, redirect the user to the Upgrade page.
-	* @since    2.0.0
-	**/
-	public function check_licence(){
-		if($_GET['post_type'] == 'lar_link' && lar()->get_option(PLUGIN_PREFIX.'license_email')==''){
-			wp_redirect(admin_url().'admin.php?page=lar_upgrade_settings');
-			exit;
-		}
 	}
 
 

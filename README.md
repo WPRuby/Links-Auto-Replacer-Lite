@@ -1,4 +1,4 @@
-# Links Auto Replacer PRO
+# Links Auto Replacer
 * Contributors: waseem_senjer
 * Purchasing link: http://waseem-senjer.com/product/links-auto-replacer-pro//
 * Tags: affiliate, links, automation,keywords,cloak,cloaking

@@ -9,8 +9,8 @@
  * @link       http://waseem-senjer.com/product/links-auto-replacer-pro/
  * @since      2.0.0
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/includes
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      2.0.0
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/includes
- * @author     Your Name <email@example.com>
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/includes
+ * @author     Your Name <waseem.senjer@gmail.com>
  */
-class Links_Auto_Replacer_Pro_i18n {
+class Links_Auto_Replacer_i18n {
 
 	/**
 	 * The domain specified for this plugin.

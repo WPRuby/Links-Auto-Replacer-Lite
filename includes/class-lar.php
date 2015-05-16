@@ -9,8 +9,8 @@
  * @link       http://waseem-senjer.com/product/links-auto-replacer-pro/
  * @since      2.0.0
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/includes
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      2.0.0
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/includes
- * @author     Your Name <email@example.com>
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/includes
+ * @author     Waseem Senjer <waseem.senjer@gmail.com>
  */
-class Links_Auto_Replacer_Pro {
+class Links_Auto_Replacer {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -44,9 +44,9 @@ class Links_Auto_Replacer_Pro {
 	 *
 	 * @since    2.0.0
 	 * @access   protected
-	 * @var      string    $Links_Auto_Replacer_Pro    The string used to uniquely identify this plugin.
+	 * @var      string    $Links_Auto_Replacer    The string used to uniquely identify this plugin.
 	 */
-	protected $Links_Auto_Replacer_Pro;
+	protected $Links_Auto_Replacer;
 
 	/**
 	 * The current version of the plugin.
@@ -68,7 +68,7 @@ class Links_Auto_Replacer_Pro {
 	 */
 	public function __construct() {
 
-		$this->Links_Auto_Replacer_Pro = 'links-auto-replacer-pro';
+		$this->Links_Auto_Replacer_Pro = 'links-auto-replacer';
 		$this->version = '2.0.0';
 
 		$this->load_dependencies();
@@ -103,11 +103,6 @@ class Links_Auto_Replacer_Pro {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class.base62.php';
 
 		/**
-		* Stats Class @PRO
-		*
-		**/
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class.stats.php';
-		/**
 		* Link Class
 		*
 		**/
@@ -131,33 +126,33 @@ class Links_Auto_Replacer_Pro {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-lar-pro-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-lar-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-lar-pro-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-lar-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-lar-pro-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-lar-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-lar-pro-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-lar-public.php';
 
-		$this->loader = new Links_Auto_Replacer_Pro_Loader();
+		$this->loader = new Links_Auto_Replacer_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Links_Auto_Replacer_Pro_i18n class in order to set the domain and to register the hook
+	 * Uses the Links_Auto_Replacer_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    2.0.0
@@ -165,8 +160,8 @@ class Links_Auto_Replacer_Pro {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Links_Auto_Replacer_Pro_i18n();
-		$plugin_i18n->set_domain( $this->get_Links_Auto_Replacer_Pro() );
+		$plugin_i18n = new Links_Auto_Replacer_i18n();
+		$plugin_i18n->set_domain( $this->get_Links_Auto_Replacer() );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -182,7 +177,7 @@ class Links_Auto_Replacer_Pro {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Links_Auto_Replacer_Pro_Admin( $this->get_Links_Auto_Replacer_Pro(), $this->get_version() );
+		$plugin_admin = new Links_Auto_Replacer_Admin( $this->get_Links_Auto_Replacer(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -192,29 +187,23 @@ class Links_Auto_Replacer_Pro {
 		
 		$this->loader->add_action('cmb2_init',$plugin_admin, 'lar_links_register_metabox');
 		$this->loader->add_action( 'wp_ajax_my_pre_submit_validation', $plugin_admin, 'pre_submit_link_validation' );
-		$this->loader->add_action( 'wp_ajax_search_internal_linking', $plugin_admin, 'search_internal_linking' );
+		
 
 		
 		if($_GET['post_type'] == 'lar_link' OR get_post_type($_GET['post'])=='lar_link'){
 
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'insert_validation_nonce' );
 		}
-		//$this->loader->add_action( 'save_post', $plugin_admin, 'alter_the_title_bfore_saving' );
 
 		// disabled for individual posts
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'disable_for_single_post' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'lar_meta_save' );
 		
-		//add jqvmap PRO feature
-		if($_GET['page']== 'lar_link_stats')
-			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'insert_jqvmap' );
 
 		// edit the admin columns
 		$this->loader->add_filter('manage_lar_link_posts_columns', $plugin_admin, 'lar_columns_head');
 		$this->loader->add_filter('manage_lar_link_posts_custom_column', $plugin_admin, 'lar_columns_content',10,2);
 		
-		$this->loader->add_action('admin_init',$plugin_admin,'check_licence');
-
 
 	
 
@@ -233,7 +222,7 @@ class Links_Auto_Replacer_Pro {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Links_Auto_Replacer_Pro_Public( $this->get_Links_Auto_Replacer_Pro(), $this->get_version() );
+		$plugin_public = new Links_Auto_Replacer_Public( $this->get_Links_Auto_Replacer(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -248,7 +237,6 @@ class Links_Auto_Replacer_Pro {
 		$this->loader->add_action( 'template_redirect', $plugin_public, 'lar_redirect' );
 
 
-		$this->loader->add_action( 'wp_ajax_store_stats', $plugin_public , 'store_stats' );
 
 		
 	}
@@ -272,8 +260,8 @@ class Links_Auto_Replacer_Pro {
 	 * @since     2.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_Links_Auto_Replacer_Pro() {
-		return $this->Links_Auto_Replacer_Pro;
+	public function get_Links_Auto_Replacer() {
+		return $this->Links_Auto_Replacer;
 	}
 
 	/**

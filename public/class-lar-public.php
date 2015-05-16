@@ -6,8 +6,8 @@
  * @link       http://waseem-senjer.com/product/links-auto-replacer-pro/
  * @since      2.0.0
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/public
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/public
- * @author     Your Name <email@example.com>
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/public
+ * @author     Waseem Senjer <waseem.senjer@gmail.com>
  */
-class Links_Auto_Replacer_Pro_Public {
+class Links_Auto_Replacer_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -29,7 +29,7 @@ class Links_Auto_Replacer_Pro_Public {
 	 * @access   private
 	 * @var      string    $Links_Auto_Replacer_Pro    The ID of this plugin.
 	 */
-	private $Links_Auto_Replacer_Pro;
+	private $Links_Auto_Replacer;
 
 	/**
 	 * The version of this plugin.
@@ -47,9 +47,9 @@ class Links_Auto_Replacer_Pro_Public {
 	 * @param      string    $Links_Auto_Replacer_Pro       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $Links_Auto_Replacer_Pro, $version ) {
+	public function __construct( $Links_Auto_Replacer, $version ) {
 
-		$this->Links_Auto_Replacer_Pro = $Links_Auto_Replacer_Pro;
+		$this->Links_Auto_Replacer = $Links_Auto_Replacer;
 		$this->version = $version;
 
 	}
@@ -65,7 +65,7 @@ class Links_Auto_Replacer_Pro_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Links_Auto_Replacer_Pro_Loader as all of the hooks are defined
+		 * defined in Links_Auto_Replacer_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
 		 * The Links_Auto_Replacer_Pro_Loader will then create the relationship
@@ -73,7 +73,7 @@ class Links_Auto_Replacer_Pro_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->Links_Auto_Replacer_Pro, plugin_dir_url( __FILE__ ) . 'css/plugin-name-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->Links_Auto_Replacer, plugin_dir_url( __FILE__ ) . 'css/lar-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -95,13 +95,8 @@ class Links_Auto_Replacer_Pro_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		?>
-			<script type="text/javascript">
-				var lar_stats_nonce = '<?php echo wp_create_nonce( 'lar_stats_nonce' );  ?>';
-				var ajaxurl = '<?php echo admin_url("admin-ajax.php"); ?>';
-			</script>
-		<?php 
-		wp_enqueue_script( $this->Links_Auto_Replacer_Pro, plugin_dir_url( __FILE__ ) . 'js/lar-public.js', array( 'jquery' ), $this->version, false );
+	
+		wp_enqueue_script( $this->Links_Auto_Replacer, plugin_dir_url( __FILE__ ) . 'js/lar-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -135,7 +130,7 @@ class Links_Auto_Replacer_Pro_Public {
 				$dofollow = 'rel="nofollow"';
 			}
 
-			if($link_meta[PLUGIN_PREFIX.'link_type'][0] == 'external'){
+			if($link_meta[PLUGIN_PREFIX.'link_type'][0] == 'external' OR $link_meta[PLUGIN_PREFIX.'link_type'][0] ==''){
 				if ( get_option('permalink_structure') != '' ) {
 					$url = ($link_meta[PLUGIN_PREFIX.'slug'][0]!= '')? site_url().'/go/'.$link_meta[PLUGIN_PREFIX.'slug'][0] : $link_meta[PLUGIN_PREFIX.'url'][0];
 				
@@ -149,9 +144,7 @@ class Links_Auto_Replacer_Pro_Public {
 
 
 
-			// to get status for non slugged urls
-			$link_class = ($link_meta[PLUGIN_PREFIX.'slug'][0] != '')?'':'class="lar_link"';
-			
+
 			
 			
 			$keywords = unserialize( $link_meta[PLUGIN_PREFIX.'keywords'][0] );
@@ -166,7 +159,7 @@ class Links_Auto_Replacer_Pro_Public {
 			foreach($keywords as $keyword){
 				$keyword = html_entity_decode(stripslashes(wptexturize($keyword)));
 				
-				$final_url = ' <a href="'.$url.'" '.$link_class.' '.$dofollow.' data-linkid="'.$link->ID.'" target="'.$link_meta[PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
+				$final_url = ' <a href="'.$url.'" '.$dofollow.' data-linkid="'.$link->ID.'" target="'.$link_meta[PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
 				$post_content = html_entity_decode(($content));
 				// sensitivity modifier
 				$i = ($link_meta[PLUGIN_PREFIX.'is_sensitive'][0] != 1)?'i':'';
@@ -265,9 +258,6 @@ class Links_Auto_Replacer_Pro_Public {
 			
 
 			if(!is_null($link_url)){
-				//save the stats //@PRO
-				$stats = new Lar_Stats();
-				$stats->save($link[0]->ID);
 				
 				wp_redirect($link_url);
 				exit;
@@ -276,22 +266,5 @@ class Links_Auto_Replacer_Pro_Public {
 		}
 		
 	}
-
-	/**
-	* It will save the stats from links without slugs.
-	* It will be called through AJAX request.
-	*
-	* @since    2.0.0
-	*/
-	public function store_stats(){
-		check_ajax_referer( 'lar_stats_nonce', 'security' );
-		$stats = new Lar_Stats();
-		if($_POST['link_id']!='')
-			$stats->save(esc_attr($_POST['link_id']));
-		echo '1';
-		exit;
-	}
-
-
 
 }

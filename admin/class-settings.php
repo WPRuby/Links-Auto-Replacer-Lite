@@ -18,18 +18,18 @@ class Lar_Settings{
 		$this->tabs = apply_filters('lar_settings_tabs',array(
 				'lar_main_settings' => array(
 					    'id' => 'lar_main_settings',
-						'title' => __('Settings','links-auto-replacer-pro'),
+						'title' => __('Settings','links-auto-replacer'),
 						'metabox_callback' => array( $this, 'add_main_settings_page_metabox' ),
 					),
 				'lar_upgrade_settings' => array(
 						'id' => 'lar_upgrade_settings',
-						'title' => __('Upgrade','links-auto-replacer-pro'),
+						'title' => __('Upgrade','links-auto-replacer'),
 						'metabox_callback' => array( $this, 'add_upgrade_settings_page_metabox' ),
 						'callback' => array($this , 'display_upgrade_page')
 					),
 				'lar_about_settings' => array(
 						'id' => 'lar_about_settings',
-						'title' => __('About','links-auto-replacer-pro'),
+						'title' => __('About','links-auto-replacer'),
 						'metabox_callback' => false,
 						'callback' => array($this , 'display_about_page')
 					),
@@ -72,7 +72,7 @@ class Lar_Settings{
 	* @since     2.0.0
 	**/
 	public function add_options_page() {
-		$this->settings_page =   add_menu_page(__('Links Auto Replacer PRO'),__('Links Auto Replacer PRO'),'manage_options',$this->key,array($this, 'admin_page_display'));
+		$this->settings_page =   add_menu_page(__('Links Auto Replacer Lite'),__('Links Auto Replacer PRO'),'manage_options',$this->key,array($this, 'admin_page_display'));
 
 	    foreach ($this->tabs as $key => $tab){
 			if(isset($tab['callback']))
@@ -82,8 +82,7 @@ class Lar_Settings{
 
 		}
 			 
-		add_submenu_page( null, __('Link Stats'), __('Link Stats'), 'manage_options', 'lar_link_stats' , array($this, 'display_link_stats'));
-		
+	
 		
 		
 	}
@@ -121,13 +120,8 @@ class Lar_Settings{
 
 	}
 
-	/**
-	* Include the stats template
-	* @since     2.0.0
-	**/
-	public function display_link_stats(){
-		include plugin_dir_path(__FILE__).'partials/link_stats.php';	
-	}
+
+
 
 
 
@@ -232,35 +226,6 @@ class Lar_Settings{
 
 
 
-	/**
-	* Validate the license key.
-	* @param	 string the key that user will provide.
-	* @return	 string|boolean the key if success, false if the validation failed.
-	* @since     2.0.0
-	**/
-	public function validate_license_key($key){
-		$email  = $_POST[PLUGIN_PREFIX.'license_email'];
-		$licence_url = 'http://www.waseem-senjer.com/?';
-					$activation_data['wc-api'] = 'software-api';
-					$activation_data['request'] = 'activation';
-					$activation_data['email'] = $email;
-					$activation_data['licence_key'] = $key;
-					$activation_data['secret_key'] = 'd75e50aa170d86a103e9be301ce1de8f';
-					
-					$activation_data['product_id'] = 'LARPRO';
-					$request = wp_remote_get($licence_url.http_build_query($activation_data));
-					$response = json_decode($request['body']);
-					
-					if($response->activated === true){
-						//add_option(PLUGIN_PREFIX.'license_key',$_POST['woocommerce_auspost_auspost_key']) OR update_option('auspost_key', $_POST['woocommerce_auspost_auspost_key']);
-						$this->show_message(__('Activation Succeeded, Thank you :)'),'updated'); 
-						return $key;
-					}else{
-						$this->show_message(__('Licence Key or Email is invalid'),'error');
-						return false;
-					}
-		
-	}
 
 	/**
 	* Show `error` or `success` messages in the admin
