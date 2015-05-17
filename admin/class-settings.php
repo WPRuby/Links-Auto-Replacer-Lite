@@ -16,11 +16,11 @@ class Lar_Settings{
 	public function __construct(){
 
 		$this->tabs = apply_filters('lar_settings_tabs',array(
-				'lar_main_settings' => array(
+				/*'lar_main_settings' => array(
 					    'id' => 'lar_main_settings',
 						'title' => __('Settings','links-auto-replacer'),
 						'metabox_callback' => array( $this, 'add_main_settings_page_metabox' ),
-					),
+					),*/
 				'lar_upgrade_settings' => array(
 						'id' => 'lar_upgrade_settings',
 						'title' => __('Upgrade','links-auto-replacer'),
@@ -49,7 +49,7 @@ class Lar_Settings{
 	public function hooks(){
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
-		
+		add_action('cmb2_init',array($this,'add_main_settings_page_metabox'));
 		foreach($this->tabs as $tab){
 			if($tab['metabox_callback'] !== false){
 				add_action( 'cmb2_init',  $tab['metabox_callback']);
@@ -72,7 +72,7 @@ class Lar_Settings{
 	* @since     2.0.0
 	**/
 	public function add_options_page() {
-		$this->settings_page =   add_menu_page(__('Links Auto Replacer Lite'),__('Links Auto Replacer PRO'),'manage_options',$this->key,array($this, 'admin_page_display'));
+		$this->settings_page =   add_menu_page(__('Links Auto Replacer Lite'),__('Links Auto Replacer Lite'),'manage_options',$this->key,array($this, 'admin_page_display'));
 
 	    foreach ($this->tabs as $key => $tab){
 			if(isset($tab['callback']))
@@ -143,7 +143,7 @@ class Lar_Settings{
 
 		// Set our CMB2 fields
 		$cmb->add_field( array(
-			'name'    => __( 'License Key', 'links-auto-replacer-pro' ),
+			'name'    => __( 'License Key', 'links-auto-replacer' ),
 			'id'      => PLUGIN_PREFIX . 'license_key',
 			'type'    => 'text',
 			'sanitization_cb' => array($this,'validate_license_key'),
@@ -151,7 +151,7 @@ class Lar_Settings{
 			//'default' => 'yes',
 		) );
 		$cmb->add_field( array(
-			'name'    => __( 'License Email', 'links-auto-replacer-pro' ),
+			'name'    => __( 'License Email', 'links-auto-replacer' ),
 			'id'      => PLUGIN_PREFIX . 'license_email',
 			'type'    => 'text_email',
 			//'default' => 'yes',
@@ -173,7 +173,7 @@ class Lar_Settings{
 		
 
 		$cmb = new_cmb2_box( array(
-			'id'      => 'lar_main_settings',
+			'id'      => 'lar_settings',
 			'hookup'  => false,
 			'show_on' => array(
 				// These are important, don't remove
@@ -184,7 +184,7 @@ class Lar_Settings{
 
 		// Set our CMB2 fields
 		$cmb->add_field( array(
-			'name'    => __( 'Enable Auto Replcement', 'links-auto-replacer-pro' ),
+			'name'    => __( 'Enable Auto Replcement', 'links-auto-replacer' ),
 			'id'      => PLUGIN_PREFIX . 'enable',
 			'type'    => 'checkbox',
 			//'default' => 'yes',

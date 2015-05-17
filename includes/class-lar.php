@@ -68,7 +68,7 @@ class Links_Auto_Replacer {
 	 */
 	public function __construct() {
 
-		$this->Links_Auto_Replacer_Pro = 'links-auto-replacer';
+		$this->Links_Auto_Replacer = 'links-auto-replacer';
 		$this->version = '2.0.0';
 
 		$this->load_dependencies();

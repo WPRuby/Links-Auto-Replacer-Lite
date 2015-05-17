@@ -81,7 +81,7 @@ class Links_Auto_Replacer_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
+		
 		wp_enqueue_style( $this->Links_Auto_Replacer, plugin_dir_url( __FILE__ ) . 'css/lar-links-admin.css', array(), $this->version, 'all' );
 		
 		
