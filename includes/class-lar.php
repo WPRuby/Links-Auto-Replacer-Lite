@@ -205,7 +205,8 @@ class Links_Auto_Replacer {
 		$this->loader->add_filter('manage_lar_link_posts_custom_column', $plugin_admin, 'lar_columns_content',10,2);
 		
 
-	
+		
+
 
 
 

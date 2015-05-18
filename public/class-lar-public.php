@@ -109,6 +109,7 @@ class Links_Auto_Replacer_Public {
 	 * @since    1.0.0
 	 */
 	public function lar_auto_replace_links( $content ){
+
 		if(lar()->get_option(PLUGIN_PREFIX.'enable') !== 'on') return $content;
 		
 		global $wpdb; 
@@ -121,7 +122,6 @@ class Links_Auto_Replacer_Public {
 
 		$links = get_posts('post_type=lar_link&post_status=publish');
 
-		
 		foreach ($links as $link) {
 			$link_meta = get_post_meta($link->ID);
 			
@@ -159,8 +159,9 @@ class Links_Auto_Replacer_Public {
 			foreach($keywords as $keyword){
 				$keyword = html_entity_decode(stripslashes(wptexturize($keyword)));
 				
-				$final_url = ' <a href="'.$url.'" '.$dofollow.' data-linkid="'.$link->ID.'" target="'.$link_meta[PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
+				$final_url = ' <a href="'.$url.'" '.$dofollow.' target="'.$link_meta[PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
 				$post_content = html_entity_decode(($content));
+
 				// sensitivity modifier
 				$i = ($link_meta[PLUGIN_PREFIX.'is_sensitive'][0] != 1)?'i':'';
 				

@@ -329,11 +329,12 @@ class Links_Auto_Replacer_Admin {
 			    }
 		    
 
-
-		    $slugs = $this->get_meta_values(PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
-		    if(in_array($link[PLUGIN_PREFIX . 'slug'], $slugs)){
-		    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer-pro'),$link[PLUGIN_PREFIX . 'slug']);
-		    }
+			if(trim($link[PLUGIN_PREFIX . 'slug'])!=''){    
+			    $slugs = $this->get_meta_values(PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
+			    if(in_array($link[PLUGIN_PREFIX . 'slug'], $slugs)){
+			    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer-pro'),$link[PLUGIN_PREFIX . 'slug']);
+			    }
+			}
 		} //empty($errors)
 	    	
 	    if(!empty($errors)){

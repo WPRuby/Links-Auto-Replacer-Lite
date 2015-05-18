@@ -13,7 +13,7 @@ class Lar_Link{
 	**/
 	public function get_final_url( $link_id ){
 		$link_meta = get_post_meta( $link_id );
-		if($link_meta[PLUGIN_PREFIX.'link_type'][0] == 'external'){
+		if($link_meta[PLUGIN_PREFIX.'link_type'][0] == 'external' OR $link_meta[PLUGIN_PREFIX.'link_type'][0] == ''){
 				if ( get_option('permalink_structure') != '' ) {
 					$url = ($link_meta[PLUGIN_PREFIX.'slug'][0]!= '')? site_url().'/go/'.$link_meta[PLUGIN_PREFIX.'slug'][0] : $link_meta[PLUGIN_PREFIX.'url'][0];
 				

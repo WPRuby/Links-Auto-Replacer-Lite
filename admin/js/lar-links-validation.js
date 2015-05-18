@@ -106,53 +106,9 @@
 				    });
 
 
-
-				      // select2
-				      
-
-				      jQuery("#_lar_links_internal_url").select2({
-								  ajax: {
-								    url: ajaxurl,
-								    dataType: 'json',
-								    delay: 250,
-								    data: function (params) {
-								      return {
-								      	action: 'search_internal_linking',
-								        q: params.term, // search term
-								        page: params.page
-								      };
-								    },
-								    processResults: function (data) {
-									    return {
-									      results: data
-									    };
-									  },
-								    cache: true
-								  },
-								 
-								  minimumInputLength: 2,
-								  });
-				      //external and internal
-				      //jQuery('.cmb2-id--lar-links-internal-url').hide();
-				      
-				      jQuery('#_lar_links_link_type').change(function(){
-				      		if(jQuery(this).val() == 'internal'){
-				      			jQuery('.cmb2-id--lar-links-url').hide();
-				      			jQuery('.cmb2-id--lar-links-internal-url').show();
-
-				      		}else{
-				      			jQuery('.cmb2-id--lar-links-url').show();
-
-				      			jQuery('.cmb2-id--lar-links-internal-url').hide();
-				      		}
-				      });
-				      jQuery('#_lar_links_link_type').trigger('change');
-						
-				      if(internal_id!=''){
-				      	jQuery("#_lar_links_internal_url").append('<option value="'+internal_id+'">'+internal_title+'</option>');			      
-						jQuery("#_lar_links_internal_url").select2("val", internal_id);
+				  
 				     
-				      }
+				      
 
 		        });
 			 
