@@ -183,7 +183,7 @@ class Links_Auto_Replacer {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		
 		$this->loader->add_action( 'init', $plugin_admin, 'register_links_post_type' );
-		$this->loader->add_action( 'init', $plugin_admin, 'register_taxonomies' );
+		
 		
 		$this->loader->add_action('cmb2_init',$plugin_admin, 'lar_links_register_metabox');
 		$this->loader->add_action( 'wp_ajax_my_pre_submit_validation', $plugin_admin, 'pre_submit_link_validation' );

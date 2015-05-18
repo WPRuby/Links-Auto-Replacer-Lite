@@ -32,7 +32,7 @@
 					<h2>Plugin Info</h2>
 					<img class="wes" src="http://plugins.svn.wordpress.org/links-auto-replacer/assets/icon-128x128.png" />
 					<ul>
-						<li>Links Auto Replacer PRO <span><?php echo LAR_VERSION; ?></span></li>
+						<li><?php echo apply_filters('lar_plugin_name','Links Auto Replacer'); ?><span></span></li>
 						<li><strong><?php _e('Version','links-auto-replacer-pro'); ?>:</strong> <?php echo LAR_VERSION; ?></li>
 						<li><a href="#">Website</a> | <a href="#">Documentation</a> | <a href="<?php echo admin_url('admin.php?page=lar_main_settings'); ?>">Settings</a></li>
 						

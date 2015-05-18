@@ -147,49 +147,14 @@ class Links_Auto_Replacer_Admin {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
-			'supports'           => array( 'author' )
+			'supports'           => array(  'author' )
 		);
 
 		register_post_type( 'lar_link', $args );
 	}
 
 
-	/**
-	 * The plugin use this method to register the custom taxonomies of the links.
-	 * @since    2.0.0
-	 */
-	public function register_taxonomies(){
-		$labels = array(
-			'name'                       => _x( 'Link Categories', 'taxonomy general name' ),
-			'singular_name'              => _x( 'Link Category', 'taxonomy singular name' ),
-			'search_items'               => __( 'Search Link Categories' ),
-			'popular_items'              => __( 'Popular Link Categories' ),
-			'all_items'                  => __( 'All Link Categories' ),
-			'parent_item'                => null,
-			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit Link Category' ),
-			'update_item'                => __( 'Update Link Category' ),
-			'add_new_item'               => __( 'Add New Link Category' ),
-			'new_item_name'              => __( 'New Link Category Name' ),
-			'separate_items_with_commas' => __( 'Separate link categories with commas' ),
-			'add_or_remove_items'        => __( 'Add or remove link category' ),
-			'choose_from_most_used'      => __( 'Choose from the most used links categories' ),
-			'not_found'                  => __( 'No links categories found.' ),
-			'menu_name'                  => __( 'Link Categories' ),
-		);
-
-		$args = array(
-			'hierarchical'          => true,
-			'labels'                => $labels,
-			'show_ui'               => true,
-			'show_admin_column'     => true,
-			'update_count_callback' => '_update_post_term_count',
-			'query_var'             => true,
-			'rewrite'               => array( 'slug' => 'models' ),
-		);
-
-		register_taxonomy( 'links_category', 'lar_link', $args );
-	}
+	
 
 
 	/**
