@@ -29,22 +29,4 @@
 	 * be doing this, we should try to minimize doing that in our own work.
 	 */
 
-	 jQuery(function() {
-	 		jQuery('.lar_link').click(function(e){
-	 			var link = jQuery(this);
-	 			e.preventDefault();
-	 			var data = {
-		                        action: 'store_stats',
-		                        security: lar_stats_nonce,
-		                        link_id: link.attr('data-linkid')
-		                    };
-		                    jQuery.post(ajaxurl, data, function(response) {
-		                    	window.location = link.attr('href');
-		                    });
-	 		});
-	 });
-
-
-
-
 })( jQuery );

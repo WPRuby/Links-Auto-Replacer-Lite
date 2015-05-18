@@ -6,8 +6,8 @@
  * @link       http://waseem-senjer.com/product/links-auto-replacer-pro/
  * @since      2.0.0
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/includes
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/includes
  */
 
 /**
@@ -17,9 +17,9 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/includes
- * @author     Your Name <waseem.senjer@gmail.com>
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/includes
+ * @author     Waseem Senjer <waseem.senjer@gmail.com>
  */
 class Links_Auto_Replacer_Loader {
 
@@ -56,7 +56,7 @@ class Links_Auto_Replacer_Loader {
 	/**
 	 * Add a new action to the collection to be registered with WordPress.
 	 *
-	 * @since    2.0.0
+	 * @since      2.0.0
 	 * @param      string               $hook             The name of the WordPress action that is being registered.
 	 * @param      object               $component        A reference to the instance of the object on which the action is defined.
 	 * @param      string               $callback         The name of the function definition on the $component.

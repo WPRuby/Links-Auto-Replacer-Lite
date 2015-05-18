@@ -19,10 +19,10 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       http://waseem-senjer.com/product/links-auto-replacer-pro/
+ * @link       http://waseem-senjer.com/product/links-auto-replacer
  * @since      2.0.0
  *
- * @package    Links_Auto_Replacer_Pro
+ * @package    Links_Auto_Replacer
  */
 
 // If uninstall not called from WordPress, then exit.

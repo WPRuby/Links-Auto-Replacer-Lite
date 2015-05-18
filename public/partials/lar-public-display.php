@@ -8,8 +8,8 @@
  * @link       http://waseem-senjer.com/product/links-auto-replacer-pro/
  * @since      2.0.0
  *
- * @package    Links_Auto_Replacer_Pro
- * @subpackage Links_Auto_Replacer_Pro/public/partials
+ * @package    Links_Auto_Replacer
+ * @subpackage Links_Auto_Replacer/public/partials
  */
 ?>
 

@@ -18,7 +18,7 @@
  * @since      2.0.0
  * @package    Links_Auto_Replacer
  * @subpackage Links_Auto_Replacer/includes
- * @author     Your Name <waseem.senjer@gmail.com>
+ * @author     Waseem Senjer <waseem.senjer@gmail.com>
  */
 class Links_Auto_Replacer_Activator {
 
@@ -34,15 +34,18 @@ class Links_Auto_Replacer_Activator {
 	}
 
 	/**
-	 * Short Description. (use period)
+	 * Before 2.0 version, the plugin was using a custom table to store links
+	 * The new version is using custom post types, so the plugin must import
+	 * the old data from the table on activation.
 	 *
-	 * Long Description.
+	 * 
 	 *
 	 * @since    2.0.0
 	 */
 	private function import_old_data(){
 
-		if(get_option('lar_old_data_imported') === 'yes') return; 
+		// we only need to import the data once.
+		if(get_option(PLUGIN_PREFIX.'old_data_imported') === 'yes') return; 
 
 		global $wpdb;
 		$table_name = $wpdb->prefix .'lar_links';
@@ -68,7 +71,7 @@ class Links_Auto_Replacer_Activator {
 			@add_post_meta($link_id, PLUGIN_PREFIX . 'is_sensitive', $link->is_sensitive);
 
 		}
-		add_option('lar_old_data_imported','yes');
+		add_option(PLUGIN_PREFIX. 'old_data_imported','yes');
 	}
 
 }

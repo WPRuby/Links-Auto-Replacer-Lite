@@ -27,6 +27,8 @@
 
 define('LAR_VERSION','2.0.0');
 define('LAR_URL',plugin_dir_url(__FILE__));
+define('LAR_DIR',plugin_dir_path(__FILE__));
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;

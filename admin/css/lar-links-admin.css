@@ -2,7 +2,7 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
-
+@import url(http://fonts.googleapis.com/css?family=Nova+Round);
  #lar_errors{
  	margin: 0 0 0 35px;
 
@@ -150,4 +150,59 @@
 }
 #lar_about #details #plugin_details ul li{
 	margin-top: 10px;
+}
+
+
+#lar_upgrade_box{
+	margin-left: 10%;
+	width: 60%;
+	height: auto;
+	background: #F4F9F3;
+	margin-top: 20px;
+	padding: 30px 30px 30px 80px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	line-height: 25px;
+		
+
+}
+#lar_upgrade_box ul{
+	margin: 0 auto;
+
+}
+#lar_upgrade_box ul li{
+	width:90%;
+	font-size: 18pt;
+	font-style: italic;
+	height: auto;
+	list-style:none;
+  	background-repeat:no-repeat;
+  	background-image: url('../images/pro.png');
+	padding: 0.15em 0 0.5em 1.5em;
+  	margin-bottom: 20px;
+  	font-family: 'Nova Round', cursive;
+
+}
+
+#lar_upgrade_box button{
+	font-size: 18pt;
+	padding: 10px;
+	background: rgb(72, 189, 72);
+	margin-left: 30%;
+	height: 50px;
+	margin-top: 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	font-family: 'Nova Round', cursive;
+	color: #ffffff;
+}
+#lar_upgrade_box a {
+	text-decoration: none;
+	color:#ffffff;
+
+}
+#lar_upgrade_box a button  span{
+	font-size: 10pt;
 }

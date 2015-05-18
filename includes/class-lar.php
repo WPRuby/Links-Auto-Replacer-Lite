@@ -35,7 +35,7 @@ class Links_Auto_Replacer {
 	 *
 	 * @since    2.0.0
 	 * @access   protected
-	 * @var      Links_Auto_Replacer_Pro_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Links_Auto_Replacer_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -83,10 +83,10 @@ class Links_Auto_Replacer {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Links_Auto_Replacer_Pro_Loader. Orchestrates the hooks of the plugin.
-	 * - Links_Auto_Replacer_Pro_i18n. Defines internationalization functionality.
-	 * - Links_Auto_Replacer_Pro_Admin. Defines all hooks for the admin area.
-	 * - Links_Auto_Replacer_Pro_Public. Defines all hooks for the public side of the site.
+	 * - Links_Auto_Replacer_Loader. Orchestrates the hooks of the plugin.
+	 * - Links_Auto_Replacer_i18n. Defines internationalization functionality.
+	 * - Links_Auto_Replacer_Admin. Defines all hooks for the admin area.
+	 * - Links_Auto_Replacer_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -106,7 +106,7 @@ class Links_Auto_Replacer {
 		* Link Class
 		*
 		**/
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class.link.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class.link.php';
 
 		/**
 		 * The Metabox Library
@@ -119,7 +119,7 @@ class Links_Auto_Replacer {
 		 * The Helper Class
 		 * 
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-settings.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-settings.php';
 		
 		
 		/**
@@ -269,7 +269,7 @@ class Links_Auto_Replacer {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     2.0.0
-	 * @return    Links_Auto_Replacer_Pro_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Links_Auto_Replacer_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

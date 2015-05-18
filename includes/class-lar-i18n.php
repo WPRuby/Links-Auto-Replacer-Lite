@@ -22,7 +22,7 @@
  * @since      2.0.0
  * @package    Links_Auto_Replacer
  * @subpackage Links_Auto_Replacer/includes
- * @author     Your Name <waseem.senjer@gmail.com>
+ * @author     Waseem Senjer <waseem.senjer@gmail.com>
  */
 class Links_Auto_Replacer_i18n {
 

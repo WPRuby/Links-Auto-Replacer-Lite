@@ -27,7 +27,7 @@ class Links_Auto_Replacer_Admin {
 	 *
 	 * @since    2.0.0
 	 * @access   private
-	 * @var      string    $Links_Auto_Replacer_Pro    The ID of this plugin.
+	 * @var      string    $Links_Auto_Replacer    The ID of this plugin.
 	 */
 	private $Links_Auto_Replacer;
 
@@ -51,7 +51,7 @@ class Links_Auto_Replacer_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    2.0.0
-	 * @param      string    $Links_Auto_Replacer_Pro       The name of this plugin.
+	 * @param      string    $Links_Auto_Replacer       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $Links_Auto_Replacer, $version ) {
@@ -74,10 +74,10 @@ class Links_Auto_Replacer_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Links_Auto_Replacer_Pro_Loader as all of the hooks are defined
+		 * defined in Links_Auto_Replacer_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Links_Auto_Replacer_Pro_Loader will then create the relationship
+		 * The Links_Auto_Replacer_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -100,10 +100,10 @@ class Links_Auto_Replacer_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Links_Auto_Replacer_Pro_Loader as all of the hooks are defined
+		 * defined in Links_Auto_Replacer_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Links_Auto_Replacer_Pro_Loader will then create the relationship
+		 * The Links_Auto_Replacer_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -119,20 +119,20 @@ class Links_Auto_Replacer_Admin {
 	 */
 	public function register_links_post_type(){
 		$labels = array(
-			'name'               => _x( 'Links', 'post type general name', 'links-auto-replacer-pro' ),
-			'singular_name'      => _x( 'Link', 'post type singular name', 'links-auto-replacer-pro' ),
-			'menu_name'          => _x( 'Links', 'admin menu', 'links-auto-replacer-pro' ),
-			'name_admin_bar'     => _x( 'Link', 'add new on admin bar', 'links-auto-replacer-pro' ),
-			'add_new'            => _x( 'Add New Link', 'book', 'links-auto-replacer-pro' ),
-			'add_new_item'       => __( 'Add New Link', 'links-auto-replacer-pro' ),
-			'new_item'           => __( 'New Link', 'links-auto-replacer-pro' ),
-			'edit_item'          => __( 'Edit Link', 'links-auto-replacer-pro' ),
-			'view_item'          => __( 'View Link', 'links-auto-replacer-pro' ),
-			'all_items'          => __( 'All Links', 'links-auto-replacer-pro' ),
-			'search_items'       => __( 'Search Links', 'links-auto-replacer-pro' ),
-			'parent_item_colon'  => __( 'Parent Links:', 'links-auto-replacer-pro' ),
-			'not_found'          => __( 'No links found.', 'links-auto-replacer-pro' ),
-			'not_found_in_trash' => __( 'No links found in Trash.', 'links-auto-replacer-pro' )
+			'name'               => _x( 'Links', 'post type general name', 'links-auto-replacer' ),
+			'singular_name'      => _x( 'Link', 'post type singular name', 'links-auto-replacer' ),
+			'menu_name'          => _x( 'Links', 'admin menu', 'links-auto-replacer' ),
+			'name_admin_bar'     => _x( 'Link', 'add new on admin bar', 'links-auto-replacer' ),
+			'add_new'            => _x( 'Add New Link', 'book', 'links-auto-replacer' ),
+			'add_new_item'       => __( 'Add New Link', 'links-auto-replacer' ),
+			'new_item'           => __( 'New Link', 'links-auto-replacer' ),
+			'edit_item'          => __( 'Edit Link', 'links-auto-replacer' ),
+			'view_item'          => __( 'View Link', 'links-auto-replacer' ),
+			'all_items'          => __( 'All Links', 'links-auto-replacer' ),
+			'search_items'       => __( 'Search Links', 'links-auto-replacer' ),
+			'parent_item_colon'  => __( 'Parent Links:', 'links-auto-replacer' ),
+			'not_found'          => __( 'No links found.', 'links-auto-replacer' ),
+			'not_found_in_trash' => __( 'No links found in Trash.', 'links-auto-replacer' )
 		);
 
 		$args = array(
@@ -202,7 +202,7 @@ class Links_Auto_Replacer_Admin {
 
 		$add_links_box = new_cmb2_box( array(
 			'id'            => PLUGIN_PREFIX . 'metabox',
-			'title'         => __( 'Add new Link', 'links-auto-replacer-pro' ),
+			'title'         => __( 'Add new Link', 'links-auto-replacer' ),
 			'object_types'  => array( 'lar_link', ), // Post type
 			'context'       => 'normal',
 			'priority'      => 'high',
@@ -213,7 +213,7 @@ class Links_Auto_Replacer_Admin {
 
 
 		$add_links_box->add_field( array(
-			'name' => __( 'Keyword/s', 'links-auto-replacer-pro' ),
+			'name' => __( 'Keyword/s', 'links-auto-replacer' ),
 			
 			'id'   => PLUGIN_PREFIX . 'keywords',
 			'type' => 'text_medium',
@@ -226,7 +226,7 @@ class Links_Auto_Replacer_Admin {
 
 
 		$add_links_box->add_field( array(
-			'name' => __( 'URL (Link)', 'links-auto-replacer-pro' ),
+			'name' => __( 'URL (Link)', 'links-auto-replacer' ),
 			'default' => 'http://',
 			'id'   => PLUGIN_PREFIX . 'url',
 			'type' => 'text_url',
@@ -239,7 +239,7 @@ class Links_Auto_Replacer_Admin {
 			'name' => __( 'Dofollow?', 'links-auto-replacer' ),
 			'id'   => PLUGIN_PREFIX . 'do_follow',
 			'type' => 'checkbox',
-			'description' => __('if you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer-pro'),
+			'description' => __('if you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer'),
 		) );
 
 		$add_links_box->add_field( array(
@@ -251,7 +251,7 @@ class Links_Auto_Replacer_Admin {
 					  '_self' => __('Same Window','links-auto-replacer'),
 					  '_blank' => __('New Window','links-auto-replacer'),
 				),
-			'description' => __('If you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer-pro'),
+			'description' => __('If you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer'),
 		) );
 
 
@@ -259,7 +259,7 @@ class Links_Auto_Replacer_Admin {
 			'name' => __( 'Shrink?', 'links-auto-replacer' ),
 			'id'   => PLUGIN_PREFIX . 'shrink',
 			'type' => 'checkbox',
-			'description' => __('The link will be shortened (e.g example.com/go/amazon)','links-auto-replacer-pro'),
+			'description' => __('The link will be shortened (e.g example.com/go/amazon)','links-auto-replacer'),
 		) );
 
 
@@ -270,7 +270,7 @@ class Links_Auto_Replacer_Admin {
 			'default' => $this->last_link_id,
 			'id'   => PLUGIN_PREFIX . 'slug',
 			'type' => 'text_small',
-			'description' => __('The slug for the shortened link','links-auto-replacer-pro').' <span id="lar_slug_example"></span>',
+			'description' => __('The slug for the shortened link','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
 
 
@@ -280,7 +280,7 @@ class Links_Auto_Replacer_Admin {
 			'default' => 'no',
 			'id'   => PLUGIN_PREFIX . 'is_sensitive',
 			'type' => 'checkbox',
-			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer-pro').' <span id="lar_slug_example"></span>',
+			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
 	
 	}
@@ -299,12 +299,12 @@ class Links_Auto_Replacer_Admin {
 
 	    if(empty(array_filter($link[PLUGIN_PREFIX.'keywords'])))
 	    {
-	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer-pro');
+	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer');
 	    }
 	    
 		    if($link[PLUGIN_PREFIX.'url'] == '' OR filter_var($link[PLUGIN_PREFIX.'url'], FILTER_VALIDATE_URL) === false)
 		    {
-		    	$errors['url'] = __('Please provide a valid url','links-auto-replacer-pro');
+		    	$errors['url'] = __('Please provide a valid url','links-auto-replacer');
 		    }
 		
 
@@ -325,14 +325,14 @@ class Links_Auto_Replacer_Admin {
 		
 			    $urls = $this->get_meta_values(PLUGIN_PREFIX . 'url', 'lar_link','publish',$link['post_ID']);
 			    if(in_array($link[PLUGIN_PREFIX . 'url'], $urls)){
-			    	$errors['url'] = __('URL is already exist','links-auto-replacer-pro');
+			    	$errors['url'] = __('URL is already exist','links-auto-replacer');
 			    }
 		    
 
 			if(trim($link[PLUGIN_PREFIX . 'slug'])!=''){    
 			    $slugs = $this->get_meta_values(PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
 			    if(in_array($link[PLUGIN_PREFIX . 'slug'], $slugs)){
-			    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer-pro'),$link[PLUGIN_PREFIX . 'slug']);
+			    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer'),$link[PLUGIN_PREFIX . 'slug']);
 			    }
 			}
 		} //empty($errors)
@@ -396,7 +396,7 @@ class Links_Auto_Replacer_Admin {
 		 		var home_url = '<?php echo home_url(); ?>'; 
 		 	</script>
 	 	<?php 
-	 	wp_enqueue_script( $this->Links_Auto_Replacer_Pro.'-validation', plugin_dir_url( __FILE__ ) . 'js/lar-links-validation.js', array( 'jquery' ), $this->version, false );	 	
+	 	wp_enqueue_script( $this->Links_Auto_Replacer.'-validation', plugin_dir_url( __FILE__ ) . 'js/lar-links-validation.js', array( 'jquery' ), $this->version, false );	 	
 
 
 	}
@@ -412,7 +412,7 @@ class Links_Auto_Replacer_Admin {
 		$screens = array( 'post', 'page' );
 
 	    foreach ( $screens as $screen ) {
-	        add_meta_box( 'lar_meta', __( 'Disable Links Auto Replacer for this post', 'links-auto-replacer-pro' ), array($this,'lar_meta_callback'), $screen );
+	        add_meta_box( 'lar_meta', __( 'Disable Links Auto Replacer for this post', 'links-auto-replacer' ), array($this,'lar_meta_callback'), $screen );
 	    }
 	}
 

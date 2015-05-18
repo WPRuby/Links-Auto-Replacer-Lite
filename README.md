@@ -58,7 +58,8 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 
 ### 2.0.0
 * A complete rewrite.
-* Stats Feature (Map, Countries, Browsers, OS)
+* Stats Feature (Map, Countries, Browsers, OS) (PRO)
+* Internal linking (PRO)
 
 ### 1.2.2
 * Stopping the replacement inside html tags.
