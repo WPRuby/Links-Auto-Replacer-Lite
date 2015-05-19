@@ -31,34 +31,42 @@
 
 
 		jQuery(document).ready(function(){
-			 jQuery('#post').submit(function() {
+			 var validated = false;
+			
+				 jQuery('#post').submit(function() {
+				 				if(validated== true) return true;
+			                    var form_data = jQuery('#post').serializeArray();
+			                    form_data = jQuery.param(form_data);
+			                    var data = {
+			                        action: 'my_pre_submit_validation',
+			                        security: validation_nonce,
+			                        form_data: form_data
+			                    };
+			                    jQuery.post(ajaxurl, data, function(response) {
+			                        if (response == 1) {
 
-		                    var form_data = jQuery('#post').serializeArray();
-		                    form_data = jQuery.param(form_data);
-		                    var data = {
-		                        action: 'my_pre_submit_validation',
-		                        security: validation_nonce,
-		                        form_data: form_data
-		                    };
-		                    jQuery.post(ajaxurl, data, function(response) {
-		                        if (response == 1) {
+			                        	validated = true;
+			                        	jQuery('#publish').trigger('click');
+			                            jQuery('#post-body-content').html('');
 
-		                        	jQuery('#post').submit();
-		                            //jQuery('#post-body-content').html('');
+			                            jQuery('#ajax-loading').show();
+	                            		jQuery('#publish').removeClass('button-primary-disabled');
+			                           
+			                            return true;
+			                        }else{
+			                        	validated = false;
+			                        	jQuery('#message').hide();
+			                            jQuery('#post-body-content').html('<div id="message" class="error"><p>'+response+'</p></div>');
+			                            jQuery('#ajax-loading').hide();
+	                            		jQuery('#publish').removeClass('button-primary-disabled');
+			                            return false;
+			                        }
+			                    });
+			                    return false;
+			        });
+			
 
-		                            //jQuery('#ajax-loading').hide();
-		                            jQuery('#publish').removeClass('button-primary-disabled');
-		                            return true;
-		                        }else{
-		                        	jQuery('#message').hide();
-		                            jQuery('#post-body-content').html('<div id="message" class="error"><p>'+response+'</p></div>');
-		                            jQuery('#ajax-loading').hide();
-		                            jQuery('#publish').removeClass('button-primary-disabled');
-		                            return false;
-		                        }
-		                    });
-		                    return false;
-		                });
+
 					jQuery('.form-table input[type=text]').on('keydown',function(e){
 						
 						if(e.which === 13){
