@@ -70,7 +70,8 @@ class Lar_Settings{
 	**/
 	public function add_options_page() {
 		global $lar_name;
-		$this->settings_page =   add_menu_page($lar_name,$lar_name,'manage_options',$this->key,array($this, 'admin_page_display'));
+
+		$this->settings_page =   add_menu_page($lar_name,$lar_name,'manage_options',$this->key,array($this, 'admin_page_display'),'',55.05);
 
 	    foreach ($this->tabs as $key => $tab){
 			if(isset($tab['callback']))
