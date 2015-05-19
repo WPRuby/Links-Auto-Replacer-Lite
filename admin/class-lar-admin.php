@@ -385,10 +385,11 @@ class Links_Auto_Replacer_Admin {
 	 * @since    2.0.0
 	 */
 	public function disable_for_single_post(){
+		global $lar_name;
 		$screens = apply_filters('lar_disable_box_screens',array( 'post', 'page' ));
 
 	    foreach ( $screens as $screen ) {
-	        add_meta_box( 'lar_meta', __( 'Disable '.LAR_NAME.' for this post', 'links-auto-replacer' ), array($this,'lar_meta_callback'), $screen );
+	        add_meta_box( 'lar_meta', __( 'Disable '. $lar_name .' for this post', 'links-auto-replacer' ), array($this,'lar_meta_callback'), $screen );
 	    }
 	}
 
