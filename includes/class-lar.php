@@ -56,7 +56,7 @@ class Links_Auto_Replacer {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
-
+	public static $lar_name;
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -75,6 +75,7 @@ class Links_Auto_Replacer {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		
 
 	}
 

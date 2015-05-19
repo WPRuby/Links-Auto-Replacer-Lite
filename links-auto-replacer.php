@@ -93,3 +93,5 @@ function lar(){
 add_action('init',function(){
 	lar();
 });
+
+$GLOBALS['lar_name'] = 'Links Auto Replacer Lite';

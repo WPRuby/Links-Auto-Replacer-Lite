@@ -69,7 +69,8 @@ class Lar_Settings{
 	* @since     2.0.0
 	**/
 	public function add_options_page() {
-		$this->settings_page =   add_menu_page(__('Links Auto Replacer Lite'),__('Links Auto Replacer Lite'),'manage_options',$this->key,array($this, 'admin_page_display'));
+		global $lar_name;
+		$this->settings_page =   add_menu_page($lar_name,$lar_name,'manage_options',$this->key,array($this, 'admin_page_display'));
 
 	    foreach ($this->tabs as $key => $tab){
 			if(isset($tab['callback']))
