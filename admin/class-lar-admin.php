@@ -148,7 +148,7 @@ class Links_Auto_Replacer_Admin {
 			'hierarchical'       => false,
 			'menu_position'      => null,
 			'supports'           => array(  'author' ),
-			
+			'menu_icon'			 => 'dashicons-editor-unlink',
 		);
 
 		register_post_type( 'lar_link', $args );

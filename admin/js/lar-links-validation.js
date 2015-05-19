@@ -31,7 +31,7 @@
 
 
 		jQuery(document).ready(function(){
-			 jQuery('#publish').click(function() {
+			 jQuery('#post').submit(function() {
 
 		                    var form_data = jQuery('#post').serializeArray();
 		                    form_data = jQuery.param(form_data);
@@ -44,9 +44,9 @@
 		                        if (response == 1) {
 
 		                        	jQuery('#post').submit();
-		                            jQuery('#post-body-content').html('');
+		                            //jQuery('#post-body-content').html('');
 
-		                            jQuery('#ajax-loading').hide();
+		                            //jQuery('#ajax-loading').hide();
 		                            jQuery('#publish').removeClass('button-primary-disabled');
 		                            return true;
 		                        }else{
@@ -70,7 +70,9 @@
 					
 					if(!jQuery('#'+plugin_prefix+'shrink').is('checked')){
 
-				              jQuery('#'+plugin_prefix+'slug').attr('disabled','disabled');
+				            jQuery('#'+plugin_prefix+'slug').removeAttr('disabled');
+				            jQuery("#lar_slug_example").html(home_url + '/go/' + jQuery('#'+plugin_prefix+'slug').val());
+
 				             //jQuery('#'+plugin_prefix+'slug').val('');
 
 					}else{
