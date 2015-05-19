@@ -188,7 +188,8 @@ class Links_Auto_Replacer_Admin {
 		///////////////
 
 		
-
+		//may add new fields
+		do_action('lar_add_link_custom_field', $add_links_box);
 
 		$add_links_box->add_field( array(
 			'name' => __( 'URL (Link)', 'links-auto-replacer' ),
@@ -248,8 +249,7 @@ class Links_Auto_Replacer_Admin {
 			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
 
-		//may add new fields
-		do_action('lar_add_link_custom_field', $add_links_box);
+		
 	
 	}
 
