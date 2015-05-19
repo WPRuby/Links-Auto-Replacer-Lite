@@ -247,6 +247,9 @@ class Links_Auto_Replacer_Admin {
 			'type' => 'checkbox',
 			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
+
+		//may add new fields
+		do_action('lar_add_link_custom_field', $add_links_box);
 	
 	}
 
@@ -266,13 +269,13 @@ class Links_Auto_Replacer_Admin {
 	    {
 	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer');
 	    }
-	    
-		    if($link[PLUGIN_PREFIX.'url'] == '' OR filter_var($link[PLUGIN_PREFIX.'url'], FILTER_VALIDATE_URL) === false)
-		    {
-		    	$errors['url'] = __('Please provide a valid url','links-auto-replacer');
-		    }
+	    if($link[PLUGIN_PREFIX . 'link_type'] == 'external' OR $link[PLUGIN_PREFIX . 'link_type']==''){
+			if($link[PLUGIN_PREFIX.'url'] == '' OR filter_var($link[PLUGIN_PREFIX.'url'], FILTER_VALIDATE_URL) === false)
+			{
+			    $errors['url'] = __('Please provide a valid url','links-auto-replacer');
+			}
+		}
 		
-
 
 
 	    // we don't want to touch the DB unless the user fill all the data right.
@@ -302,6 +305,12 @@ class Links_Auto_Replacer_Admin {
 			}
 		} //empty($errors)
 	    	
+		// extending the validation filter
+		if(empty($errors)){
+			$errors = apply_filters('lar_post_validate_link',$errors,$link); 
+		}
+
+
 	    if(!empty($errors)){
 	    	echo 'Please correct the following errors: <ul id="lar_errors"><li>';
 	    	echo implode('</li><li>', $errors);
@@ -355,6 +364,7 @@ class Links_Auto_Replacer_Admin {
 		
 	 	?>
 		 	<script type="text/javascript">
+		 		<?php do_action('lar_add_js_variables'); ?>
 		 		var validation_nonce = '<?php echo wp_create_nonce( 'my_pre_submit_validation' ); ?>'; 
 		 		var plugin_prefix = '<?php echo PLUGIN_PREFIX; ?>'; 
 		 		var last_link_id = '<?php echo ($link_slug!='')?$link_slug:$this->last_link_id; ?>'; 
@@ -374,7 +384,7 @@ class Links_Auto_Replacer_Admin {
 	 * @since    2.0.0
 	 */
 	public function disable_for_single_post(){
-		$screens = array( 'post', 'page' );
+		$screens = apply_filters('lar_disable_box_screens',array( 'post', 'page' ));
 
 	    foreach ( $screens as $screen ) {
 	        add_meta_box( 'lar_meta', __( 'Disable Links Auto Replacer for this post', 'links-auto-replacer' ), array($this,'lar_meta_callback'), $screen );
@@ -409,7 +419,9 @@ class Links_Auto_Replacer_Admin {
 	 */
 	function lar_meta_save( $post_id ) {
  		// If post_type is not post or page, just do nothing.
- 		if(!in_array(get_post_type($post_id), array('post','page'))) return;
+		$screens = apply_filters('lar_disable_box_screens',array( 'post', 'page' ));
+
+ 		if(!in_array(get_post_type($post_id), $screens)) return;
 	    // Checks save status
 	    $is_autosave = wp_is_post_autosave( $post_id );
 	    $is_revision = wp_is_post_revision( $post_id );
@@ -446,7 +458,7 @@ class Links_Auto_Replacer_Admin {
 			      		
 			      		$new['keywords'] = __('Keyword/s','links-auto-replacer');	    		
 		    			$new['link'] = __('Link','links-auto-replacer');
-		    			
+		    			$new = apply_filters('lar_links_colums_heads',$new);
 		    			
 			  		}
 			    	$new[$key] = $title;
@@ -479,7 +491,7 @@ class Links_Auto_Replacer_Admin {
 			    		<div class="row-actions">
 				    		<span class="edit"><a href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit this item">Edit</a> | </span>	
 				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a> | </span>
-				    		
+				    		<?php do_action('lar_add_quick_links', $post_ID); ?>
 				    		<span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> | </span>	
 			    		</div>
 

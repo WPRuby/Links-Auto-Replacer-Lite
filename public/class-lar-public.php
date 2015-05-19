@@ -158,8 +158,10 @@ class Links_Auto_Replacer_Public {
 			$doc->encoding = 'UTF-8';
 			foreach($keywords as $keyword){
 				$keyword = html_entity_decode(stripslashes(wptexturize($keyword)));
-				
-				$final_url = ' <a href="'.$url.'" '.$dofollow.' target="'.$link_meta[PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
+
+				$extra_attrs = apply_filters('lar_add_extra_atts',$link->ID);
+
+				$final_url = ' <a href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
 				$post_content = html_entity_decode(($content));
 
 				// sensitivity modifier
@@ -259,7 +261,7 @@ class Links_Auto_Replacer_Public {
 			
 
 			if(!is_null($link_url)){
-				
+				do_action('lar_link_redirected', $link[0]->ID);
 				wp_redirect($link_url);
 				exit;
 			}

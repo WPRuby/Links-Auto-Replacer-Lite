@@ -79,3 +79,17 @@ function run_Links_Auto_Replacer() {
 
 }
 run_Links_Auto_Replacer();
+
+function lar(){
+	static $object = null;
+	if ( is_null( $object ) ) {
+
+		$object = new Lar_Settings();
+	}
+
+	return $object;
+}
+
+add_action('init',function(){
+	lar();
+});

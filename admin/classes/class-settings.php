@@ -16,15 +16,10 @@ class Lar_Settings{
 	public function __construct(){
 
 		$this->tabs = apply_filters('lar_settings_tabs',array(
-				/*'lar_main_settings' => array(
-					    'id' => 'lar_main_settings',
-						'title' => __('Settings','links-auto-replacer'),
-						'metabox_callback' => array( $this, 'add_main_settings_page_metabox' ),
-					),*/
 				'lar_upgrade_settings' => array(
 						'id' => 'lar_upgrade_settings',
 						'title' => __('Upgrade','links-auto-replacer'),
-						'metabox_callback' => array( $this, 'add_upgrade_settings_page_metabox' ),
+						'metabox_callback' => false,
 						'callback' => array($this , 'display_upgrade_page')
 					),
 				'lar_about_settings' => array(
@@ -33,9 +28,11 @@ class Lar_Settings{
 						'metabox_callback' => false,
 						'callback' => array($this , 'display_about_page')
 					),
+				
 
 		));
- 
+		
+
 		$this->hooks();
 
 	}
@@ -83,7 +80,7 @@ class Lar_Settings{
 		}
 			 
 	
-		
+		do_action('lar_add_custom_pages');
 		
 	}
 
@@ -141,21 +138,7 @@ class Lar_Settings{
 			),
 		) );
 
-		// Set our CMB2 fields
-		$cmb->add_field( array(
-			'name'    => __( 'License Key', 'links-auto-replacer' ),
-			'id'      => PLUGIN_PREFIX . 'license_key',
-			'type'    => 'text',
-			'sanitization_cb' => array($this,'validate_license_key'),
-
-			//'default' => 'yes',
-		) );
-		$cmb->add_field( array(
-			'name'    => __( 'License Email', 'links-auto-replacer' ),
-			'id'      => PLUGIN_PREFIX . 'license_email',
-			'type'    => 'text_email',
-			//'default' => 'yes',
-		) );
+		
 
 
 	}
@@ -227,28 +210,13 @@ class Lar_Settings{
 
 
 
-	/**
-	* Show `error` or `success` messages in the admin
-	* @param	 string the user's message.
-	* @param	 string message type (`error`,`updated`)
-	* @since    2.0.0
-	**/
-	private function show_message( $message, $type){
-		echo '<div class="' . $type . '"><p>'. $message .'</p></div>';
-	}
+
+
+
 
 }
 
 
-function lar(){
-	static $object = null;
-	if ( is_null( $object ) ) {
-		$object = new Lar_Settings();
-	}
 
-	return $object;
-}
-
-lar();
 
 //$GLOBALS['lar_settings'] = new lar_Settings();
