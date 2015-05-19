@@ -76,17 +76,22 @@
 						
 					});
 					
-					if(!jQuery('#'+plugin_prefix+'shrink').is('checked')){
+					
 
-				            jQuery('#'+plugin_prefix+'slug').removeAttr('disabled');
-				            jQuery("#lar_slug_example").html(home_url + '/go/' + jQuery('#'+plugin_prefix+'slug').val());
+						if(jQuery('#'+plugin_prefix+'shrink').is(':checked')){
 
-				             //jQuery('#'+plugin_prefix+'slug').val('');
+					        jQuery('#'+plugin_prefix+'slug').removeAttr('disabled');
+					        jQuery("#lar_slug_example").html(home_url + '/go/' + jQuery('#'+plugin_prefix+'slug').val());
 
-					}else{
-				        jQuery('#'+plugin_prefix+'slug').removeAttr('disabled');
+				        
 
-					}
+						}else{
+					        jQuery('#'+plugin_prefix+'slug').attr('disabled','disabled');
+					        jQuery("#lar_slug_example").html('');
+
+						}
+
+					
 
 					jQuery('#'+plugin_prefix+'shrink').click(function(){
         				

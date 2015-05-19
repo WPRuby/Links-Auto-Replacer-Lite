@@ -176,6 +176,52 @@ class Lar_Settings{
 		) );
 
 
+		$cmb->add_field( array(
+			'name'    => __( '<h2>"Add Auto Link" Defaults</h2>', 'links-auto-replacer' ),
+			'id'	  => 'title',
+			'type'    => 'title',
+			//'default' => 'yes',
+		) );
+
+		$cmb->add_field( array(
+			'name' => __( 'Dofollow?', 'links-auto-replacer' ),
+			'id'   => PLUGIN_PREFIX . 'do_follow',
+			'type' => 'checkbox',
+			'description' => __('if you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer'),
+		) );
+
+		$cmb->add_field( array(
+			'name' => __( 'Open in:', 'links-auto-replacer' ),
+			'id'   => PLUGIN_PREFIX . 'open_in',
+			'type' => 'select',
+			'default' => '_self',
+			'options' => array(
+					  '_self' => __('Same Window','links-auto-replacer'),
+					  '_blank' => __('New Window','links-auto-replacer'),
+				),
+			
+		) );
+
+
+		$cmb->add_field( array(
+			'name' => __( 'Shrink?', 'links-auto-replacer' ),
+			'id'   => PLUGIN_PREFIX . 'shrink',
+			'type' => 'checkbox',
+			'description' => __('The link will be shortened (e.g example.com/go/amazon)','links-auto-replacer'),
+		) );
+
+
+
+		$cmb->add_field( array(
+			'name' => __( 'Case Sensitive?', 'links-auto-replacer' ),
+			
+			'id'   => PLUGIN_PREFIX . 'is_sensitive',
+			'type' => 'checkbox',
+			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer').' <span id="lar_slug_example"></span>',
+		));
+		
+		
+
 		
 
 

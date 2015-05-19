@@ -207,6 +207,7 @@ class Links_Auto_Replacer_Admin {
 			'name' => __( 'Dofollow?', 'links-auto-replacer' ),
 			'id'   => PLUGIN_PREFIX . 'do_follow',
 			'type' => 'checkbox',
+			'default'=> lar()->get_option(PLUGIN_PREFIX . 'do_follow'),
 			'description' => __('if you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer'),
 		) );
 
@@ -214,7 +215,7 @@ class Links_Auto_Replacer_Admin {
 			'name' => __( 'Open in:', 'links-auto-replacer' ),
 			'id'   => PLUGIN_PREFIX . 'open_in',
 			'type' => 'select',
-			'default' => '_self',
+			'default'=> lar()->get_option(PLUGIN_PREFIX . 'open_in'),
 			'options' => array(
 					  '_self' => __('Same Window','links-auto-replacer'),
 					  '_blank' => __('New Window','links-auto-replacer'),
@@ -227,6 +228,7 @@ class Links_Auto_Replacer_Admin {
 			'name' => __( 'Shrink?', 'links-auto-replacer' ),
 			'id'   => PLUGIN_PREFIX . 'shrink',
 			'type' => 'checkbox',
+			'default'=> lar()->get_option(PLUGIN_PREFIX . 'shrink'),
 			'description' => __('The link will be shortened (e.g example.com/go/amazon)','links-auto-replacer'),
 		) );
 
@@ -248,6 +250,7 @@ class Links_Auto_Replacer_Admin {
 			'default' => 'no',
 			'id'   => PLUGIN_PREFIX . 'is_sensitive',
 			'type' => 'checkbox',
+			'default'=> lar()->get_option(PLUGIN_PREFIX . 'is_sensitive'),
 			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
 
