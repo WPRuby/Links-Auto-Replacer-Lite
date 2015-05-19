@@ -119,18 +119,18 @@ class Links_Auto_Replacer_Admin {
 	 */
 	public function register_links_post_type(){
 		$labels = array(
-			'name'               => _x( 'Links', 'post type general name', 'links-auto-replacer' ),
-			'singular_name'      => _x( 'Link', 'post type singular name', 'links-auto-replacer' ),
-			'menu_name'          => _x( 'Links', 'admin menu', 'links-auto-replacer' ),
-			'name_admin_bar'     => _x( 'Link', 'add new on admin bar', 'links-auto-replacer' ),
-			'add_new'            => _x( 'Add New Link', 'book', 'links-auto-replacer' ),
-			'add_new_item'       => __( 'Add New Link', 'links-auto-replacer' ),
-			'new_item'           => __( 'New Link', 'links-auto-replacer' ),
-			'edit_item'          => __( 'Edit Link', 'links-auto-replacer' ),
-			'view_item'          => __( 'View Link', 'links-auto-replacer' ),
-			'all_items'          => __( 'All Links', 'links-auto-replacer' ),
-			'search_items'       => __( 'Search Links', 'links-auto-replacer' ),
-			'parent_item_colon'  => __( 'Parent Links:', 'links-auto-replacer' ),
+			'name'               => _x( 'Auto Links', 'post type general name', 'links-auto-replacer' ),
+			'singular_name'      => _x( 'Auto Link', 'post type singular name', 'links-auto-replacer' ),
+			'menu_name'          => _x( 'Auto Links', 'admin menu', 'links-auto-replacer' ),
+			'name_admin_bar'     => _x( 'Auto Link', 'add new on admin bar', 'links-auto-replacer' ),
+			'add_new'            => _x( 'Add New Auto Link', 'book', 'links-auto-replacer' ),
+			'add_new_item'       => __( 'Add New Auto Link', 'links-auto-replacer' ),
+			'new_item'           => __( 'New Auto Link', 'links-auto-replacer' ),
+			'edit_item'          => __( 'Edit Auto Link', 'links-auto-replacer' ),
+			'view_item'          => __( 'View Auto Link', 'links-auto-replacer' ),
+			'all_items'          => __( 'All Auto Links', 'links-auto-replacer' ),
+			'search_items'       => __( 'Search Auto Links', 'links-auto-replacer' ),
+			'parent_item_colon'  => __( 'Parent Auto Links:', 'links-auto-replacer' ),
 			'not_found'          => __( 'No links found.', 'links-auto-replacer' ),
 			'not_found_in_trash' => __( 'No links found in Trash.', 'links-auto-replacer' )
 		);
@@ -147,7 +147,8 @@ class Links_Auto_Replacer_Admin {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
-			'supports'           => array(  'author' )
+			'supports'           => array(  'author' ),
+			
 		);
 
 		register_post_type( 'lar_link', $args );
