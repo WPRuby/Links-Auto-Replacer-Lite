@@ -165,9 +165,9 @@ class Links_Auto_Replacer_Public {
 				$post_content = html_entity_decode(($content));
 
 				// sensitivity modifier
-				$i = ($link_meta[PLUGIN_PREFIX.'is_sensitive'][0] != 1)?'i':'';
+				$i = ($link_meta[PLUGIN_PREFIX.'is_sensitive'][0] !== 'on')?'i':'';
 				
-				$changed =  $this->showDOMNode($doc,$keyword,$final_url);
+				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i);
 
 
 				$mock = new DOMDocument;
@@ -198,15 +198,15 @@ class Links_Auto_Replacer_Public {
 	 * @return 	 DOMNode The replaced Node.
 	 * @since    1.5.0
 	 */
-	public function showDOMNode(DOMNode $domNode,$word,$replacement) {
+	public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive) {
 	    foreach ($domNode->childNodes as $node)
 	    {
 	        
 	        if($node->nodeName == '#text'){
-	        	$node->nodeValue =  preg_replace('/('.($word).')/iu', $replacement, $node->nodeValue);
+	        	$node->nodeValue =  preg_replace('/('.($word).')/'.$case_sensitive.'u', $replacement, $node->nodeValue);
 	        }
 	        if($node->hasChildNodes()) {
-	            $this->showDOMNode($node,$word,$replacement);
+	            $this->showDOMNode($node,$word,$replacement,$case_sensitive);
 	        }
 	    } 
 	    return $domNode;    

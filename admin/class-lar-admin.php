@@ -58,7 +58,8 @@ class Links_Auto_Replacer_Admin {
 
 		$this->Links_Auto_Replacer = $Links_Auto_Replacer;
 		$this->version = $version;
-		$this->last_link_id = (function_exists('gmp_strval'))?base62encode(get_option('last_lar_link_id') + 100):base62::encode(get_option('last_lar_link_id') + 100); 
+		$this->last_link_id = base62::encode(get_option('last_lar_link_id') + 100);
+		
 		
 
 	}
@@ -247,10 +248,10 @@ class Links_Auto_Replacer_Admin {
 
 		$add_links_box->add_field( array(
 			'name' => __( 'Case Sensitive?', 'links-auto-replacer' ),
-			'default' => 'no',
+			
 			'id'   => PLUGIN_PREFIX . 'is_sensitive',
 			'type' => 'checkbox',
-			'default'=> lar()->get_option(PLUGIN_PREFIX . 'is_sensitive'),
+			//'default'=> lar()->get_option(PLUGIN_PREFIX . 'is_sensitive'),
 			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
 
@@ -269,8 +270,8 @@ class Links_Auto_Replacer_Admin {
 
 	   
 	    parse_str($_POST['form_data'], $link);
-
-	    if(empty(array_filter($link[PLUGIN_PREFIX.'keywords'])))
+	    $keywords = array_filter($link[PLUGIN_PREFIX.'keywords']);
+	    if(empty($keywords))
 	    {
 	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer');
 	    }
@@ -460,10 +461,11 @@ class Links_Auto_Replacer_Admin {
 			unset($defaults['author']);
 		    $new = array();
 			foreach($defaults as $key => $title) {
-			    if ($key=='taxonomy-links_category'){ // Put the Thumbnail column before the Author column
+			    if ($key=='date'){ // Put the Thumbnail column before the Author column
 			      		
 			      		$new['keywords'] = __('Keyword/s','links-auto-replacer');	    		
 		    			$new['link'] = __('Link','links-auto-replacer');
+		    			$new['lite_total_clicks'] = __('Total Clicks','links-auto-replacer');
 		    			$new = apply_filters('lar_links_colums_heads',$new);
 		    			
 			  		}
@@ -486,6 +488,9 @@ class Links_Auto_Replacer_Admin {
 		    if($column_name == 'link'){
 		    	echo '<input disabled type="text" value="'.Lar_Link::get_final_url($post_ID).'" />';
 		    }
+		    if($column_name == 'lite_total_clicks'){
+		    	echo '(PRO Feature)';
+		    }
 
 		    if($column_name == 'keywords'){
 		    	$keywords = get_post_meta($post_ID, PLUGIN_PREFIX.'keywords',true);
@@ -493,12 +498,14 @@ class Links_Auto_Replacer_Admin {
 
 		    	if(!empty($keywords)){
 		    		?>
-		    		<strong><a class="row-title" href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit"><?php echo implode(',',$keywords); ?></a></strong>
+		    		<strong><a class="row-title" href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit"><?php echo implode(' | ',$keywords); ?></a></strong>
 			    		<div class="row-actions">
 				    		<span class="edit"><a href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit this item">Edit</a> | </span>	
 				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a> | </span>
 				    		<?php do_action('lar_add_quick_links', $post_ID); ?>
 				    		<span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> | </span>	
+				    		<span id="quick_stats" class="edit"><?php _e('Stats (PRO)','links-auto-replacer'); ?></span>	
+
 			    		</div>
 
 		    		<?php
