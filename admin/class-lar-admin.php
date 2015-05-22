@@ -461,7 +461,7 @@ class Links_Auto_Replacer_Admin {
 			unset($defaults['author']);
 		    $new = array();
 			foreach($defaults as $key => $title) {
-			    if ($key=='date'){ // Put the Thumbnail column before the Author column
+			    if ($key==apply_filters('lar_put_colums_before','date')){ // Put the Thumbnail column before the Author column
 			      		
 			      		$new['keywords'] = __('Keyword/s','links-auto-replacer');	    		
 		    			$new['link'] = __('Link','links-auto-replacer');
