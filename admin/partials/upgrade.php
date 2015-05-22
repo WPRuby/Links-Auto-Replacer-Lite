@@ -13,7 +13,7 @@
 			<li>24/7 Premium Support.</li>
 
 		</ul>
-		<a target="_blank" href="http://waseem-senjer.com/product/links-auto-replacer-pro/"><button class="button" title=":)"><?php _e('Upgrade to PRO','links-auto-replacer-pro') ?> <span><i>(only 19$)</i></span></button></a>
+		<a target="_blank" href="http://waseem-senjer.com/product/links-auto-replacer-pro/"><button class="button" title=":)"><?php _e('Upgrade to PRO','links-auto-replacer') ?> <span><i>(only 19$)</i></span></button></a>
 
 	</div>
 
