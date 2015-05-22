@@ -221,7 +221,7 @@ class Links_Auto_Replacer_Admin {
 					  '_self' => __('Same Window','links-auto-replacer'),
 					  '_blank' => __('New Window','links-auto-replacer'),
 				),
-			'description' => __('If you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer'),
+			'description' => __('When the visitor click on the link, it\'s either open in a new window or the same window.','links-auto-replacer'),
 		) );
 
 
