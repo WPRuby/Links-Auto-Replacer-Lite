@@ -5,7 +5,7 @@
 		
 		<ul>
 			<li>Internal linking, make the keywords link to your internal posts or pages.</li>
-			<li>Comrehensive Stats, (Number of Clicks, Countries, Browsers and much much more.</li>
+			<li>Comprehensive Stats, (Number of Clicks, Countries, Browsers and much more.</li>
 			<li>Order the keywords by categories.</li>
 			<li>Lifetime Automatic Updates</li>
 
