@@ -15,7 +15,10 @@
 		</ul>
 		<a target="_blank" href="http://waseem-senjer.com/product/links-auto-replacer-pro/"><button class="button" title=":)"><?php _e('Upgrade to PRO','links-auto-replacer') ?> <span><i>(only 19$)</i></span></button></a>
 
-	</div>
+
+	</div> 
+
+
 
 
 

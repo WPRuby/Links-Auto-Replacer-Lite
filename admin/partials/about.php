@@ -8,7 +8,17 @@
 			
 			<div id="details">
 			<div id="author_details">
-					<h2>Autor Info</h2>
+
+
+		<table class="wp-list-table widefat">
+			<thead>
+				<tr>
+					<th><?php _e('Autor Info','links-auto-replacer'); ?></th>
+				</tr>
+			</thead>	
+			<tr>
+				<td>
+
 					<img class="wes" src="http://www.gravatar.com/avatar/440132ea3160de679767c70a07b4ddb3?s=200" />
 					<ul>
 						<li><strong>Name:</strong>Waseem Senjer</li>
@@ -23,23 +33,67 @@
 											
 						</strong></li>
 					</ul>
+				</td>
+			</tr>
+		</table>
+
+
+
+					
+					
 					
 					
 					
 					
 				</div>
 				<div id="plugin_details">
-					<h2>Plugin Info</h2>
-					<img class="wes" src="http://plugins.svn.wordpress.org/links-auto-replacer/assets/icon-128x128.png" />
-					<ul>
-						<li><?php echo apply_filters('lar_plugin_name','Links Auto Replacer'); ?><span></span></li>
-						<li><strong><?php _e('Version','links-auto-replacer'); ?>:</strong> <?php echo LAR_VERSION; ?></li>
-						<li><a href="http://www.waseem-senjer.com/product/links-auto-replacer-pro">Website</a> | <a href="www.waseem-senjer.com/plugins/lar-pro/docs">Documentation</a> | <a href="<?php echo admin_url('admin.php?page=lar_main_settings'); ?>">Settings</a></li>
-						
-					</ul>
+
+
+
+					<table class="wp-list-table widefat">
+						<thead>
+							<tr>
+								<th><?php _e('Plugin Info','links-auto-replacer'); ?></th>
+							</tr>
+						</thead>	
+						<tr>
+							<td>
+
+								<img class="wes" src="http://plugins.svn.wordpress.org/links-auto-replacer/assets/icon-128x128.png" />
+								<ul>
+									<li><?php echo apply_filters('lar_plugin_name','Links Auto Replacer'); ?><span></span></li>
+									<li><strong><?php _e('Version','links-auto-replacer'); ?>:</strong> <?php echo LAR_VERSION; ?></li>
+									<li><a href="http://www.waseem-senjer.com/product/links-auto-replacer-pro">Website</a> | <a href="www.waseem-senjer.com/plugins/lar-pro/docs">Documentation</a> | <a href="<?php echo admin_url('admin.php?page=lar_main_settings'); ?>">Settings</a></li>
+									
+								</ul>
+							</td>
+						</tr>
+					</table>
+					
+					
 					
 				</div>
 
+				<div class="lar_clear"></div>
+				<br/>
+				<div id="lar_support">
+					
+					<table class="wp-list-table widefat">
+						<thead>
+							<tr>
+								<th><?php _e('Help and Support','links-auto-replacer'); ?></th>
+							</tr>
+						</thead>	
+						<tr>
+							<td>
+								<p>
+								If you encountered any problem or if you have a feature in mind that you want me to implement in the next release. Please do not hesitate <a target="_blank" href="http://waseem-senjer.com/submit-ticket/">submitting a support ticket</a>.
+								</p>
+							</td>
+						</tr>
+					</table>
+
+				</div>
 
 
 			</div>

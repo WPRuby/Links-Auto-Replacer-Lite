@@ -7,6 +7,9 @@
  	margin: 0 0 0 35px;
 
  }
+ .lar_clear{
+ 	clear: both;
+ }
  #lar_errors li{
  	list-style: disc;
  }
@@ -14,6 +17,7 @@
  #lar_slug_example{
 	background-color: #A8A8A8;
 	color: #ffffff;
+
 }
 
 /*.cmb-th{
@@ -25,55 +29,7 @@
 	padding: 5px;
 }
 
-/** Stats **/
-.lar_stats{
-	clear: both;
-}
-.lar_stats #lar_visits{
-	width:95%;
-	height: 300px;
-	margin-bottom: 80px;
-	display: block;
 
-
-	
-}
-#link_brief{
-	margin-top: 10px;
-	width:97%;
-}
-#visits_canvas{
-	width:95%;
-	height: 300px;
-	padding: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-
-}
-
-.lar_stats .lar_canvas{
-	width:45%;
-	display: inline;
-	float:left;
-	margin-bottom: 20px;
-	height: 370px;
-	padding: 10px;
-	background: rgb(229, 229, 205);
-	margin-right: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
-.lar_stats .lar_clear{
-	clear: both;
-}
-
-.lar_canvas_unit{
-	width: 100% !important;
-	height: 300px !important;
-
-}
 
 #_lar_links_internal_url{
 	width:230px;
@@ -100,17 +56,18 @@
 
 }
 #lar_about #details #author_details, #lar_about #details #plugin_details{
-	width: 47%;
-	background: #f5f5f5;
-	padding: 10px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-box-shadow: 2px 2px 5px 0px rgba(232,229,232,1);
-	-moz-box-shadow: 2px 2px 5px 0px rgba(232,229,232,1);
-	box-shadow: 2px 2px 5px 0px rgba(232,229,232,1);
+	width: 48%;
+	padding: 0;
+	
+	
 }
+#lar_support{
+	width: 48%;
 
+}
+#lar_support p{
+	font-size: 12pt;
+}
 #lar_about #details #author_details img.wes{
 		-webkit-border-radius: 5px;
 		-moz-border-radius: 5px;
@@ -151,7 +108,9 @@
 #lar_about #details #plugin_details ul li{
 	margin-top: 10px;
 }
-
+/**
+Upgrade
+**/
 
 #lar_upgrade_box{
 	margin-left: 10%;
