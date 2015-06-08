@@ -172,7 +172,7 @@ class Lar_Settings{
 			'name'    => __( 'Enable Auto Replcement', 'links-auto-replacer' ),
 			'id'      => PLUGIN_PREFIX . 'enable',
 			'type'    => 'checkbox',
-			//'default' => 'yes',
+			'default' => 'yes',
 		) );
 
 

@@ -159,7 +159,7 @@ class Links_Auto_Replacer_Public {
 			foreach($keywords as $keyword){
 				$keyword = html_entity_decode(stripslashes(wptexturize($keyword)));
 
-				$extra_attrs = apply_filters('lar_add_extra_atts',$link->ID);
+				$extra_attrs = apply_filters('lar_add_extra_atts',$link->ID, $post->ID);
 
 				$final_url = ' <a href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
 				$post_content = html_entity_decode(($content));
