@@ -120,7 +120,7 @@ class Links_Auto_Replacer_Public {
 		if($is_disabled == 'on') return $content;
 
 
-		$links = get_posts('post_type=lar_link&post_status=publish');
+		$links = get_posts('post_type=lar_link&post_status=publish&posts_per_page=-1');
 
 		foreach ($links as $link) {
 			$link_meta = get_post_meta($link->ID);
