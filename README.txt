@@ -1,10 +1,10 @@
-=== Plugin Name ===
+=== Links Auto Replacer ===
 Contributors: waseem_senjer
 Donate link: http://waseem-senjer.com/product/links-auto-replacer-pro/
-Tags: affiliate, links, automation,keywords,cloak,cloaking
+Tags: affiliate, links, automation,keywords,cloak,cloaking,marketing
 Requires at least: 3.0.1
-Tested up to: 4.1.2
-Stable tag: 2.0
+Tested up to: 4.2.2
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,14 +13,10 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 
 == Description ==
 
-- Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
-- Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has the cloaking feature to hide and protect your links.
- 
+Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
 
-== Description ==
+Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has a link shortening feature to hide and protect your links.
 
-- Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
-- Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has the cloaking feature to hide and protect your links.
  
 
 == Installation ==
@@ -66,6 +62,7 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 * A complete rewrite.
 * Stats Feature (Map, Countries, Browsers, OS) (PRO)
 * Internal linking (PRO)
+* Fixing some 5 bugs and issues.
 
 = 1.2.2 =
 * Stopping the replacement inside html tags.
@@ -103,4 +100,4 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 * Initial release.
 
 == Upgrade Notice == 
-* Initial release.
+* Complete rewrite, please upgrade.

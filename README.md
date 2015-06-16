@@ -14,8 +14,9 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 ## Description
 
 * Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
-* Are you an affiliate marketer, you don't have to insert your affiliate links manually every time you write a blog post.
- 
+
+* Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has a link shortening feature to hide and protect your links.
+
 
 
  
@@ -60,6 +61,7 @@ Links Auto Replacer is a Wordpress plugin that helps you to replace a specific k
 * A complete rewrite.
 * Stats Feature (Map, Countries, Browsers, OS) (PRO)
 * Internal linking (PRO)
+* Fixing some 5 bugs and issues.
 
 ### 1.2.2
 * Stopping the replacement inside html tags.
