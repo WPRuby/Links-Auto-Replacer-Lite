@@ -271,6 +271,13 @@ class Links_Auto_Replacer_Admin {
 	   
 	    parse_str($_POST['form_data'], $link);
 	    $keywords = array_filter($link[PLUGIN_PREFIX.'keywords']);
+	    $keywords = array_map('trim', $keywords);
+	    if( count(array_unique($keywords)) < count($keywords) ){
+	    	$errors['keywords'] = __('Please, remove the repetition from the keywords','links-auto-replacer');
+	    }
+	    
+
+	    
 	    if(empty($keywords))
 	    {
 	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer');

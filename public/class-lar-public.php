@@ -172,9 +172,12 @@ class Links_Auto_Replacer_Public {
 
 				$mock = new DOMDocument;
 			    $body = $changed->getElementsByTagName('body')->item(0);
-				foreach ($body->childNodes as $child){
+				if(isset($body->childNodes)){
+					foreach ($body->childNodes as $child){
 			    		$mock->appendChild($mock->importNode($child, true));
+					}
 				}
+				
 
 				$content = htmlspecialchars_decode($mock->SaveHTML());
 				
