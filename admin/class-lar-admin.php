@@ -509,9 +509,10 @@ class Links_Auto_Replacer_Admin {
 			    		<div class="row-actions">
 				    		<span class="edit"><a href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit this item">Edit</a> | </span>	
 				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a> | </span>
-				    		<?php do_action('lar_add_quick_links', $post_ID); ?>
+				    		
 				    		<span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> | </span>	
 				    		<span class="quick_stats" class="edit"><?php _e('Stats (PRO)','links-auto-replacer'); ?></span>	
+				    		<?php do_action('lar_add_quick_links', $post_ID); ?>
 
 			    		</div>
 
