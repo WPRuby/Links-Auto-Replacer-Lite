@@ -496,7 +496,7 @@ class Links_Auto_Replacer_Admin {
 		    	echo '<input disabled type="text" value="'.Lar_Link::get_final_url($post_ID).'" />';
 		    }
 		    if($column_name == 'lite_total_clicks'){
-		    	echo '(PRO Feature)';
+		    	echo '<a href="'.admin_url('admin.php?page=lar_upgrade_settings').'">(PRO Feature)</a>';
 		    }
 
 		    if($column_name == 'keywords'){
@@ -510,8 +510,8 @@ class Links_Auto_Replacer_Admin {
 				    		<span class="edit"><a href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit this item">Edit</a> | </span>	
 				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a> | </span>
 				    		
-				    		<span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> | </span>	
-				    		<span class="quick_stats" class="edit"><?php _e('Stats (PRO)','links-auto-replacer'); ?></span>	
+				    		<span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> </span>	
+				    		<span class="quick_stats" class="edit"> | <a href="<?php echo admin_url('admin.php?page=lar_upgrade_settings'); ?>"><?php _e('Stats (PRO)','links-auto-replacer'); ?></a> </span>	
 				    		<?php do_action('lar_add_quick_links', $post_ID); ?>
 
 			    		</div>
