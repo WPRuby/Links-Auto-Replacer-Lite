@@ -8,8 +8,7 @@ Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Links Auto Replacer is a Wordpress plugin that helps you to replace a specific keywords to links automatically.
-
+Convert your post content keywords to Links automatically, Using the same links over and over again in your posts? Providing affiliate links in your posts. Manage them in one place and create your own shortcuts via Keywords. 
 
 == Description ==
 
