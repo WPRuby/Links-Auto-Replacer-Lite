@@ -1,18 +1,20 @@
 === Links Auto Replacer ===
 Contributors: waseem_senjer
 Donate link: http://waseem-senjer.com/product/links-auto-replacer-pro/
-Tags: affiliate, links, automation,keywords,cloak,cloaking,marketing
+Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
-Tested up to: 4.2.2
+Tested up to: 4.3.1
 Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Convert your post content keywords to Links automatically, Using the same links over and over again in your posts? Providing affiliate links in your posts. Manage them in one place and create your own shortcuts via Keywords. 
+Convert your post content keywords to Links automatically, Using the same links over and over again in your posts? This is the solution.
 
 == Description ==
 
 Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
+
+Manage them in one place and create your own shortcuts via Keywords. 
 
 Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has a link shortening feature to hide and protect your links.
 
