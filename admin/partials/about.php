@@ -26,7 +26,7 @@
 						<li><strong>Email:</strong>waseem.senjer@gmail.com</li>
 						<li><strong>Website:</strong><a target="_blank" href="http://www.waseem-senjer.com">waseem-senjer.com</a></li>
 						<li><strong>Social: 
-											<a target="_blank" href="https://www.facebook.com/waseem.senjer"><img class="social_img" src="<?php echo LAR_URL.'admin/images/social/facebook-24.png'; ?>"></a>
+											<!-- <a target="_blank" href="https://www.facebook.com/waseem.senjer"><img class="social_img" src="<?php echo LAR_URL.'admin/images/social/facebook-24.png'; ?>"></a> -->
 											<a target="_blank" href="https://twitter.com/waseem_senjer"><img class="social_img" src="<?php echo LAR_URL.'admin/images/social/twitter-24.png'; ?>"></a>
 											<a target="_blank" href="https://instagram.com/wsenjer"><img class="social_img" src="<?php echo LAR_URL.'admin/images/social/instagram-24.png'; ?>"></a>
 											<a target="_blank" href="https://www.linkedin.com/in/wsenjer"><img class="social_img" src="<?php echo LAR_URL.'admin/images/social/linkedin-24.png'; ?>"></a>
