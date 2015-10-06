@@ -526,10 +526,17 @@ class Links_Auto_Replacer_Admin {
 		    }
 	}
 
+	/**
+	 * Adding a new meta box for promoting the pro version
+	 *
+	 * @since    2.0.1
+	 */
+	public function add_upgrade_to_pro_box(){
+		global $lar_name;
+	    add_meta_box( 'lar_meta', __( 'Upgrade to PRO', 'links-auto-replacer' ), array($this,'meta_pro_callback'), 'lar_link', 'side' );
+	}
 
-	
-
-
-
-
+	public function meta_pro_callback($post){
+		echo '<a href="https://goo.gl/ILo1iY" target="_blank"><img style="width:100%;" src="'.LAR_URL.'admin/images/upgrade_to_pro.png" /></a>';
+	}
 }

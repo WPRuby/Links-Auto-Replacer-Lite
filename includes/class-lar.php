@@ -206,7 +206,8 @@ class Links_Auto_Replacer {
 		$this->loader->add_filter('manage_lar_link_posts_columns', $plugin_admin, 'lar_columns_head');
 		$this->loader->add_filter('manage_lar_link_posts_custom_column', $plugin_admin, 'lar_columns_content',10,2);
 		
-
+		// @since 2.0.1
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_upgrade_to_pro_box' );
 		
 		
 
