@@ -28,5 +28,11 @@
 	 * for any particular page. Though other scripts in WordPress core, other plugins, and other themes may
 	 * be doing this, we should try to minimize doing that in our own work.
 	 */
+	$(function() {
+		$('.open-popup-link').magnificPopup({
+		  type:'inline',
+		  midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+		});
+	});
 
 })( jQuery );

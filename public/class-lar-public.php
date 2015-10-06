@@ -109,8 +109,9 @@ class Links_Auto_Replacer_Public {
 	 * @since    1.0.0
 	 */
 	public function lar_auto_replace_links( $content ){
-
-		if(lar()->get_option(PLUGIN_PREFIX.'enable') !== 'on') return $content;
+		
+		$lar_global_enabled = lar()->get_option(PLUGIN_PREFIX.'enable');
+		if($lar_global_enabled === 'off') return $content;
 		
 		global $wpdb; 
 		global $post;
@@ -126,11 +127,12 @@ class Links_Auto_Replacer_Public {
 			$link_meta = get_post_meta($link->ID);
 			
 			$dofollow = '';
-			if($link_meta[PLUGIN_PREFIX.'do_follow'][0]!= 1){
+			$link_dofollow = isset($link_meta[PLUGIN_PREFIX.'do_follow'][0])?$link_meta[PLUGIN_PREFIX.'do_follow'][0]:'';
+			if($link_dofollow != 1){
 				$dofollow = 'rel="nofollow"';
 			}
-
-			if($link_meta[PLUGIN_PREFIX.'link_type'][0] == 'external' OR $link_meta[PLUGIN_PREFIX.'link_type'][0] ==''){
+			$link_type = (isset($link_meta[PLUGIN_PREFIX.'link_type'][0]))?$link_meta[PLUGIN_PREFIX.'link_type'][0]:'';
+			if($link_type == 'external' OR $link_type ==''){
 				if ( get_option('permalink_structure') != '' ) {
 					$url = ($link_meta[PLUGIN_PREFIX.'slug'][0]!= '')? site_url().'/go/'.$link_meta[PLUGIN_PREFIX.'slug'][0] : $link_meta[PLUGIN_PREFIX.'url'][0];
 				
@@ -138,8 +140,10 @@ class Links_Auto_Replacer_Public {
 					$url = ($link_meta[PLUGIN_PREFIX.'slug'][0] != '')? site_url().'/index.php?go='.$link_meta[PLUGIN_PREFIX.'slug'][0] : $link_meta[PLUGIN_PREFIX.'url'][0];
 				
 				}
-			}elseif($link_meta[PLUGIN_PREFIX.'link_type'][0] == 'internal'){ // if internal link
+			}elseif($link_type == 'internal'){ // if internal link
 					$url = get_permalink($link_meta[PLUGIN_PREFIX.'internal_url'][0]);
+			}elseif($link_type == 'popup'){ // if internal link
+					$url = '#lar_popup_'. $link->ID;
 			}
 
 
@@ -165,7 +169,7 @@ class Links_Auto_Replacer_Public {
 				$post_content = html_entity_decode(($content));
 
 				// sensitivity modifier
-				$i = ($link_meta[PLUGIN_PREFIX.'is_sensitive'][0] !== 'on')?'i':'';
+				$i = (isset($link_meta[PLUGIN_PREFIX.'is_sensitive'][0]) && $link_meta[PLUGIN_PREFIX.'is_sensitive'][0] !== 'on')?'i':'';
 				
 				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i);
 
@@ -180,7 +184,13 @@ class Links_Auto_Replacer_Public {
 				
 
 				$content = htmlspecialchars_decode($mock->SaveHTML());
-				
+
+				// @since 2.1 adding the popup div
+				if($link_type == 'popup'){
+					$content .= '<div id="lar_popup_'. $link->ID.'" class="white-popup mfp-hide">';
+					$content .= (isset($link_meta[PLUGIN_PREFIX.'popup_content'][0]))?$link_meta[PLUGIN_PREFIX.'popup_content'][0]:'';
+					$content .= '</div>';
+				}
 			}
 			
 			

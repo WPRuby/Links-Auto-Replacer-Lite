@@ -191,7 +191,7 @@ class Links_Auto_Replacer {
 		
 
 		if(isset($_GET['post_type']) OR isset($_GET['post'])){
-			if($_GET['post_type'] == 'lar_link' OR get_post_type($_GET['post'])=='lar_link'){
+			if( $_GET['post_type'] == 'lar_link' OR get_post_type($_GET['post'])=='lar_link'){
 				$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'insert_validation_nonce' );
 			}
 		}

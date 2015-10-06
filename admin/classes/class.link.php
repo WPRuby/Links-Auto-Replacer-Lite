@@ -21,14 +21,20 @@ class Lar_Link{
 		if( $link_type == 'external' OR $link_type == ''){
 				if ( get_option('permalink_structure') != '' ) {
 					$url = ($link_slug!= '')? site_url().'/go/'.$link_slug : $link_url;
-				
+					return '<input disabled type="text" value="'. $url .'" />';
 				}else{
-					$url = ($link_slug != '')? site_url().'/index.php?go='.$link_slug : $link_url;
-				
+					$url =  ($link_slug != '')? site_url().'/index.php?go='.$link_slug : $link_url;
+					return '<input disabled type="text" value="'. $url .'" />';
 				}
 		}elseif($link_type == 'internal'){ // if internal link
-					$url = get_permalink($link_internal_url);
+				return '<input disabled type="text" value="'. get_permalink($link_internal_url) .'" />';
+		}elseif ($link_type == 'popup') {
+				// @TODO
+				$url = '<a href="#lar_popup_'. $link_id .'" class="open-popup-link">'.__('Preview','links-auto-replacer').'</a>'; 
+				$url .= '<div id="lar_popup_'. $link_id .'" class="white-popup mfp-hide">';
+				$url .= (isset($link_meta[PLUGIN_PREFIX.'popup_content'][0]))?$link_meta[PLUGIN_PREFIX.'popup_content'][0]:'';
+				$url .= '</div>';
+				return $url;
 		}
-		return $url;
 	}
 }

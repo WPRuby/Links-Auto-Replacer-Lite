@@ -264,7 +264,7 @@ class Links_Auto_Replacer_Admin {
 	 * @since    2.0.0
 	 */
 	public function pre_submit_link_validation(){
-
+		$errors = array();
 	    //simple Security check
 	    check_ajax_referer( 'my_pre_submit_validation', 'security' );
 
@@ -282,8 +282,10 @@ class Links_Auto_Replacer_Admin {
 	    {
 	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer');
 	    }
-	    if($link[PLUGIN_PREFIX . 'link_type'] == 'external' OR $link[PLUGIN_PREFIX . 'link_type']==''){
-			if($link[PLUGIN_PREFIX.'url'] == '' OR filter_var($link[PLUGIN_PREFIX.'url'], FILTER_VALIDATE_URL) === false)
+	    $link_type = isset($link[PLUGIN_PREFIX . 'link_type'])?$link[PLUGIN_PREFIX . 'link_type']:'';
+	    $link_url = isset($link[PLUGIN_PREFIX . 'url'])?$link[PLUGIN_PREFIX . 'url']:'';
+	    if($link_type == 'external' OR $link_type ==''){
+			if($link_url == '' OR filter_var($link_url, FILTER_VALIDATE_URL) === false)
 			{
 			    $errors['url'] = __('Please provide a valid url','links-auto-replacer');
 			}
@@ -309,11 +311,11 @@ class Links_Auto_Replacer_Admin {
 			    	$errors['url'] = __('URL is already exist','links-auto-replacer');
 			    }
 		    
-
-			if(trim($link[PLUGIN_PREFIX . 'slug'])!=''){    
+			$link_slug = (isset($link[PLUGIN_PREFIX . 'slug']))?$link[PLUGIN_PREFIX . 'slug']:'';
+			if(trim($link_slug)!=''){    
 			    $slugs = $this->get_meta_values(PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
-			    if(in_array($link[PLUGIN_PREFIX . 'slug'], $slugs)){
-			    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer'),$link[PLUGIN_PREFIX . 'slug']);
+			    if(in_array($link_slug, $slugs)){
+			    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer'),$link_slug);
 			    }
 			}
 		} //empty($errors)
@@ -380,8 +382,12 @@ class Links_Auto_Replacer_Admin {
 		 	<script type="text/javascript">
 		 		<?php do_action('lar_add_js_variables'); ?>
 		 		var validation_nonce = '<?php echo wp_create_nonce( 'my_pre_submit_validation' ); ?>'; 
-		 		var plugin_prefix = '<?php echo PLUGIN_PREFIX; ?>'; 
-		 		var last_link_id = '<?php echo ($link_slug!='')?$link_slug:$this->last_link_id; ?>'; 
+		 		var plugin_prefix = '<?php echo PLUGIN_PREFIX; ?>';
+		 		<?php if(isset($link_slug)): ?>
+		 			var last_link_id = '<?php echo $link_slug; ?>'; 
+		 		<?php else: ?>
+		 			var last_link_id = '<?php echo $this->last_link_id; ?>'; 
+		 		<?php endif; ?>
 		 		var home_url = '<?php echo home_url(); ?>'; 
 		 	</script>
 	 	<?php 
@@ -494,7 +500,8 @@ class Links_Auto_Replacer_Admin {
 	public function lar_columns_content($column_name, $post_ID) {
 
 		    if($column_name == 'link'){
-		    	echo '<input disabled type="text" value="'.Lar_Link::get_final_url($post_ID).'" />';
+		    	//echo '<input disabled type="text" value="'.Lar_Link::get_final_url($post_ID).'" />';
+		    	echo Lar_Link::get_final_url($post_ID);
 		    }
 		    if($column_name == 'lite_total_clicks'){
 		    	echo '<a href="'.admin_url('admin.php?page=lar_upgrade_settings').'">(PRO Feature)</a>';
@@ -509,9 +516,9 @@ class Links_Auto_Replacer_Admin {
 		    		<strong><a class="row-title" href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit"><?php echo implode(' | ',$keywords); ?></a></strong>
 			    		<div class="row-actions">
 				    		<span class="edit"><a href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit this item">Edit</a> | </span>	
-				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a> | </span>
+				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a>  </span>
 				    		
-				    		<span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> </span>	
+				    		<!-- <span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> </span>	 -->
 				    		<span class="quick_stats" class="edit"> | <a href="<?php echo admin_url('admin.php?page=lar_upgrade_settings'); ?>"><?php _e('Stats (PRO)','links-auto-replacer'); ?></a> </span>	
 				    		<?php do_action('lar_add_quick_links', $post_ID); ?>
 
