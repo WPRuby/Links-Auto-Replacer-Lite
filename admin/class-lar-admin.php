@@ -306,10 +306,12 @@ class Links_Auto_Replacer_Admin {
 		    }
 
 		
-			    $urls = $this->get_meta_values(PLUGIN_PREFIX . 'url', 'lar_link','publish',$link['post_ID']);
+		    $urls = $this->get_meta_values(PLUGIN_PREFIX . 'url', 'lar_link','publish',$link['post_ID']);
+		    if($link[PLUGIN_PREFIX . 'link_type'] == 'external'){
 			    if(in_array($link[PLUGIN_PREFIX . 'url'], $urls)){
 			    	$errors['url'] = __('URL is already exist','links-auto-replacer');
 			    }
+			}
 		    
 			$link_slug = (isset($link[PLUGIN_PREFIX . 'slug']))?$link[PLUGIN_PREFIX . 'slug']:'';
 			if(trim($link_slug)!=''){    
@@ -540,7 +542,7 @@ class Links_Auto_Replacer_Admin {
 	 */
 	public function add_upgrade_to_pro_box(){
 		global $lar_name;
-	    add_meta_box( 'lar_meta', __( 'Upgrade to PRO', 'links-auto-replacer' ), array($this,'meta_pro_callback'), 'lar_link', 'side' );
+	    add_meta_box( 'lar_pro_metabox', __( 'Upgrade to PRO', 'links-auto-replacer' ), array($this,'meta_pro_callback'), 'lar_link', 'side' );
 	}
 
 	public function meta_pro_callback($post){

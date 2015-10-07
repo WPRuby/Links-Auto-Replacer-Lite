@@ -144,6 +144,12 @@ class Links_Auto_Replacer_Public {
 					$url = get_permalink($link_meta[PLUGIN_PREFIX.'internal_url'][0]);
 			}elseif($link_type == 'popup'){ // if internal link
 					$url = '#lar_popup_'. $link->ID;
+			}elseif($link_type == 'popup_image'){
+					$url = isset($link_meta[PLUGIN_PREFIX.'popup_image'][0])?$link_meta[PLUGIN_PREFIX.'popup_image'][0]:'';
+			}elseif($link_type == 'popup_gallery'){
+					$url = '#';
+			}elseif($link_type == 'popup_video'){
+
 			}
 
 
@@ -189,6 +195,14 @@ class Links_Auto_Replacer_Public {
 				if($link_type == 'popup'){
 					$content .= '<div id="lar_popup_'. $link->ID.'" class="white-popup mfp-hide">';
 					$content .= (isset($link_meta[PLUGIN_PREFIX.'popup_content'][0]))?$link_meta[PLUGIN_PREFIX.'popup_content'][0]:'';
+					$content .= '</div>';
+				}elseif($link_type == 'popup_gallery'){
+					$content .= '<div class="lar-gallery" id="lar_gallery_'.$link->ID.'">';
+					$images  = unserialize($link_meta[PLUGIN_PREFIX.'popup_gallery'][0]);
+					foreach($images as $image){
+
+						$content .= '<a href="'. $image .'"></a>';
+					}
 					$content .= '</div>';
 				}
 			}

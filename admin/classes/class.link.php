@@ -35,6 +35,14 @@ class Lar_Link{
 				$url .= (isset($link_meta[PLUGIN_PREFIX.'popup_content'][0]))?$link_meta[PLUGIN_PREFIX.'popup_content'][0]:'';
 				$url .= '</div>';
 				return $url;
+		}elseif ($link_type == 'popup_image') {
+				$image_src = isset($link_meta[PLUGIN_PREFIX.'popup_image'][0])?$link_meta[PLUGIN_PREFIX.'popup_image'][0]:'';
+				$url = '<a href="'. $image_src .'" class="lar-image-link">'.__('Preview','links-auto-replacer').'</a>';
+				return $url;
+		}elseif ($link_type == 'popup_gallery') {
+				$image_src = isset($link_meta[PLUGIN_PREFIX.'popup_gallery'][0])?$link_meta[PLUGIN_PREFIX.'popup_gallery'][0]:'';
+				$url = '<a href="'. $image_src .'" class="lar-gallery-link">'.__('Preview','links-auto-replacer').'</a>';
+				return $url; 
 		}
 	}
 }
