@@ -147,9 +147,11 @@ class Links_Auto_Replacer_Public {
 			}elseif($link_type == 'popup_image'){
 					$url = isset($link_meta[PLUGIN_PREFIX.'popup_image'][0])?$link_meta[PLUGIN_PREFIX.'popup_image'][0]:'';
 			}elseif($link_type == 'popup_gallery'){
-					$url = '#';
+					$url = 'javascript:void(0)';
 			}elseif($link_type == 'popup_video'){
-
+					$url = isset($link_meta[PLUGIN_PREFIX.'popup_videourl'][0])?$link_meta[PLUGIN_PREFIX.'popup_videourl'][0]:'';
+			}elseif($link_type == 'popup_map'){
+					$url = isset($link_meta[PLUGIN_PREFIX.'popup_mapurl'][0])?$link_meta[PLUGIN_PREFIX.'popup_mapurl'][0]:'';
 			}
 
 
