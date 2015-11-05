@@ -152,7 +152,11 @@ class Links_Auto_Replacer_Public {
 					$url = isset($link_meta[PLUGIN_PREFIX.'popup_videourl'][0])?$link_meta[PLUGIN_PREFIX.'popup_videourl'][0]:'';
 			}elseif($link_type == 'popup_map'){
 					$url = isset($link_meta[PLUGIN_PREFIX.'popup_mapurl'][0])?$link_meta[PLUGIN_PREFIX.'popup_mapurl'][0]:'';
+			}elseif($link_type == 'sharing_tip'){
+					$url = isset($link_meta[PLUGIN_PREFIX.'sharing_tip'][0])?$link_meta[PLUGIN_PREFIX.'sharing_tip'][0]:'javascript:void(0)';
 			}
+
+			
 
 
 
@@ -206,6 +210,28 @@ class Links_Auto_Replacer_Public {
 						$content .= '<a href="'. $image .'"></a>';
 					}
 					$content .= '</div>';
+				}elseif($link_type == 'sharing_tip'){
+					$content .= '<div id="grabMe" style="display:none;">';
+					$content .= ' <!-- AddToAny BEGIN -->
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_twitter"></a>
+<a class="a2a_button_google_plus"></a>
+<a class="a2a_button_linkedin"></a>
+<a class="a2a_button_tumblr"></a>
+<a class="a2a_button_reddit"></a>
+</div>
+<script type="text/javascript">
+var a2a_config = a2a_config || {};
+a2a_config.linkname = "Title";
+a2a_config.linkurl = "https://www.addtoany.com/buttons/for/website";
+</script>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<!-- AddToAny END -->  ';
+					$content .= '</div>';
+
+					
 				}
 			}
 			
@@ -286,8 +312,6 @@ class Links_Auto_Replacer_Public {
 			global $wpdb;
 			$link = get_posts('post_type=lar_link&meta_key='.PLUGIN_PREFIX.'slug&meta_value='.$wp_query->query_vars['go']);
 			$link_url = get_post_meta($link[0]->ID, PLUGIN_PREFIX.'url',true);
-
-			
 
 			if(!is_null($link_url)){
 				do_action('lar_link_redirected', $link[0]->ID);
