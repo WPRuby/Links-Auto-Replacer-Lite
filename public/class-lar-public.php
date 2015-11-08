@@ -212,26 +212,13 @@ class Links_Auto_Replacer_Public {
 					$content .= '</div>';
 				}elseif($link_type == 'sharing_tip'){
 					$content .= '<div id="grabMe" style="display:none;">';
-					$content .= ' <!-- AddToAny BEGIN -->
-<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-
-<a class="a2a_button_facebook"></a>
-<a class="a2a_button_twitter"></a>
-<a class="a2a_button_google_plus"></a>
-<a class="a2a_button_linkedin"></a>
-<a class="a2a_button_tumblr"></a>
-<a class="a2a_button_reddit"></a>
-</div>
-<script type="text/javascript">
-var a2a_config = a2a_config || {};
-a2a_config.linkname = "Title";
-a2a_config.linkurl = "https://www.addtoany.com/buttons/for/website";
-</script>
-<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
-<!-- AddToAny END -->  ';
+					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/facebook.png" /> ';
+					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/twitter.png" /> ';
+					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/linkedin.png" /> ';
+					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/gplus.png" /> ';
+					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/tumblr.png" /> ';
+					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/reddit.png" /> ';
 					$content .= '</div>';
-
-					
 				}
 			}
 			
