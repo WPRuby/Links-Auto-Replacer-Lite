@@ -217,7 +217,10 @@ class CMB2_Types {
 
 			$a['value'] = $opt_value;
 			$a['label'] = $opt_label;
-
+			$a['disabled'] = '';
+			if(strpos($opt_label, 'PRO')!==false){
+				$a['disabled'] = 'disabled';
+			}
 			// Check if this option is the value of the input
 			if ( $value == $opt_value ) {
 				$a['checked'] = 'checked';
@@ -236,7 +239,7 @@ class CMB2_Types {
 	 * @return string       Generated option element html
 	 */
 	public function select_option( $args = array() ) {
-		return sprintf( "\t" . '<option value="%s" %s>%s</option>', $args['value'], selected( isset( $args['checked'] ) && $args['checked'], true, false ), $args['label'] ) . "\n";
+		return sprintf( "\t" . '<option value="%s" %s %s>%s</option>', $args['value'],$args['disabled'] , selected( isset( $args['checked'] ) && $args['checked'], true, false ), $args['label'] ) . "\n";
 	}
 
 	/**

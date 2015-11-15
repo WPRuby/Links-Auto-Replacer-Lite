@@ -16,6 +16,12 @@ class Lar_Settings{
 	public function __construct(){
 
 		$this->tabs = apply_filters('lar_settings_tabs',array(
+			'lar_settings' => array(
+						'id' => 'lar_settings',
+						'title' => __('Settings','links-auto-replacer-pro'),
+						'metabox_callback' => false,
+						'callback' => array($this , 'admin_page_display')
+					),
 				'lar_upgrade_settings' => array(
 						'id' => 'lar_upgrade_settings',
 						'title' => __('Upgrade','links-auto-replacer'),
@@ -172,9 +178,8 @@ class Lar_Settings{
 			'name'    => __( 'Enable Auto Replcement', 'links-auto-replacer' ),
 			'id'      => PLUGIN_PREFIX . 'enable',
 			'type'    => 'checkbox',
-			'default' => 'yes',
+			'default' => $this->get_if_enabled( true )
 		) );
-
 
 		$cmb->add_field( array(
 			'name'    => __( '<h2>"Add Auto Link" Defaults</h2>', 'links-auto-replacer' ),
@@ -242,7 +247,9 @@ class Lar_Settings{
 		return cmb2_get_option( $this->key, $key );
 	}
 
-
+	private function get_if_enabled( $default ){
+		return  ($this->get_option(PLUGIN_PREFIX . 'enable'))  ? '' : ( $default ? (string) $default : '' );
+	}
 
 	public function __get( $field ) {
 		// Allowed fields to retrieve

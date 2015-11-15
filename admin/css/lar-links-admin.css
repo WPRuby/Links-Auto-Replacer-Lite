@@ -113,12 +113,12 @@ Upgrade
 **/
 
 #lar_upgrade_box{
-	margin-left: 10%;
-	width: 60%;
+	margin-left: 2%;
+	width:52%;
 	height: auto;
-	background: #F4F9F3;
+	background: #FFFFFF;
 	margin-top: 20px;
-	padding: 30px 30px 30px 80px;
+	padding: 3px 3px 1px 3px;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;

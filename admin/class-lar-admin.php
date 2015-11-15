@@ -194,6 +194,24 @@ class Links_Auto_Replacer_Admin {
 		//may add new fields
 		do_action('lar_add_link_custom_field', $add_links_box);
 
+
+		$add_links_box->add_field( array(
+			'name' => __( 'Link Type', 'links-auto-replacer' ),
+			'id'   => PLUGIN_PREFIX . 'link_type',
+			'type' => 'select',
+			'options' => array(
+					  'external' => __('External','links-auto-replacer'),
+					  'internal' => __('Internal (PRO)','links-auto-replacer'),
+					  'popup' => __('Popup (PRO)','links-auto-replacer'),
+					  'popup_image' => __('Popup Image (PRO)','links-auto-replacer'),
+					  'popup_gallery' => __('Popup Gallery (PRO)','links-auto-replacer'),
+					  'popup_video' => __('Popup Video (PRO)','links-auto-replacer'),
+					  'popup_map' => __('Google Map (PRO)','links-auto-replacer'),
+					  'url_share' => __('Shared URL (PRO)','links-auto-replacer'),
+				),
+			'description' => __('','links-auto-replacer'),
+		) );
+
 		$add_links_box->add_field( array(
 			'name' => __( 'URL (Link)', 'links-auto-replacer' ),
 			'default' => 'http://',

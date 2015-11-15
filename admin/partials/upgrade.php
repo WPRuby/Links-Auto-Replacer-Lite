@@ -3,16 +3,7 @@
 
 	<div id="lar_upgrade_box">
 		
-		<ul>
-			<li>Internal linking, make the keywords link to your internal posts or pages.</li>
-			<li>Comprehensive Stats, (Number of Clicks, Countries, Browsers and much more.</li>
-			<li>Order the keywords by categories.</li>
-			<li>Lifetime Automatic Updates</li>
-			<li>Unexpiring license key.</li>
-			<li>24/7 Premium Support.</li>
-
-		</ul>
-		<a target="_blank" href="https://goo.gl/ILo1iY"><button class="button" title=":)"><?php _e('Upgrade to PRO','links-auto-replacer') ?> <span><i>(only 25$)</i></span></button></a>
+		<a href="https://goo.gl/ILo1iY" target="_blank"><img style="width:100%;" src="<?php echo LAR_URL; ?>admin/images/upgrade_tab.png" /></a>
 
 
 	</div> 
