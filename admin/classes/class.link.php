@@ -28,21 +28,8 @@ class Lar_Link{
 				}
 		}elseif($link_type == 'internal'){ // if internal link
 				return '<input disabled type="text" value="'. get_permalink($link_internal_url) .'" />';
-		}elseif ($link_type == 'popup') {
-				// @TODO
-				$url = '<a href="#lar_popup_'. $link_id .'" class="open-popup-link">'.__('Preview','links-auto-replacer').'</a>'; 
-				$url .= '<div id="lar_popup_'. $link_id .'" class="white-popup mfp-hide">';
-				$url .= (isset($link_meta[PLUGIN_PREFIX.'popup_content'][0]))?$link_meta[PLUGIN_PREFIX.'popup_content'][0]:'';
-				$url .= '</div>';
-				return $url;
-		}elseif ($link_type == 'popup_image') {
-				$image_src = isset($link_meta[PLUGIN_PREFIX.'popup_image'][0])?$link_meta[PLUGIN_PREFIX.'popup_image'][0]:'';
-				$url = '<a href="'. $image_src .'" class="lar-image-link">'.__('Preview','links-auto-replacer').'</a>';
-				return $url;
-		}elseif ($link_type == 'popup_gallery') {
-				$image_src = isset($link_meta[PLUGIN_PREFIX.'popup_gallery'][0])?$link_meta[PLUGIN_PREFIX.'popup_gallery'][0]:'';
-				$url = '<a href="'. $image_src .'" class="lar-gallery-link">'.__('Preview','links-auto-replacer').'</a>';
-				return $url; 
+		}else{
+			return '-';
 		}
 	}
 }
