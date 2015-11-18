@@ -1,7 +1,7 @@
 <?php 
 
 
-class Lar_Settings{
+class Lar_Lite_Settings{
 
 
 	protected $tabs = array();
@@ -77,13 +77,13 @@ class Lar_Settings{
 	public function add_options_page() {
 		global $lar_name;
 
-		$this->settings_page =   add_menu_page($lar_name,$lar_name,'manage_options',$this->key,array($this, 'admin_page_display'),'',55.05);
+		//$this->settings_page =   add_menu_page($lar_name,$lar_name,'manage_options',$this->key,array($this, 'admin_page_display'),'',55.05);
 
 	    foreach ($this->tabs as $key => $tab){
 			if(isset($tab['callback']))
-				add_submenu_page( 'lar_settings', $tab['title'], $tab['title'], 'manage_options', $key , $tab['callback']);
+				add_submenu_page( 'edit.php?post_type=lar_link', $tab['title'], $tab['title'], 'manage_options', $key , $tab['callback']);
 			else
-				add_submenu_page( 'lar_settings', $tab['title'], $tab['title'], 'manage_options', $key , array($this, 'admin_page_display'));
+				add_submenu_page( 'edit.php?post_type=lar_link', $tab['title'], $tab['title'], 'manage_options', $key , array($this, 'admin_page_display'));
 
 		}
 			 
@@ -176,7 +176,7 @@ class Lar_Settings{
 		// Set our CMB2 fields
 		$cmb->add_field( array(
 			'name'    => __( 'Enable Auto Replcement', 'links-auto-replacer' ),
-			'id'      => PLUGIN_PREFIX . 'enable',
+			'id'      => LAR_LITE_PLUGIN_PREFIX . 'enable',
 			'type'    => 'checkbox',
 			'default' => $this->get_if_enabled( true )
 		) );
@@ -190,14 +190,14 @@ class Lar_Settings{
 
 		$cmb->add_field( array(
 			'name' => __( 'Dofollow?', 'links-auto-replacer' ),
-			'id'   => PLUGIN_PREFIX . 'do_follow',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'do_follow',
 			'type' => 'checkbox',
 			'description' => __('if you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer'),
 		) );
 
 		$cmb->add_field( array(
 			'name' => __( 'Open in:', 'links-auto-replacer' ),
-			'id'   => PLUGIN_PREFIX . 'open_in',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'open_in',
 			'type' => 'select',
 			'default' => '_self',
 			'options' => array(
@@ -210,7 +210,7 @@ class Lar_Settings{
 
 		$cmb->add_field( array(
 			'name' => __( 'Shrink?', 'links-auto-replacer' ),
-			'id'   => PLUGIN_PREFIX . 'shrink',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'shrink',
 			'type' => 'checkbox',
 			'description' => __('The link will be shortened (e.g example.com/go/amazon)','links-auto-replacer'),
 		) );
@@ -220,7 +220,7 @@ class Lar_Settings{
 		$cmb->add_field( array(
 			'name' => __( 'Case Sensitive?', 'links-auto-replacer' ),
 			
-			'id'   => PLUGIN_PREFIX . 'is_sensitive',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'is_sensitive',
 			'type' => 'checkbox',
 			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
@@ -248,7 +248,7 @@ class Lar_Settings{
 	}
 
 	private function get_if_enabled( $default ){
-		return  ($this->get_option(PLUGIN_PREFIX . 'enable'))  ? '' : ( $default ? (string) $default : '' );
+		return  ($this->get_option(LAR_LITE_PLUGIN_PREFIX . 'enable'))  ? '' : ( $default ? (string) $default : '' );
 	}
 
 	public function __get( $field ) {

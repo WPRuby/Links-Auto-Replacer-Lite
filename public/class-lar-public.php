@@ -110,7 +110,7 @@ class Links_Auto_Replacer_Public {
 	 */
 	public function lar_auto_replace_links( $content ){
 		
-		$lar_global_enabled = lar()->get_option(PLUGIN_PREFIX.'enable');
+		$lar_global_enabled = lar()->get_option(LAR_LITE_PLUGIN_PREFIX.'enable');
 		if($lar_global_enabled === 'off') return $content;
 		
 		global $wpdb; 
@@ -127,33 +127,33 @@ class Links_Auto_Replacer_Public {
 			$link_meta = get_post_meta($link->ID);
 			
 			$dofollow = '';
-			$link_dofollow = isset($link_meta[PLUGIN_PREFIX.'do_follow'][0])?$link_meta[PLUGIN_PREFIX.'do_follow'][0]:'';
+			$link_dofollow = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'do_follow'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'do_follow'][0]:'';
 			if($link_dofollow != 1){
 				$dofollow = 'rel="nofollow"';
 			}
-			$link_type = (isset($link_meta[PLUGIN_PREFIX.'link_type'][0]))?$link_meta[PLUGIN_PREFIX.'link_type'][0]:'';
+			$link_type = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]))?$link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]:'';
 			if($link_type == 'external' OR $link_type ==''){
 				if ( get_option('permalink_structure') != '' ) {
-					$url = ($link_meta[PLUGIN_PREFIX.'slug'][0]!= '')? site_url().'/go/'.$link_meta[PLUGIN_PREFIX.'slug'][0] : $link_meta[PLUGIN_PREFIX.'url'][0];
+					$url = ($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]!= '')? site_url().'/go/'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] : $link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0];
 				
 				}else{
-					$url = ($link_meta[PLUGIN_PREFIX.'slug'][0] != '')? site_url().'/index.php?go='.$link_meta[PLUGIN_PREFIX.'slug'][0] : $link_meta[PLUGIN_PREFIX.'url'][0];
+					$url = ($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] != '')? site_url().'/index.php?go='.$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] : $link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0];
 				
 				}
 			}elseif($link_type == 'internal'){ // if internal link
-					$url = get_permalink($link_meta[PLUGIN_PREFIX.'internal_url'][0]);
+					$url = get_permalink($link_meta[LAR_LITE_PLUGIN_PREFIX.'internal_url'][0]);
 			}elseif($link_type == 'popup'){ // if internal link
 					$url = '#lar_popup_'. $link->ID;
 			}elseif($link_type == 'popup_image'){
-					$url = isset($link_meta[PLUGIN_PREFIX.'popup_image'][0])?$link_meta[PLUGIN_PREFIX.'popup_image'][0]:'';
+					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_image'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_image'][0]:'';
 			}elseif($link_type == 'popup_gallery'){
 					$url = 'javascript:void(0)';
 			}elseif($link_type == 'popup_video'){
-					$url = isset($link_meta[PLUGIN_PREFIX.'popup_videourl'][0])?$link_meta[PLUGIN_PREFIX.'popup_videourl'][0]:'';
+					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_videourl'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_videourl'][0]:'';
 			}elseif($link_type == 'popup_map'){
-					$url = isset($link_meta[PLUGIN_PREFIX.'popup_mapurl'][0])?$link_meta[PLUGIN_PREFIX.'popup_mapurl'][0]:'';
+					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_mapurl'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_mapurl'][0]:'';
 			}elseif($link_type == 'sharing_tip'){
-					$url = isset($link_meta[PLUGIN_PREFIX.'sharing_tip'][0])?$link_meta[PLUGIN_PREFIX.'sharing_tip'][0]:'javascript:void(0)';
+					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'sharing_tip'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'sharing_tip'][0]:'javascript:void(0)';
 			}
 
 			
@@ -163,7 +163,7 @@ class Links_Auto_Replacer_Public {
 
 			
 			
-			$keywords = unserialize( $link_meta[PLUGIN_PREFIX.'keywords'][0] );
+			$keywords = unserialize( $link_meta[LAR_LITE_PLUGIN_PREFIX.'keywords'][0] );
 			
 			// if the keywords not really inserted
 			if($keywords === false) continue;
@@ -177,11 +177,11 @@ class Links_Auto_Replacer_Public {
 
 				$extra_attrs = apply_filters('lar_add_extra_atts',$link->ID, $post->ID);
 
-				$final_url = ' <a href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
+				$final_url = ' <a href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
 				$post_content = html_entity_decode(($content));
 
 				// sensitivity modifier
-				$i = (isset($link_meta[PLUGIN_PREFIX.'is_sensitive'][0]) && $link_meta[PLUGIN_PREFIX.'is_sensitive'][0] !== 'on')?'i':'';
+				$i = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0]) && $link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0] !== 'on')?'i':'';
 				
 				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i);
 
@@ -200,11 +200,11 @@ class Links_Auto_Replacer_Public {
 				// @since 2.1 adding the popup div
 				if($link_type == 'popup'){
 					$content .= '<div id="lar_popup_'. $link->ID.'" class="white-popup mfp-hide">';
-					$content .= (isset($link_meta[PLUGIN_PREFIX.'popup_content'][0]))?$link_meta[PLUGIN_PREFIX.'popup_content'][0]:'';
+					$content .= (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_content'][0]))?$link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_content'][0]:'';
 					$content .= '</div>';
 				}elseif($link_type == 'popup_gallery'){
 					$content .= '<div class="lar-gallery" id="lar_gallery_'.$link->ID.'">';
-					$images  = unserialize($link_meta[PLUGIN_PREFIX.'popup_gallery'][0]);
+					$images  = unserialize($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_gallery'][0]);
 					foreach($images as $image){
 
 						$content .= '<a href="'. $image .'"></a>';
@@ -297,8 +297,8 @@ class Links_Auto_Replacer_Public {
 		
 		if(isset($wp_query->query_vars['go'])){
 			global $wpdb;
-			$link = get_posts('post_type=lar_link&meta_key='.PLUGIN_PREFIX.'slug&meta_value='.$wp_query->query_vars['go']);
-			$link_url = get_post_meta($link[0]->ID, PLUGIN_PREFIX.'url',true);
+			$link = get_posts('post_type=lar_link&meta_key='.LAR_LITE_PLUGIN_PREFIX.'slug&meta_value='.$wp_query->query_vars['go']);
+			$link_url = get_post_meta($link[0]->ID, LAR_LITE_PLUGIN_PREFIX.'url',true);
 
 			if(!is_null($link_url)){
 				do_action('lar_link_redirected', $link[0]->ID);

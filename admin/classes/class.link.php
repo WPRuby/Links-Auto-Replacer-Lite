@@ -13,10 +13,10 @@ class Lar_Link{
 	**/
 	public static function get_final_url( $link_id ){
 		$link_meta = get_post_meta( $link_id );
-		$link_type = isset($link_meta[PLUGIN_PREFIX.'link_type'][0])?$link_meta[PLUGIN_PREFIX.'link_type'][0]:'';
-		$link_slug = isset($link_meta[PLUGIN_PREFIX.'slug'][0])?$link_meta[PLUGIN_PREFIX.'slug'][0]:'';
-		$link_url = isset($link_meta[PLUGIN_PREFIX.'url'][0])?$link_meta[PLUGIN_PREFIX.'url'][0]:'';
-		$link_internal_url = isset($link_meta[PLUGIN_PREFIX.'internal_url'][0])?$link_meta[PLUGIN_PREFIX.'internal_url'][0]:'';
+		$link_type = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]:'';
+		$link_slug = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]:'';
+		$link_url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0]:'';
+		$link_internal_url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'internal_url'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'internal_url'][0]:'';
 		
 		if( $link_type == 'external' OR $link_type == ''){
 				if ( get_option('permalink_structure') != '' ) {

@@ -34,7 +34,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define('PLUGIN_PREFIX','_lar_links_');
+define('LAR_LITE_PLUGIN_PREFIX','_lar_links_');
 
 /**
  * The code that runs during plugin activation.
@@ -84,7 +84,7 @@ function lar(){
 	static $object = null;
 	if ( is_null( $object ) ) {
 
-		$object = new Lar_Settings();
+		$object = new Lar_Lite_Settings();
 	}
 
 	return $object;

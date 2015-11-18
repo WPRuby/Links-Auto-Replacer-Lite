@@ -169,7 +169,7 @@ class Links_Auto_Replacer_Admin {
 		
 
 		$add_links_box = new_cmb2_box( array(
-			'id'            => PLUGIN_PREFIX . 'metabox',
+			'id'            => LAR_LITE_PLUGIN_PREFIX . 'metabox',
 			'title'         => __( 'Add new Link', 'links-auto-replacer' ),
 			'object_types'  => array( 'lar_link', ), // Post type
 			'context'       => 'normal',
@@ -183,7 +183,7 @@ class Links_Auto_Replacer_Admin {
 		$add_links_box->add_field( array(
 			'name' => __( 'Keyword/s', 'links-auto-replacer' ),
 			
-			'id'   => PLUGIN_PREFIX . 'keywords',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'keywords',
 			'type' => 'text_medium',
 			'repeatable' => true,
 		) );
@@ -197,7 +197,7 @@ class Links_Auto_Replacer_Admin {
 
 		$add_links_box->add_field( array(
 			'name' => __( 'Link Type', 'links-auto-replacer' ),
-			'id'   => PLUGIN_PREFIX . 'link_type',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'link_type',
 			'type' => 'select',
 			'options' => array(
 					  'external' => __('External','links-auto-replacer'),
@@ -215,7 +215,7 @@ class Links_Auto_Replacer_Admin {
 		$add_links_box->add_field( array(
 			'name' => __( 'URL (Link)', 'links-auto-replacer' ),
 			'default' => 'http://',
-			'id'   => PLUGIN_PREFIX . 'url',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'url',
 			'type' => 'text_url',
 		) );
 
@@ -224,17 +224,17 @@ class Links_Auto_Replacer_Admin {
 
 		$add_links_box->add_field( array(
 			'name' => __( 'Dofollow?', 'links-auto-replacer' ),
-			'id'   => PLUGIN_PREFIX . 'do_follow',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'do_follow',
 			'type' => 'checkbox',
-			'default'=> lar()->get_option(PLUGIN_PREFIX . 'do_follow'),
+			'default'=> lar()->get_option(LAR_LITE_PLUGIN_PREFIX . 'do_follow'),
 			'description' => __('if you checked this option, you will allow search engines to follow this link and use it in ranking.','links-auto-replacer'),
 		) );
 
 		$add_links_box->add_field( array(
 			'name' => __( 'Open in:', 'links-auto-replacer' ),
-			'id'   => PLUGIN_PREFIX . 'open_in',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'open_in',
 			'type' => 'select',
-			'default'=> lar()->get_option(PLUGIN_PREFIX . 'open_in'),
+			'default'=> lar()->get_option(LAR_LITE_PLUGIN_PREFIX . 'open_in'),
 			'options' => array(
 					  '_self' => __('Same Window','links-auto-replacer'),
 					  '_blank' => __('New Window','links-auto-replacer'),
@@ -245,9 +245,9 @@ class Links_Auto_Replacer_Admin {
 
 		$add_links_box->add_field( array(
 			'name' => __( 'Shrink?', 'links-auto-replacer' ),
-			'id'   => PLUGIN_PREFIX . 'shrink',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'shrink',
 			'type' => 'checkbox',
-			'default'=> lar()->get_option(PLUGIN_PREFIX . 'shrink'),
+			'default'=> lar()->get_option(LAR_LITE_PLUGIN_PREFIX . 'shrink'),
 			'description' => __('The link will be shortened (e.g example.com/go/amazon)','links-auto-replacer'),
 		) );
 
@@ -257,7 +257,7 @@ class Links_Auto_Replacer_Admin {
 		$add_links_box->add_field( array(
 			'name' => __( 'Slug', 'links-auto-replacer' ),
 			'default' => $this->last_link_id,
-			'id'   => PLUGIN_PREFIX . 'slug',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'slug',
 			'type' => 'text_small',
 			'description' => __('The slug for the shortened link','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
@@ -267,9 +267,9 @@ class Links_Auto_Replacer_Admin {
 		$add_links_box->add_field( array(
 			'name' => __( 'Case Sensitive?', 'links-auto-replacer' ),
 			
-			'id'   => PLUGIN_PREFIX . 'is_sensitive',
+			'id'   => LAR_LITE_PLUGIN_PREFIX . 'is_sensitive',
 			'type' => 'checkbox',
-			//'default'=> lar()->get_option(PLUGIN_PREFIX . 'is_sensitive'),
+			//'default'=> lar()->get_option(LAR_LITE_PLUGIN_PREFIX . 'is_sensitive'),
 			'description' => __('If you checked this option, the plugin will replace the keywords exactly according to the letters case.','links-auto-replacer').' <span id="lar_slug_example"></span>',
 		));
 
@@ -288,7 +288,7 @@ class Links_Auto_Replacer_Admin {
 
 	   
 	    parse_str($_POST['form_data'], $link);
-	    $keywords = array_filter($link[PLUGIN_PREFIX.'keywords']);
+	    $keywords = array_filter($link[LAR_LITE_PLUGIN_PREFIX.'keywords']);
 	    $keywords = array_map('trim', $keywords);
 	    if( count(array_unique($keywords)) < count($keywords) ){
 	    	$errors['keywords'] = __('Please, remove the repetition from the keywords','links-auto-replacer');
@@ -300,8 +300,8 @@ class Links_Auto_Replacer_Admin {
 	    {
 	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer');
 	    }
-	    $link_type = isset($link[PLUGIN_PREFIX . 'link_type'])?$link[PLUGIN_PREFIX . 'link_type']:'';
-	    $link_url = isset($link[PLUGIN_PREFIX . 'url'])?$link[PLUGIN_PREFIX . 'url']:'';
+	    $link_type = isset($link[LAR_LITE_PLUGIN_PREFIX . 'link_type'])?$link[LAR_LITE_PLUGIN_PREFIX . 'link_type']:'';
+	    $link_url = isset($link[LAR_LITE_PLUGIN_PREFIX . 'url'])?$link[LAR_LITE_PLUGIN_PREFIX . 'url']:'';
 	    if($link_type == 'external' OR $link_type ==''){
 			if($link_url == '' OR filter_var($link_url, FILTER_VALIDATE_URL) === false)
 			{
@@ -314,9 +314,9 @@ class Links_Auto_Replacer_Admin {
 	    // we don't want to touch the DB unless the user fill all the data right.
 	    if(empty($errors)){
 
-		    $keywords = $this->get_meta_values(PLUGIN_PREFIX . 'keywords', 'lar_link','publish',$link['post_ID']);
+		    $keywords = $this->get_meta_values(LAR_LITE_PLUGIN_PREFIX . 'keywords', 'lar_link','publish',$link['post_ID']);
 		    foreach ($keywords as $key => $value) {
-		   		$intersect = array_intersect($link[PLUGIN_PREFIX.'keywords'], unserialize($value));
+		   		$intersect = array_intersect($link[LAR_LITE_PLUGIN_PREFIX.'keywords'], unserialize($value));
 		   		if(!empty($intersect)){
 		   			$errors['keywords'] = 'keyword\s ( '. implode(',', $intersect) .' ) is already exist';
 		   			break;
@@ -324,16 +324,16 @@ class Links_Auto_Replacer_Admin {
 		    }
 
 		
-		    $urls = $this->get_meta_values(PLUGIN_PREFIX . 'url', 'lar_link','publish',$link['post_ID']);
-		    if($link[PLUGIN_PREFIX . 'link_type'] == 'external'){
-			    if(in_array($link[PLUGIN_PREFIX . 'url'], $urls)){
+		    $urls = $this->get_meta_values(LAR_LITE_PLUGIN_PREFIX . 'url', 'lar_link','publish',$link['post_ID']);
+		    if($link[LAR_LITE_PLUGIN_PREFIX . 'link_type'] == 'external'){
+			    if(in_array($link[LAR_LITE_PLUGIN_PREFIX . 'url'], $urls)){
 			    	$errors['url'] = __('URL is already exist','links-auto-replacer');
 			    }
 			}
 		    
-			$link_slug = (isset($link[PLUGIN_PREFIX . 'slug']))?$link[PLUGIN_PREFIX . 'slug']:'';
+			$link_slug = (isset($link[LAR_LITE_PLUGIN_PREFIX . 'slug']))?$link[LAR_LITE_PLUGIN_PREFIX . 'slug']:'';
 			if(trim($link_slug)!=''){    
-			    $slugs = $this->get_meta_values(PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
+			    $slugs = $this->get_meta_values(LAR_LITE_PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
 			    if(in_array($link_slug, $slugs)){
 			    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer'),$link_slug);
 			    }
@@ -395,14 +395,14 @@ class Links_Auto_Replacer_Admin {
 	 */
 	public function insert_validation_nonce(){
 		if(isset($_GET['post'])){
-	 		$link_slug = get_post_meta($_GET['post'], PLUGIN_PREFIX.'slug',true);
+	 		$link_slug = get_post_meta($_GET['post'], LAR_LITE_PLUGIN_PREFIX.'slug',true);
 		}
 		
 	 	?>
 		 	<script type="text/javascript">
 		 		<?php do_action('lar_add_js_variables'); ?>
 		 		var validation_nonce = '<?php echo wp_create_nonce( 'my_pre_submit_validation' ); ?>'; 
-		 		var plugin_prefix = '<?php echo PLUGIN_PREFIX; ?>';
+		 		var plugin_prefix = '<?php echo LAR_LITE_PLUGIN_PREFIX; ?>';
 		 		<?php if(isset($link_slug)): ?>
 		 			var last_link_id = '<?php echo $link_slug; ?>'; 
 		 		<?php else: ?>
@@ -520,7 +520,6 @@ class Links_Auto_Replacer_Admin {
 	public function lar_columns_content($column_name, $post_ID) {
 
 		    if($column_name == 'link'){
-		    	//echo '<input disabled type="text" value="'.Lar_Link::get_final_url($post_ID).'" />';
 		    	echo Lar_Link::get_final_url($post_ID);
 		    }
 		    if($column_name == 'lite_total_clicks'){
@@ -528,8 +527,8 @@ class Links_Auto_Replacer_Admin {
 		    }
 
 		    if($column_name == 'keywords'){
-		    	$keywords = get_post_meta($post_ID, PLUGIN_PREFIX.'keywords',true);
-		    	$stats = get_post_meta($post_ID, PLUGIN_PREFIX.'stats');
+		    	$keywords = get_post_meta($post_ID, LAR_LITE_PLUGIN_PREFIX.'keywords',true);
+		    	$stats = get_post_meta($post_ID, LAR_LITE_PLUGIN_PREFIX.'stats');
 
 		    	if(!empty($keywords)){
 		    		?>
