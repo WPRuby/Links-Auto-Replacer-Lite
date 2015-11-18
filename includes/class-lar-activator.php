@@ -42,7 +42,7 @@ class Links_Auto_Replacer_Activator {
 	 *
 	 * @since    2.0.0
 	 */
-	private function import_old_data(){
+	private static function import_old_data(){
 
 		// we only need to import the data once.
 		if(get_option(LAR_LITE_PLUGIN_PREFIX.'old_data_imported') === 'yes') return; 
@@ -51,8 +51,8 @@ class Links_Auto_Replacer_Activator {
 		$table_name = $wpdb->prefix .'lar_links';
 
 		$old_links = $wpdb->get_results('SELECT * FROM '.$table_name);
-
-		if($old_links === false) return;
+		
+		if($old_links === null) return;
 
 		foreach ($old_links as $link){
 			$args = array();
