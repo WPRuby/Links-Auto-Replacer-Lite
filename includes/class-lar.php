@@ -208,14 +208,8 @@ class Links_Auto_Replacer {
 		
 		// @since 2.0.1
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_upgrade_to_pro_box' );
-		
-		
-
-
-
-
-		
-		
+		$this->loader->add_filter( 'post_row_actions', $plugin_admin, 'remove_row_actions', 10, 2 );
+	
 	}
 
 	/**

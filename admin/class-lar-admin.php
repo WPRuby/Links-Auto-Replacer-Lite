@@ -537,8 +537,6 @@ class Links_Auto_Replacer_Admin {
 			    		<div class="row-actions">
 				    		<span class="edit"><a href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit this item">Edit</a> | </span>	
 				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a>  </span>
-				    		
-				    		<!-- <span class="edit"><a target="_blank" href="<?php echo Lar_Link::get_final_url($post_ID);  ?>" title="Visit the link">Visit Link</a> </span>	 -->
 				    		<span class="quick_stats" class="edit"> | <a href="<?php echo admin_url('admin.php?page=lar_upgrade_settings'); ?>"><?php _e('Stats (PRO)','links-auto-replacer'); ?></a> </span>	
 				    		<?php do_action('lar_add_quick_links', $post_ID); ?>
 
@@ -565,5 +563,18 @@ class Links_Auto_Replacer_Admin {
 
 	public function meta_pro_callback($post){
 		echo '<a href="https://goo.gl/ILo1iY" target="_blank"><img style="width:100%;" src="'.LAR_URL.'admin/images/upgrade_to_pro.png" /></a>';
+	}
+
+	public function remove_row_actions( $actions, $post )
+	{
+	  global $current_screen;
+		if( $current_screen->post_type != 'lar_link' ) return $actions;
+		unset( $actions['edit'] );
+		unset( $actions['view'] );
+		unset( $actions['trash'] );
+		unset( $actions['inline hide-if-no-js'] );
+		//$actions['inline hide-if-no-js'] .= __( 'Quick&nbsp;Edit' );
+
+		return $actions;
 	}
 }
