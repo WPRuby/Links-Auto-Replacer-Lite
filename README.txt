@@ -1,16 +1,22 @@
-=== Links Auto Replacer ===
+=== Affiliate Butler Lite ===
 Contributors: waseem_senjer
-Donate link: http://waseem-senjer.com/product/links-auto-replacer-pro/
+Donate link: https://waseem-senjer.com/product/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
 Tested up to: 4.3.1
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Convert your post content keywords to Links automatically, Using the same links over and over again in your posts? This is the solution.
 
 == Description ==
+
+= Affiliate Butler Pro =
+
+[Upgrade to Affiliate Butler Pro](https://waseem-senjer.com/product/affiliate-butler-pro/ "Upgrade to Affiliate Butler Pro")
+
+*Affiliate Butler Pro* is a **significant upgrade** to *Affiliate Butler Lite* that adds many features such as internal, images, galleries, videos, maps and sharing tooltip and much more features.
 
 Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
 
@@ -58,6 +64,12 @@ Are you an affiliate marketer, you don't have to manually insert your affiliate 
 3. The auto replacement of the keywords in the post.
 
 == Changelog ==
+
+= 2.1.0 = 
+* Fixed on activation bug
+* Fixed compatibility checks
+* Improving replacing keywords functionality
+* Renaming the plugin
 
 = 2.0.0 =
 * A complete rewrite.

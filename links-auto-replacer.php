@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://waseem-senjer.com/product/links-auto-replacer-pro/
+ * @link              https://waseem-senjer.com/product/affiliate-butler-pro/
  * @since             1.0
  * @package           Links_Auto_Replacer
  *
  * @wordpress-plugin
- * Plugin Name:       Links Auto Replacer
- * Plugin URI:        http://waseem-senjer.com/product/links-auto-replacer-pro/
+ * Plugin Name:       Affiliate Butler Lite
+ * Plugin URI:        https://waseem-senjer.com/product/affiliate-butler-pro/
  * Description:       Auto replace your affiliate links and track them.
- * Version:           2.0.0
+ * Version:           2.1.0
  * Author:            Waseem Senjer
- * Author URI:        http://waseem-senjer.com/product/links-auto-replacer-pro//
+ * Author URI:        https://waseem-senjer.com/product/affiliate-butler-pro/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       links-auto-replacer

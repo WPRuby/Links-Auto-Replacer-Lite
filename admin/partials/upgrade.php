@@ -3,7 +3,7 @@
 
 	<div id="lar_upgrade_box">
 		
-		<a href="https://goo.gl/ILo1iY" target="_blank"><img style="width:100%;" src="<?php echo LAR_URL; ?>admin/images/upgrade_tab.png" /></a>
+		<a href="https://goo.gl/NBf9Nk" target="_blank"><img  src="<?php echo LAR_URL; ?>admin/images/upgrade_tab.png" /></a>
 
 
 	</div> 
