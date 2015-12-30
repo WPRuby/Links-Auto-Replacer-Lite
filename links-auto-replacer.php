@@ -16,7 +16,7 @@
  * Plugin Name:       Affiliate Butler Lite
  * Plugin URI:        https://waseem-senjer.com/product/affiliate-butler-pro/
  * Description:       Auto replace your affiliate links and track them.
- * Version:           2.1.0
+ * Version:           2.1.1
  * Author:            Waseem Senjer
  * Author URI:        https://waseem-senjer.com/product/affiliate-butler-pro/
  * License:           GPL-2.0+
