@@ -3,7 +3,7 @@ Contributors: waseem_senjer
 Donate link: https://waseem-senjer.com/product/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
-Tested up to: 4.3.1
+Tested up to: 4.4
 Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Convert your post content keywords to Links automatically, Using the same links 
 
 = Affiliate Butler Pro =
 
-[Upgrade to Affiliate Butler Pro](https://waseem-senjer.com/product/affiliate-butler-pro/ "Upgrade to Affiliate Butler Pro")
+[Upgrade to Affiliate Butler Pro](http://goo.gl/DFF6Fs "Upgrade to Affiliate Butler Pro")
 
 *Affiliate Butler Pro* is a **significant upgrade** to *Affiliate Butler Lite* that adds many features such as internal, images, galleries, videos, maps and sharing tooltip and much more features.
 
@@ -59,7 +59,7 @@ Are you an affiliate marketer, you don't have to manually insert your affiliate 
 
 == Screenshots ==
 
-1. The post before adding the links
+1. Add link page.
 2. Links management.
 3. The auto replacement of the keywords in the post.
 

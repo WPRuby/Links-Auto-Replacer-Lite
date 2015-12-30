@@ -561,7 +561,7 @@ class Links_Auto_Replacer_Admin {
 	}
 
 	public function meta_pro_callback($post){
-		echo '<a href="https://goo.gl/ILo1iY" target="_blank"><img style="width:100%;" src="'.LAR_URL.'admin/images/upgrade_to_pro.png" /></a>';
+		echo '<a href="http://goo.gl/DFF6Fs" target="_blank"><img style="width:100%;" src="'.LAR_URL.'admin/images/upgrade_to_pro.png" /></a>';
 	}
 
 	public function remove_row_actions( $actions, $post )
