@@ -12,19 +12,17 @@ Convert your post content keywords to Links automatically, Using the same links 
 
 == Description ==
 
-= Affiliate Butler Pro =
-
-[Upgrade to Affiliate Butler Pro](http://goo.gl/DFF6Fs "Upgrade to Affiliate Butler Pro")
-
-*Affiliate Butler Pro* is a **significant upgrade** to *Affiliate Butler Lite* that adds many features such as internal, images, galleries, videos, maps and sharing tooltip and much more features.
-
 Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
 
 Manage them in one place and create your own shortcuts via Keywords. 
 
 Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has a link shortening feature to hide and protect your links.
 
- 
+= Affiliate Butler Pro =
+
+[Upgrade to Affiliate Butler Pro](http://goo.gl/DFF6Fs "Upgrade to Affiliate Butler Pro")
+
+*Affiliate Butler Pro* is a **significant upgrade** to *Affiliate Butler Lite* that adds many features such as internal, images, galleries, videos, maps and sharing tooltip and much more features.
 
 == Installation ==
 
