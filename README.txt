@@ -1,5 +1,5 @@
-=== Affiliate Butler Lite ===
-Contributors: waseem_senjer
+=== Keywords to Links Converter ===
+Contributors: waseem_senjer,wprubyplugins
 Donate link: https://waseem-senjer.com/product/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1

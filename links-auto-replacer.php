@@ -13,12 +13,12 @@
  * @package           Links_Auto_Replacer
  *
  * @wordpress-plugin
- * Plugin Name:       Affiliate Butler Lite
- * Plugin URI:        https://waseem-senjer.com/product/affiliate-butler-pro/
+ * Plugin Name:       Keywords to Links Converter
+ * Plugin URI:        https://wpruby.com/plugin/affiliate-butler-pro/
  * Description:       Auto replace your affiliate links and track them.
  * Version:           2.1.1
  * Author:            Waseem Senjer
- * Author URI:        https://waseem-senjer.com/product/affiliate-butler-pro/
+ * Author URI:        https://waseem-senjer.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       links-auto-replacer

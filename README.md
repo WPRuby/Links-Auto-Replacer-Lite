@@ -1,6 +1,6 @@
 # Links Auto Replacer
 * Contributors: waseem_senjer
-* Purchasing link: http://waseem-senjer.com/product/links-auto-replacer-pro//
+* Purchasing link: https://wpruby.com/plugin/affiliate-butler-pro/
 * Tags: affiliate, links, automation,keywords,cloak,cloaking
 * Requires at least: 3.0.1
 * Tested up to: 4.2.2
