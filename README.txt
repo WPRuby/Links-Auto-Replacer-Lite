@@ -3,8 +3,8 @@ Contributors: waseem_senjer,wprubyplugins
 Donate link: https://waseem-senjer.com/product/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
-Tested up to: 4.4
-Stable tag: 2.1.1
+Tested up to: 4.5.3
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,9 @@ Are you an affiliate marketer, you don't have to manually insert your affiliate 
 3. The auto replacement of the keywords in the post.
 
 == Changelog ==
+
+= 2.1.2 =
+* Fixed: Letters case sensitivity
 
 = 2.1.0 = 
 * Fixed on activation bug

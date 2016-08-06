@@ -16,7 +16,7 @@
  * Plugin Name:       Keywords to Links Converter
  * Plugin URI:        https://wpruby.com/plugin/affiliate-butler-pro/
  * Description:       Auto replace your affiliate links and track them.
- * Version:           2.1.1
+ * Version:           2.1.2
  * Author:            Waseem Senjer
  * Author URI:        https://waseem-senjer.com
  * License:           GPL-2.0+
