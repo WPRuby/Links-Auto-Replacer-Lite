@@ -134,10 +134,10 @@ class Links_Auto_Replacer_Public {
 			$link_type = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]))?$link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]:'';
 			if($link_type == 'external' OR $link_type ==''){
 				if ( get_option('permalink_structure') != '' ) {
-					$url = ($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]!= '')? site_url().'/go/'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] : $link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0];
+					$url = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]) && $link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]!= '')? site_url().'/go/'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] : $link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0];
 				
 				}else{
-					$url = ($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] != '')? site_url().'/index.php?go='.$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] : $link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0];
+					$url = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]) && $link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] != '')? site_url().'/index.php?go='.$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] : $link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0];
 				
 				}
 			}elseif($link_type == 'internal'){ // if internal link
@@ -181,8 +181,13 @@ class Links_Auto_Replacer_Public {
 				$post_content = html_entity_decode(($content));
 
 				// sensitivity modifier
-				$i = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0]) && $link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0] !== 'on')?'i':'';
-				
+				if(!isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0])){
+					$i = 'i';
+				}elseif(isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0]) && $link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0] !== 'on'){
+					$i = '';
+				}else{
+					$i = '';
+				}
 				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i);
 
 
@@ -243,7 +248,6 @@ class Links_Auto_Replacer_Public {
 	public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive) {
 	    foreach ($domNode->childNodes as $node)
 	    {
-	        
 	        if($node->nodeName == '#text'){
 	        	$node->nodeValue =  preg_replace('/('.($word).')/'.$case_sensitive.'u', $replacement, $node->nodeValue);
 	        }
