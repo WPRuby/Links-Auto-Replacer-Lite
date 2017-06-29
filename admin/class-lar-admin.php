@@ -181,7 +181,7 @@ class Links_Auto_Replacer_Admin {
 
 
 		$add_links_box->add_field( array(
-			'name' => __( 'Keyword/s', 'links-auto-replacer' ),
+			'name' => __( 'Keyword(s)', 'links-auto-replacer' ),
 			
 			'id'   => PLUGIN_PREFIX . 'keywords',
 			'type' => 'text_medium',
@@ -280,7 +280,7 @@ class Links_Auto_Replacer_Admin {
 	    
 	    if(empty($keywords))
 	    {
-	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer');
+	    	$errors['keywords'] = __('Please provide keyword(s)','links-auto-replacer');
 	    }
 	    if($link[PLUGIN_PREFIX . 'link_type'] == 'external' OR $link[PLUGIN_PREFIX . 'link_type']==''){
 			if($link[PLUGIN_PREFIX.'url'] == '' OR filter_var($link[PLUGIN_PREFIX.'url'], FILTER_VALIDATE_URL) === false)
@@ -298,7 +298,7 @@ class Links_Auto_Replacer_Admin {
 		    foreach ($keywords as $key => $value) {
 		   		$intersect = array_intersect($link[PLUGIN_PREFIX.'keywords'], unserialize($value));
 		   		if(!empty($intersect)){
-		   			$errors['keywords'] = 'keyword\s ( '. implode(',', $intersect) .' ) is already exist';
+		   			$errors['keywords'] = 'keyword\s ( '. implode(',', $intersect) .' ) already exists';
 		   			break;
 		   		}
 		    }
@@ -306,14 +306,14 @@ class Links_Auto_Replacer_Admin {
 		
 			    $urls = $this->get_meta_values(PLUGIN_PREFIX . 'url', 'lar_link','publish',$link['post_ID']);
 			    if(in_array($link[PLUGIN_PREFIX . 'url'], $urls)){
-			    	$errors['url'] = __('URL is already exist','links-auto-replacer');
+			    	$errors['url'] = __('URL already exists','links-auto-replacer');
 			    }
 		    
 
 			if(trim($link[PLUGIN_PREFIX . 'slug'])!=''){    
 			    $slugs = $this->get_meta_values(PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
 			    if(in_array($link[PLUGIN_PREFIX . 'slug'], $slugs)){
-			    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer'),$link[PLUGIN_PREFIX . 'slug']);
+			    	$errors['slugs'] = sprintf(__( 'Slug (%s) already exists','links-auto-replacer'),$link[PLUGIN_PREFIX . 'slug']);
 			    }
 			}
 		} //empty($errors)
@@ -471,7 +471,7 @@ class Links_Auto_Replacer_Admin {
 			foreach($defaults as $key => $title) {
 			    if ($key==apply_filters('lar_put_colums_before','date')){ // Put the Thumbnail column before the Author column
 			      		
-			      		$new['keywords'] = __('Keyword/s','links-auto-replacer');	    		
+			      		$new['keywords'] = __('Keyword(s)','links-auto-replacer');	    		
 		    			$new['link'] = __('Link','links-auto-replacer');
 		    			$new['lite_total_clicks'] = __('Total Clicks','links-auto-replacer');
 		    			$new = apply_filters('lar_links_colums_heads',$new);
