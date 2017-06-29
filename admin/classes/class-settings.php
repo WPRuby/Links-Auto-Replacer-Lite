@@ -169,7 +169,7 @@ class Lar_Settings{
 
 		// Set our CMB2 fields
 		$cmb->add_field( array(
-			'name'    => __( 'Enable Auto Replcement', 'links-auto-replacer' ),
+			'name'    => __( 'Enable Auto Replacement', 'links-auto-replacer' ),
 			'id'      => PLUGIN_PREFIX . 'enable',
 			'type'    => 'checkbox',
 			'default' => 'yes',
