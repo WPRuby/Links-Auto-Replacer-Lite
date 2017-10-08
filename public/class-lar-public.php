@@ -167,9 +167,8 @@ class Links_Auto_Replacer_Public {
 			
 			// if the keywords not really inserted
 			if($keywords === false) continue;
-
+			libxml_use_internal_errors(true);
 			$doc = new DOMDocument();
-			
 			@$doc->loadHTML('<?xml encoding="UTF-8">'.$content);
 			$doc->encoding = 'UTF-8';
 			foreach($keywords as $keyword){
@@ -245,7 +244,7 @@ class Links_Auto_Replacer_Public {
 	 * @return 	 DOMNode The replaced Node.
 	 * @since    1.5.0
 	 */
-	public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive) {
+	/*public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive) {
 	    foreach ($domNode->childNodes as $node)
 	    {
 	        if($node->nodeName == '#text'){
@@ -256,6 +255,23 @@ class Links_Auto_Replacer_Public {
 	        }
 	    } 
 	    return $domNode;    
+	}*/
+
+	public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive) {
+
+		foreach ($domNode->childNodes as $node)
+		{
+			// Pass the nodes which already linked.
+			if($node->nodeName == 'a') continue;
+			if($node->nodeName == '#text'){
+				//$word = preg_quote($word, '/');
+				$node->nodeValue =  @preg_replace('/(\b'.($word).')(?![\w-])/'.$case_sensitive.'u', $replacement, $node->nodeValue);
+			}
+			if($node->hasChildNodes()) {
+				$this->showDOMNode($node,$word,$replacement,$case_sensitive);
+			}
+		}
+		return $domNode;
 	}
 
 	/**
