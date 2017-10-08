@@ -4,7 +4,7 @@ Donate link: https://wpruby.com/plugin/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
 Tested up to: 4.7.3
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,8 @@ Are you an affiliate marketer, you don't have to manually insert your affiliate 
 3. The auto replacement of the keywords in the post.
 
 == Changelog ==
+= 2.1.5 =
+* Improved: The keywords replacement process
 
 = 2.1.3 =
 * Fixed: Pro URL changing
