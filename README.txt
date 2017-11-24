@@ -5,6 +5,7 @@ Tags: affiliate, links, automation,keywords,marketing, convert keywords, online 
 Requires at least: 3.0.1
 Tested up to: 4.9
 Stable tag: 2.1.5
+Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +24,45 @@ Are you an affiliate marketer, you don't have to manually insert your affiliate 
 [Upgrade to Affiliate Butler Pro](https://wpruby.com/plugin/affiliate-butler-pro/ "Upgrade to Affiliate Butler Pro")
 
 *Affiliate Butler Pro* is a **significant upgrade** to *Affiliate Butler Lite* that adds many features such as internal, images, galleries, videos, maps and sharing tooltip and much more features.
+
+== Plugin’s Features ==
+
+=== Auto-Linking ===
+The plugin allows you to add one or multiple keywords in order to automatically link them to an external link.
+=== Do Follow ===
+You can set whether you want the keyword’s link to have the dofollow or nofollow values in order to allow search engines to follow this link and use it in ranking or not.
+=== Open Target ===
+Set the opening behavior of the keyword’s link whether to open in the same window or a new window.
+=== Auto Shortening ===
+You can shorten the keyword’s link in order to make them clean links and prettified.
+=== Case Sensitive ===
+You can set the Auto-Link to be letters case sensitive for more accurate replacement
+
+== Pro Plugin’s Features ==
+
+=== Linking Types ===
+We have 8 types of linking your keywords:
+
+* **Internal URL:** You can link your keywords to an internal page of your website. You can find the page by an easy auto-complete list.
+* **Custom HTML Popup:** The keyword can be linked to a popup that contains any design you want as the plugin accept HTML code to be integrated into the popup. For example, you can add an opt-in form HTML code to collect visitors emails.
+* **Image Popup:** Keywords can be linked to display a popup which contains a single image.
+* **Gallery Popup:** Do you need to display a gallery of images when your users click on certain keywords? No problem, the plugin allows you to link keywords to gallery popups.
+* **Video Popup:** I bet sometimes you want to show the visitors a video but you don’t want them to exit your website to YouTube. You can link your keywords to video popups which support YouTube and Vimeo videos.
+* **Google Maps Popup:** Let’s say you are reviewing a restaurant on your website. It would be a good idea to link the restaurant name with a Map Popup that displays the location of that restaurant.
+* **Social Media Sharing Tooltip:** Let your visitors share any content/links you want to their social media accounts. By linking your keywords to a social media sharing tooltip, the keyword link will prompt the visitor with a tooltip that contains variant social media networks to share your content on.
+
+=== Linking Categories and Custom Taxonomies ===
+You can auto link your website categories and custom taxonomies.  Categories terms will be linked to their archive pages whenever they appear in posts or pages.
+
+=== Limits Per Post ===
+Limit the number of times that the keyword will be converted to a link per post if you don’t need your pages to be overwhelmed with links 🙂
+
+=== Comprehensive Stats ===
+Even if the link was external or a popup, the plugin will be able to track the link and provides you with many statistics (Visits per day, Countries, Browsers, Operating Systems and languages ). I will add more features in the statistics page in order to provide the plugin user of the maximum benefits of statistics and tracking. Moreover, each keyword has its own stats in the keyword editing page.
+
+[Upgrade to Affiliate Butler Pro](https://wpruby.com/plugin/affiliate-butler-pro/ "Upgrade to Affiliate Butler Pro")
+
+
 
 == Installation ==
 
