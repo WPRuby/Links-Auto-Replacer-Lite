@@ -264,7 +264,7 @@ class Links_Auto_Replacer_Public {
 			// Pass the nodes which already linked.
 			if($node->nodeName == 'a') continue;
 			if($node->nodeName == '#text'){
-				//$word = preg_quote($word, '/');
+				$word = preg_quote($word, '/');
 				$node->nodeValue =  @preg_replace('/(\b'.($word).')(?![\w-])/'.$case_sensitive.'u', $replacement, $node->nodeValue);
 			}
 			if($node->hasChildNodes()) {
@@ -295,7 +295,7 @@ class Links_Auto_Replacer_Public {
 	 * This method adds a new query var [go] 
 	 * @TODO Should be enhanced by removing the [go] prefix from urls with slugs.
 	 *
-	 * @param	 array  The original vars.
+	 * @param	 array  original vars.
 	 * @return	 array The new vars with [go] added.
 	 * @since    1.0.0
 	 */
@@ -316,7 +316,6 @@ class Links_Auto_Replacer_Public {
 		global $wp_query;
 		
 		if(isset($wp_query->query_vars['go'])){
-			global $wpdb;
 			$link = get_posts('post_type=lar_link&meta_key='.LAR_LITE_PLUGIN_PREFIX.'slug&meta_value='.$wp_query->query_vars['go']);
 			$link_url = get_post_meta($link[0]->ID, LAR_LITE_PLUGIN_PREFIX.'url',true);
 

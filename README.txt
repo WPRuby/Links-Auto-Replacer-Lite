@@ -1,5 +1,5 @@
 === Keywords to Links Converter ===
-Contributors: waseem_senjer,wprubyplugins
+Contributors: waseem_senjer, wprubyplugins
 Donate link: https://wpruby.com/plugin/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
@@ -67,7 +67,6 @@ Even if the link was external or a popup, the plugin will be able to track the l
 == Installation ==
 
 
-
 = Using The WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
@@ -76,7 +75,6 @@ Even if the link was external or a popup, the plugin will be able to track the l
 4. Activate the plugin on the Plugin dashboard
 
 = Uploading in WordPress Dashboard =
-
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Navigate to the 'Upload' area
 3. Select `lar-links-auto-replacer.zip` from your computer
@@ -84,19 +82,13 @@ Even if the link was external or a popup, the plugin will be able to track the l
 5. Activate the plugin in the Plugin dashboard
 
 = Using FTP =
-
 1. Download `lar-links-auto-replacer.zip`
 2. Extract the `lar-links-auto-replacer` directory to your computer
 3. Upload the `lar-links-auto-replacer` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
 
 
-
-
-
-
 == Screenshots ==
-
 1. Add link page.
 2. Links management.
 3. The auto replacement of the keywords in the post.
