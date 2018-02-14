@@ -155,13 +155,6 @@ class Links_Auto_Replacer_Public {
 			}elseif($link_type == 'sharing_tip'){
 					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'sharing_tip'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'sharing_tip'][0]:'javascript:void(0)';
 			}
-
-			
-
-
-
-
-			
 			
 			$keywords = unserialize( $link_meta[LAR_LITE_PLUGIN_PREFIX.'keywords'][0] );
 			
