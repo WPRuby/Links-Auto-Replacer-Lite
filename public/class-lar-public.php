@@ -131,6 +131,7 @@ class Links_Auto_Replacer_Public {
 			if($link_dofollow != 1){
 				$dofollow = 'rel="nofollow"';
 			}
+
 			$link_type = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]))?$link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]:'';
 			if($link_type == 'external' OR $link_type ==''){
 				if ( get_option('permalink_structure') != '' ) {
