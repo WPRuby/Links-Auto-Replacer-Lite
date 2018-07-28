@@ -170,7 +170,7 @@ class Links_Auto_Replacer_Public {
 
 				$extra_attrs = apply_filters('lar_add_extra_atts',$link->ID, $post->ID);
 
-				$final_url = ' <a href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
+				$final_url = ' <a class="lar-automated-link" href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
 				$post_content = html_entity_decode(($content));
 
 				// sensitivity modifier
