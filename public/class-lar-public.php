@@ -128,7 +128,7 @@ class Links_Auto_Replacer_Public {
 			
 			$dofollow = '';
 			$link_dofollow = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'do_follow'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'do_follow'][0]:'';
-			if($link_dofollow != 1){
+			if($link_dofollow != 'on'){
 				$dofollow = 'rel="nofollow"';
 			}
 
