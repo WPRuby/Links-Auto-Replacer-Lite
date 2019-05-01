@@ -61,21 +61,7 @@ class Links_Auto_Replacer_Public {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Links_Auto_Replacer_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Links_Auto_Replacer_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->Links_Auto_Replacer, plugin_dir_url( __FILE__ ) . 'css/lar-public.css', array(), $this->version, 'all' );
-
-	}
+}
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
@@ -100,6 +86,11 @@ class Links_Auto_Replacer_Public {
 
 	}
 
+	public function add_inline_styles(){
+		echo "<style> .lar_social_share_icon{
+ 				margin: 2px;
+ 				}</style>";
+	}
 
 	/**
 	 * This is the main function that converts the keywords to links.

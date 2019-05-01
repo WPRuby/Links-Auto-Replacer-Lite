@@ -84,32 +84,6 @@ class Links_Auto_Replacer_Admin {
 		 */
 		
 		wp_enqueue_style( $this->Links_Auto_Replacer, plugin_dir_url( __FILE__ ) . 'css/lar-links-admin.css', array(), $this->version, 'all' );
-		
-		
-
-
-	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    2.0.0
-	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Links_Auto_Replacer_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Links_Auto_Replacer_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->Links_Auto_Replacer, plugin_dir_url( __FILE__ ) . 'js/lar-links-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 

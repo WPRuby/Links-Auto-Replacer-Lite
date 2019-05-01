@@ -181,8 +181,7 @@ class Links_Auto_Replacer {
 		$plugin_admin = new Links_Auto_Replacer_Admin( $this->get_Links_Auto_Replacer(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		
+
 		$this->loader->add_action( 'init', $plugin_admin, 'register_links_post_type' );
 		
 		
@@ -223,9 +222,9 @@ class Links_Auto_Replacer {
 
 		$plugin_public = new Links_Auto_Replacer_Public( $this->get_Links_Auto_Replacer(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action('wp_head', $plugin_public, 'add_inline_styles');
 		
 		$this->loader->add_filter( 'the_content', $plugin_public, 'lar_auto_replace_links' );
 		$this->loader->add_filter( 'the_excerpt', $plugin_public, 'lar_auto_replace_links' );

@@ -95,7 +95,7 @@ Even if the link was external or a popup, the plugin will be able to track the l
 
 == Changelog ==
 = 2.1.9 =
-* Fixed: dofollow linking did not relflect the settings
+* Fixed: dofollow linking did not reflect the settings
 
 = 2.1.8 =
 * Added: CSS class `lar-automated-link` for the generated links
