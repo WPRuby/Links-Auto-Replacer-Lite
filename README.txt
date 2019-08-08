@@ -4,7 +4,7 @@ Donate link: https://wpruby.com/plugin/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
 Tested up to: 5.0
-Stable tag: 2.1.10
+Stable tag: 2.1.11
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -94,6 +94,8 @@ Even if the link was external or a popup, the plugin will be able to track the l
 3. The auto replacement of the keywords in the post.
 
 == Changelog ==
+= 2.1.11 =
+* Fixed: Performance of the of the keywords replacement.
 
 = 2.1.10 =
 * Fixed: unnecessary loading of css and js files
