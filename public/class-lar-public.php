@@ -161,7 +161,7 @@ class Links_Auto_Replacer_Public {
 
 				$extra_attrs = apply_filters('lar_add_extra_atts',$link->ID, $post->ID);
 
-				$final_url = ' <a class="lar-automated-link" href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
+				$final_url = '<a class="lar-automated-link" href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
 				$post_content = html_entity_decode(($content));
 
 				// sensitivity modifier
@@ -172,6 +172,8 @@ class Links_Auto_Replacer_Public {
 				}else{
 					$i = '';
 				}
+
+				$keyword = preg_quote($keyword, '/');
 				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i);
 
 
@@ -223,37 +225,26 @@ class Links_Auto_Replacer_Public {
 	/**
 	 * Helper function that is used to get text nodes from the DomNode and replace the keywords
 	 * It's used in $this -> lar_auto_replace_links()
-	 * @param	 DOMNode current node
-	 * @param	 string The keyword that should be replaced.
-	 * @param	 string The replacement string, it's the url in our context.
-	 * @return 	 DOMNode The replaced Node.
+	 *
+	 * @param DOMNode $domNode
+	 * @param $word
+	 * @param $replacement
+	 * @param $case_sensitive
+	 *
+	 * @return     DOMNode The replaced Node.
 	 * @since    1.5.0
 	 */
-	/*public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive) {
-	    foreach ($domNode->childNodes as $node)
-	    {
-	        if($node->nodeName == '#text'){
-	        	$node->nodeValue =  preg_replace('/('.($word).')/'.$case_sensitive.'u', $replacement, $node->nodeValue);
-	        }
-	        if($node->hasChildNodes()) {
-	            $this->showDOMNode($node,$word,$replacement,$case_sensitive);
-	        }
-	    } 
-	    return $domNode;    
-	}*/
 
-	public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive) {
-
+	public function showDOMNode($domNode,$word,$replacement,$case_sensitive) {
 		foreach ($domNode->childNodes as $node)
 		{
 			// Pass the nodes which already linked.
 			if($node->nodeName == 'a') continue;
 			if($node->nodeName == '#text'){
-				$word = preg_quote($word, '/');
 				$node->nodeValue =  @preg_replace('/(\b'.($word).')(?![\w-])/'.$case_sensitive.'u', $replacement, $node->nodeValue);
 			}
 			if($node->hasChildNodes()) {
-				$this->showDOMNode($node,$word,$replacement,$case_sensitive);
+				$this->showDOMNode($node, $word, $replacement, $case_sensitive);
 			}
 		}
 		return $domNode;
@@ -267,13 +258,11 @@ class Links_Auto_Replacer_Public {
 	 */
 	public function lar_setup_rewrite_rules($rules)
 	{
-	    $newrules['^go/([^/]*)/?$'] = 'index.php?go=$matches[1]';
-	    $newrules['^index.php?go=([^/]*)?$'] = 'index.php?go=$matches[1]';
-	    return $newrules + $rules;
+		$new_rules = array();
+	    $new_rules['^go/([^/]*)/?$'] = 'index.php?go=$matches[1]';
+		$new_rules['^index.php?go=([^/]*)?$'] = 'index.php?go=$matches[1]';
+	    return $new_rules + $rules;
 	}
-
-
-
 
 
 	/**
