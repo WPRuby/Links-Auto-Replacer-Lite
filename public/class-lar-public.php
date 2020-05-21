@@ -31,6 +31,8 @@ class Links_Auto_Replacer_Public {
 	 */
 	private $Links_Auto_Replacer;
 
+	private $happened = 0;
+
 	/**
 	 * The version of this plugin.
 	 *
@@ -104,7 +106,6 @@ class Links_Auto_Replacer_Public {
 		$lar_global_enabled = lar()->get_option(LAR_LITE_PLUGIN_PREFIX.'enable');
 		if($lar_global_enabled === 'off') return $content;
 		
-		global $wpdb; 
 		global $post;
 
 		$is_disabled =  get_post_meta( $post->ID, 'lar_disabled'  , true );
@@ -174,9 +175,10 @@ class Links_Auto_Replacer_Public {
 				}
 
 				$keyword = preg_quote($keyword, '/');
-				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i);
-
-
+				$per_post_limit = intval(lar()->get_option(LAR_LITE_PLUGIN_PREFIX.'per_post_limit'));
+				if($per_post_limit === 0){ $per_post_limit = -1; }
+				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i, $per_post_limit);
+				$this->happened = 0;
 				$mock = new DOMDocument;
 			    $body = $changed->getElementsByTagName('body')->item(0);
 				if(isset($body->childNodes)){
@@ -231,20 +233,41 @@ class Links_Auto_Replacer_Public {
 	 * @param $replacement
 	 * @param $case_sensitive
 	 *
+	 * @param int $per_post_limit
+	 *
 	 * @return     DOMNode The replaced Node.
 	 * @since    1.5.0
 	 */
 
-	public function showDOMNode($domNode,$word,$replacement,$case_sensitive) {
+	public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive, $per_post_limit = -1) {
+		$excluded_html_tags = lar()->get_option(LAR_LITE_PLUGIN_PREFIX.'excluded_html_tags');
+		$excluded_html_tags = explode(',', $excluded_html_tags);
+		/** @var DOMNode $node */
 		foreach ($domNode->childNodes as $node)
 		{
 			// Pass the nodes which already linked.
 			if($node->nodeName == 'a') continue;
+			if( in_array($node->nodeName, $excluded_html_tags) ) continue;
+
 			if($node->nodeName == '#text'){
-				$node->nodeValue =  @preg_replace('/(\b'.($word).')(?![\w-])/'.$case_sensitive.'u', $replacement, $node->nodeValue);
+				$occurencies = $this->count_occurencies ( strtoupper( $node->nodeValue ), strtoupper( $word ),$case_sensitive );
+				$limit = ($per_post_limit != -1)?$per_post_limit - $this->happened:$per_post_limit;
+				if($this->happened < $per_post_limit || $per_post_limit === -1){
+					$replacement = $this->clean_replacement($replacement);
+					$replacement_pattern = $this->get_replacement_pattern($word, $case_sensitive);
+					$node->nodeValue =  @preg_replace($replacement_pattern, $replacement, $node->nodeValue, $limit);
+				}
+				if($occurencies > 0){
+					$this->happened  = $this->happened + $occurencies;
+				}
+				if($per_post_limit !== -1){
+					if($this->happened >= $per_post_limit){
+						return $domNode;
+					}
+				}
 			}
 			if($node->hasChildNodes()) {
-				$this->showDOMNode($node, $word, $replacement, $case_sensitive);
+				$this->showDOMNode($node,$word,$replacement,$case_sensitive, $per_post_limit);
 			}
 		}
 		return $domNode;
@@ -286,7 +309,7 @@ class Links_Auto_Replacer_Public {
 	*
 	* @since    1.0.0
 	*/
-	function lar_redirect(){
+	public function lar_redirect(){
 		global $wp_query;
 		
 		if(isset($wp_query->query_vars['go'])){
@@ -301,6 +324,49 @@ class Links_Auto_Replacer_Public {
 			
 		}
 		
+	}
+
+	/**
+	 * @param $replacement
+	 *
+	 * @return string
+	 */
+	private function clean_replacement( $replacement ) {
+		$concatenated_words_langs = array('ja', 'zh_CN', 'zh_HK', 'zh_TW');
+		if(in_array(get_locale(), $concatenated_words_langs)){
+			$replacement = trim($replacement);
+		}
+		return $replacement;
+	}
+
+	/**
+	 * @param $word
+	 * @param $case_sensitive
+	 *
+	 * @return string
+	 */
+	private function get_replacement_pattern( $word, $case_sensitive ) {
+		$word = preg_quote($word, '/');
+		$concatenated_words_langs = array('ja', 'zh_CN', 'zh_HK', 'zh_TW');
+		if (in_array(get_locale(), $concatenated_words_langs)){
+			return '/('.($word).')(?![\w-])/' . $case_sensitive;
+		}
+
+		return '/\b('.($word).')(?![\w-])/'.$case_sensitive.'u';
+	}
+
+	/**
+	 * Calculate the occurencies of a word in a string.
+	 *
+	 * @param $str
+	 * @param $word
+	 * @param $case_sensitive
+	 *
+	 * @since    1.1.0
+	 * @return int
+	 */
+	private function count_occurencies($str, $word, $case_sensitive = '') {
+		return preg_match_all($this->get_replacement_pattern($word, $case_sensitive), $str);
 	}
 
 }
