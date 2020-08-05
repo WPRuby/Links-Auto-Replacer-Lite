@@ -346,7 +346,6 @@ class Links_Auto_Replacer_Public {
 	 * @return string
 	 */
 	private function get_replacement_pattern( $word, $case_sensitive ) {
-		$word = preg_quote($word, '/');
 		$concatenated_words_langs = array('ja', 'zh_CN', 'zh_HK', 'zh_TW');
 		if (in_array(get_locale(), $concatenated_words_langs)){
 			return '/('.($word).')(?![\w-])/' . $case_sensitive;
@@ -356,7 +355,7 @@ class Links_Auto_Replacer_Public {
 	}
 
 	/**
-	 * Calculate the occurencies of a word in a string.
+	 * Calculate the occurrences of a word in a string.
 	 *
 	 * @param $str
 	 * @param $word
