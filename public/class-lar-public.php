@@ -365,7 +365,7 @@ class Links_Auto_Replacer_Public {
 	 * @return int
 	 */
 	private function count_occurencies($str, $word, $case_sensitive = '') {
-		return preg_match_all($this->get_replacement_pattern($word, $case_sensitive), $str);
+		return @preg_match_all($this->get_replacement_pattern($word, $case_sensitive), $str);
 	}
 
 }
