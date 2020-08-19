@@ -227,9 +227,7 @@ class Links_Auto_Replacer {
 		$this->loader->add_action('wp_head', $plugin_public, 'add_inline_styles');
 		
 		$this->loader->add_filter( 'the_content', $plugin_public, 'lar_auto_replace_links' );
-		$this->loader->add_filter( 'the_excerpt', $plugin_public, 'lar_auto_replace_links' );
-		
-		
+
 		$this->loader->add_filter( 'rewrite_rules_array', $plugin_public, 'lar_setup_rewrite_rules' );
 		$this->loader->add_filter( 'query_vars', $plugin_public, 'add_go_variable' );
 		$this->loader->add_action( 'template_redirect', $plugin_public, 'lar_redirect' );
