@@ -157,13 +157,19 @@ class Links_Auto_Replacer_Public {
 			$doc = new DOMDocument();
 			@$doc->loadHTML('<?xml encoding="UTF-8">'.$content);
 			$doc->encoding = 'UTF-8';
-			foreach($keywords as $keyword){
+			foreach ($keywords as $keyword) {
+
 				$keyword = html_entity_decode(stripslashes(wptexturize($keyword)));
+				$post_content = html_entity_decode(($content));
+
+				if ($this->count_occurencies($post_content, $keyword) === 0) {
+					continue;
+				}
 
 				$extra_attrs = apply_filters('lar_add_extra_atts',$link->ID, $post->ID);
 
 				$final_url = '<a class="lar-automated-link" href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
-				$post_content = html_entity_decode(($content));
+
 
 				// sensitivity modifier
 				if(!isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0])){
@@ -176,17 +182,16 @@ class Links_Auto_Replacer_Public {
 
 				$keyword = preg_quote($keyword, '/');
 				$per_post_limit = intval(lar()->get_option(LAR_LITE_PLUGIN_PREFIX.'per_post_limit'));
-				if($per_post_limit === 0){ $per_post_limit = -1; }
+				if ($per_post_limit === 0) { $per_post_limit = -1; }
 				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i, $per_post_limit);
 				$this->happened = 0;
 				$mock = new DOMDocument;
 			    $body = $changed->getElementsByTagName('body')->item(0);
-				if(isset($body->childNodes)){
+				if (isset($body->childNodes)) {
 					foreach ($body->childNodes as $child){
 			    		$mock->appendChild($mock->importNode($child, true));
 					}
 				}
-				
 
 				$content = htmlspecialchars_decode($mock->SaveHTML());
 
