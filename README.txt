@@ -3,8 +3,8 @@ Contributors: waseem_senjer, wprubyplugins
 Donate link: https://wpruby.com/plugin/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
-Tested up to: 5.5
-Stable tag: 2.2.2
+Tested up to: 6.0
+Stable tag: 2.2.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,9 +13,9 @@ Convert your post content keywords to Links automatically, Using the same links 
 
 == Description ==
 
-Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them. 
+Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them.
 
-Manage them in one place and create your own shortcuts via Keywords. 
+Manage them in one place and create your own shortcuts via Keywords.
 
 Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has a link shortening feature to hide and protect your links.
 
@@ -95,6 +95,11 @@ Even if the link was external or a popup, the plugin will be able to track the l
 
 == Changelog ==
 
+= 2.2.3 =
+Improved: Keywords to links replacement.
+Fixed: Update base62 encoding to be compaitable with PHP 8.0+
+
+
 = 2.2.2 =
 * Removed: For performance issues, we removed replacement of the excerpt text.
 
@@ -132,7 +137,7 @@ Even if the link was external or a popup, the plugin will be able to track the l
 = 2.1.2 =
 * Fixed: Letters case sensitivity
 
-= 2.1.0 = 
+= 2.1.0 =
 * Fixed on activation bug
 * Fixed compatibility checks
 * Improving replacing keywords functionality
@@ -179,5 +184,5 @@ Even if the link was external or a popup, the plugin will be able to track the l
 = 1.0 =
 * Initial release.
 
-== Upgrade Notice == 
+== Upgrade Notice ==
 * Complete rewrite, please upgrade.
