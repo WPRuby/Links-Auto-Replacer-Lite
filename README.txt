@@ -96,11 +96,11 @@ Even if the link was external or a popup, the plugin will be able to track the l
 == Changelog ==
 
 = 2.2.4 =
-Added: WordPress 6.6 compatibility.
+* Added: WordPress 6.6 compatibility.
 
 = 2.2.3 =
-Improved: Keywords to links replacement.
-Fixed: Update base62 encoding to be compatible with PHP 8.0+
+* Improved: Keywords to links replacement.
+* Fixed: Update base62 encoding to be compatible with PHP 8.0+
 
 
 = 2.2.2 =
