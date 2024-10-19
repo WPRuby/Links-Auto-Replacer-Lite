@@ -3,8 +3,8 @@ Contributors: waseem_senjer, wprubyplugins
 Donate link: https://wpruby.com/plugin/affiliate-butler-pro/
 Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
 Requires at least: 3.0.1
-Tested up to: 6.0
-Stable tag: 2.2.3
+Tested up to: 6.6
+Stable tag: 2.2.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -95,9 +95,12 @@ Even if the link was external or a popup, the plugin will be able to track the l
 
 == Changelog ==
 
+= 2.2.4 =
+Added: WordPress 6.6 compatibility.
+
 = 2.2.3 =
 Improved: Keywords to links replacement.
-Fixed: Update base62 encoding to be compaitable with PHP 8.0+
+Fixed: Update base62 encoding to be compatible with PHP 8.0+
 
 
 = 2.2.2 =
