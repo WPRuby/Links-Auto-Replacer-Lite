@@ -218,7 +218,7 @@ class CMB2_Types {
 			$a['value'] = $opt_value;
 			$a['label'] = $opt_label;
 			$a['disabled'] = '';
-			if(strpos($opt_label, 'PRO')!==false){
+			if(strpos($opt_label, 'Pro')!==false){
 				$a['disabled'] = 'disabled';
 			}
 			// Check if this option is the value of the input

@@ -175,13 +175,13 @@ class Links_Auto_Replacer_Admin {
 			'type' => 'select',
 			'options' => array(
 					  'external' => __('External','links-auto-replacer'),
-					  'internal_pro' => __('Internal (PRO)','links-auto-replacer'),
-					  'popup_pro' => __('Popup (PRO)','links-auto-replacer'),
-					  'popup_image_pro' => __('Popup Image (PRO)','links-auto-replacer'),
-					  'popup_gallery_pro' => __('Popup Gallery (PRO)','links-auto-replacer'),
-					  'popup_video_pro' => __('Popup Video (PRO)','links-auto-replacer'),
-					  'popup_map_pro' => __('Google Map (PRO)','links-auto-replacer'),
-					  'url_share_pro' => __('Shared URL (PRO)','links-auto-replacer'),
+					  'internal_pro' => __('Internal (Pro)','links-auto-replacer'),
+					  'popup_pro' => __('Popup (Pro)','links-auto-replacer'),
+					  'popup_image_pro' => __('Popup Image (Pro)','links-auto-replacer'),
+					  'popup_gallery_pro' => __('Popup Gallery (Pro)','links-auto-replacer'),
+					  'popup_video_pro' => __('Popup Video (Pro)','links-auto-replacer'),
+					  'popup_map_pro' => __('Google Map (Pro)','links-auto-replacer'),
+					  'url_share_pro' => __('Shared URL (Pro)','links-auto-replacer'),
 				),
 			'description' => __('','links-auto-replacer'),
 		) );
@@ -497,7 +497,7 @@ class Links_Auto_Replacer_Admin {
 		    	echo Lar_Link::get_final_url($post_ID);
 		    }
 		    if($column_name == 'lite_total_clicks'){
-		    	echo '<a href="'.admin_url('admin.php?page=lar_upgrade_settings').'">(PRO Feature)</a>';
+		    	echo '<a href="https://wpruby.com/plugin/affiliate-butler-pro/" target="_blank">(PRO Feature)</a>';
 		    }
 
 		    if($column_name == 'keywords'){
