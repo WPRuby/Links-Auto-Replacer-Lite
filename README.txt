@@ -81,6 +81,7 @@ Its settings are deleted, but your links are kept, so they're there if you insta
 * New: Short links count their clicks (bots aren't counted, nothing about the visitor is saved).
 * New: `rel="sponsored"` for affiliate links, as a link option and a default for new links. Links that open in a new window get `rel="noopener"`.
 * New: A "Disable auto links in this post" panel in the block editor (the classic editor keeps its box).
+* New: A WPRuby header on the plugin screens with links to the documentation and the support forum, and an "Upgrade to Pro" box in the link editor.
 * New: When Affiliate Butler Pro is active, this plugin pauses itself instead of linking every keyword twice; Pro takes over its links, settings and click counts.
 * Improved: A much faster linking engine: one pass over the post, cached until a link or a setting changes. When keywords overlap, the longest one wins.
 * Improved: Short links redirect without an extra step and are kept out of search results; the post type has no public pages any more.

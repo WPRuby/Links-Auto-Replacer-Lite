@@ -9,13 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-15T13:37:03+00:00\n"
+"POT-Creation-Date: 2026-11-15T13:43:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: links-auto-replacer\n"
 
 #. Plugin Name of the plugin
 #: links-auto-replacer.php
+#: src/Admin/Branding.php:72
 #: src/Admin/DisableOption.php:116
 #: assets/src/editor/index.js:28
 msgid "Keywords to Links Converter"
@@ -76,6 +77,30 @@ msgstr ""
 
 #: src/Admin/AdminPage.php:181
 msgid "The admin app is not built. Run `npm install && npm run build` in the plugin folder."
+msgstr ""
+
+#. translators: 1: WPRuby, linked to wpruby.com, 2: plugin version.
+#: src/Admin/Branding.php:77
+msgid "by %1$s · v%2$s"
+msgstr ""
+
+#: src/Admin/Branding.php:78
+#: src/Admin/Branding.php:125
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: src/Admin/Branding.php:84
+msgid "Plugin help"
+msgstr ""
+
+#: src/Admin/Branding.php:85
+#: src/Admin/Branding.php:106
+msgid "Documentation"
+msgstr ""
+
+#: src/Admin/Branding.php:86
+#: src/Admin/Branding.php:107
+msgid "Support"
 msgstr ""
 
 #: src/Admin/DisableOption.php:137
@@ -164,7 +189,7 @@ msgstr ""
 msgid "Another link already uses the slug %s."
 msgstr ""
 
-#: src/Plugin.php:99
+#: src/Plugin.php:101
 msgid "Affiliate Butler Pro is active and links your keywords, with the same links and settings, so Keywords to Links Converter is paused. You can deactivate Keywords to Links Converter."
 msgstr ""
 

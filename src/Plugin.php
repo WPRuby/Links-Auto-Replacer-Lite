@@ -8,6 +8,7 @@
 namespace LinksAutoReplacer;
 
 use LinksAutoReplacer\Admin\AdminPage;
+use LinksAutoReplacer\Admin\Branding;
 use LinksAutoReplacer\Admin\DisableOption;
 use LinksAutoReplacer\Links\ContentFilter;
 use LinksAutoReplacer\Links\KeywordMap;
@@ -84,6 +85,7 @@ final class Plugin {
 	 */
 	private function boot_admin(): void {
 		( new AdminPage( $this->file ) )->register_hooks();
+		( new Branding( $this->file ) )->register_hooks();
 	}
 
 	/**
