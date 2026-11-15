@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    name: Lint, PHPCS and PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+      - run: composer install --no-interaction --no-progress
+      - run: composer lint
+      # The 2.2.4 code has known security findings, fixed in 2.2.5; until then PHPCS only reports.
+      - run: composer phpcs
+        continue-on-error: true
+      - run: composer phpstan -- --no-progress
+
+  plugin-check:
+    name: Plugin Check (WordPress.org)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Check what ships: the plugin without the files listed in .distignore.
+      - run: |
+          mkdir -p /tmp/dist/links-auto-replacer
+          rsync -a --exclude-from=.distignore ./ /tmp/dist/links-auto-replacer/
+      - uses: wordpress/plugin-check-action@v1
+        # Reports only until the 3.0 release.
+        continue-on-error: true
+        with:
+          build-dir: /tmp/dist/links-auto-replacer
+          exclude-directories: admin/cmb
+
+  tests:
+    name: Tests (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.1', '8.4' ]
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress_tests
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      WP_TESTS_DB_HOST: 127.0.0.1:3306
+      WP_TESTS_DB_NAME: wordpress_tests
+      WP_TESTS_DB_USER: root
+      WP_TESTS_DB_PASSWORD: root
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mysqli, dom
+          coverage: none
+          tools: composer:v2
+      - run: composer install --no-interaction --no-progress
+      - run: composer test

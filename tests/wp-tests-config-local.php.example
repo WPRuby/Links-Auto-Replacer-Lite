@@ -1,0 +1,7 @@
+<?php
+// Copy to wp-tests-config-local.php and point it at a database that can be wiped.
+define( 'DB_NAME', 'links_auto_replacer_tests' );
+define( 'DB_USER', 'root' );
+define( 'DB_PASSWORD', 'root' );
+// Local by Flywheel: 'localhost:/Users/<you>/Library/Application Support/Local/run/<site-id>/mysql/mysqld.sock'
+define( 'DB_HOST', '127.0.0.1' );

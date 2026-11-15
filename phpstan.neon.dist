@@ -1,0 +1,20 @@
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+	# The errors of the 2.2.4 code. New code must not add any; remove entries as the code is rewritten.
+	- phpstan-baseline.neon
+
+parameters:
+	level: 3
+	paths:
+		- links-auto-replacer.php
+		- admin/class-lar-admin.php
+		- admin/classes
+		- admin/partials
+		- includes
+		- public
+		- uninstall.php
+	scanDirectories:
+		# The bundled CMB2 library, removed in 3.0.
+		- admin/cmb
+	bootstrapFiles:
+		- tests/phpstan-bootstrap.php

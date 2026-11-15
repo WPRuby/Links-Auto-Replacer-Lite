@@ -1,2 +1,7 @@
 .idea
 links-auto-replacer.zip
+.DS_Store
+/vendor/
+/node_modules/
+.phpunit.result.cache
+/tests/wp-tests-config-local.php

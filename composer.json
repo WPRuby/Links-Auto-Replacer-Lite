@@ -1,0 +1,47 @@
+{
+    "name": "wpruby/links-auto-replacer",
+    "description": "Keywords to Links Converter: link your keywords to URLs automatically, with short links.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Links_Auto_Replacer\\Tests\\": "tests/integration/"
+        }
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "wp-coding-standards/wpcs": "^3.1",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "phpstan/phpstan": "^2.1",
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "phpunit/phpunit": "^9.6",
+        "yoast/phpunit-polyfills": "^4.0",
+        "wp-phpunit/wp-phpunit": "7.1.*",
+        "roots/wordpress-no-content": "7.1.*"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "7.4.33"
+        },
+        "platform-check": false,
+        "sort-packages": true
+    },
+    "scripts": {
+        "lint": "find . -name '*.php' -not -path './vendor/*' -not -path './node_modules/*' -not -path './admin/cmb/*' -print0 | xargs -0 -n1 -P4 php -l > /dev/null",
+        "phpcs": "phpcs",
+        "phpstan": "phpstan analyse --memory-limit=1G",
+        "test": "phpunit",
+        "check": [
+            "@lint",
+            "@phpcs",
+            "@phpstan",
+            "@test"
+        ]
+    }
+}
