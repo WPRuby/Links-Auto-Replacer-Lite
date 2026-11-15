@@ -6,7 +6,8 @@
 	"scripts": {
 		"build": "wp-scripts build admin=./assets/src/admin/index.js editor=./assets/src/editor/index.js --output-path=build",
 		"start": "wp-scripts start admin=./assets/src/admin/index.js editor=./assets/src/editor/index.js --output-path=build",
-		"lint:js": "wp-scripts lint-js assets/src"
+		"lint:js": "wp-scripts lint-js assets/src",
+		"zip": "npm run build && bash bin/zip.sh"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^36.1.0",

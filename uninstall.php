@@ -1,31 +1,20 @@
 <?php
-
 /**
- * Fired when the plugin is uninstalled.
+ * Runs when the plugin is deleted from the Plugins screen.
  *
- * When populating this file, consider the following flow
- * of control:
+ * The plugin's settings and caches are removed. The auto links themselves (the `lar_link`
+ * posts and their click counts) are kept: Affiliate Butler Pro uses the same links, and
+ * they come back if the plugin is installed again.
  *
- * - This method should be static
- * - Check if the $_REQUEST content actually is the plugin name
- * - Run an admin referrer check to make sure it goes through authentication
- * - Verify the output of $_GET makes sense
- * - Repeat with other user roles. Best directly by using the links/query string parameters.
- * - Repeat things for multisite. Once for a single site in the network, once sitewide.
- *
- * This file may be updated more in future version of the Boilerplate; however, this is the
- * general skeleton and outline for how the file should work.
- *
- * For more information, see the following discussion:
- * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
- *
- * @link       http://waseem-senjer.com/product/links-auto-replacer
- * @since      2.0.0
- *
- * @package    Links_Auto_Replacer
+ * @package Links_Auto_Replacer
  */
 
 // If uninstall not called from WordPress, then exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+foreach ( array( 'lar_settings', 'lar_version', 'lar_cache_version', '_lar_links_old_data_imported' ) as $lar_option ) {
+	delete_option( $lar_option );
+}
+delete_transient( 'lar_keyword_map' );

@@ -4,96 +4,88 @@ Donate link: https://wpruby.com/plugin/affiliate-butler-pro/
 Tags: affiliate, links, keywords, automation, marketing
 Requires at least: 6.6
 Tested up to: 7.1
-Stable tag: 2.2.5
+Stable tag: 3.0.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Convert your post content keywords to Links automatically, Using the same links over and over again in your posts? This is the solution.
+Link your keywords to URLs automatically in every post, with short links that hide affiliate URLs and count their clicks.
 
 == Description ==
 
-Are you tired of linking websites in your post? This plugin will solve your problem. Link your keywords once and forget about them.
+Add a keyword once, choose the URL it links to, and Keywords to Links Converter links it in every post and page where it appears: in what you have already written and in what you write next. Change the URL later and every post follows.
 
-Manage them in one place and create your own shortcuts via Keywords.
+It's made for affiliate marketers who link the same products again and again, and for anyone who wants their favorite links in place without editing old posts.
 
-Are you an affiliate marketer, you don't have to manually insert your affiliate links manually every time you write a blog post. Also, it has a link shortening feature to hide and protect your links.
+= Features =
+
+* **Auto links:** one or more keywords per link, linked wherever they appear. Keywords inside existing links, code blocks and the HTML tags you exclude are left alone.
+* **Short links:** `yoursite.com/go/amazon` style links that redirect to the URL, hide long affiliate URLs and stay out of search results.
+* **Click counts:** see how many times each short link was clicked. Bots aren't counted, and no personal data is stored.
+* **SEO-friendly links:** nofollow and `rel="sponsored"` for affiliate links, and new-window links get `noopener`.
+* **Control:** case-sensitive keywords, a limit of links per keyword in a post, excluded HTML tags, and a switch to disable the auto links of a single post in the block editor.
+* **Fast:** the keywords are linked in one pass over the post, and the result is cached until a link or a setting changes.
 
 = Affiliate Butler Pro =
 
-[Upgrade to Affiliate Butler Pro](https://wpruby.com/plugin/affiliate-butler-pro/ "Upgrade to Affiliate Butler Pro")
-
-*Affiliate Butler Pro* is a **significant upgrade** to *Affiliate Butler Lite* that adds many features such as internal, images, galleries, videos, maps and sharing tooltip and much more features.
-
-== Plugin’s Features ==
-
-=== Auto-Linking ===
-The plugin allows you to add one or multiple keywords in order to automatically link them to an external link.
-=== Do Follow ===
-You can set whether you want the keyword’s link to have the dofollow or nofollow values in order to allow search engines to follow this link and use it in ranking or not.
-=== Open Target ===
-Set the opening behavior of the keyword’s link whether to open in the same window or a new window.
-=== Auto Shortening ===
-You can shorten the keyword’s link in order to make them clean links and prettified.
-=== Case Sensitive ===
-You can set the Auto-Link to be letters case sensitive for more accurate replacement
-
-== Pro Plugin’s Features ==
-
-=== Linking Types ===
-We have 8 types of linking your keywords:
-
-* **Internal URL:** You can link your keywords to an internal page of your website. You can find the page by an easy auto-complete list.
-* **Custom HTML Popup:** The keyword can be linked to a popup that contains any design you want as the plugin accept HTML code to be integrated into the popup. For example, you can add an opt-in form HTML code to collect visitors emails.
-* **Image Popup:** Keywords can be linked to display a popup which contains a single image.
-* **Gallery Popup:** Do you need to display a gallery of images when your users click on certain keywords? No problem, the plugin allows you to link keywords to gallery popups.
-* **Video Popup:** I bet sometimes you want to show the visitors a video but you don’t want them to exit your website to YouTube. You can link your keywords to video popups which support YouTube and Vimeo videos.
-* **Google Maps Popup:** Let’s say you are reviewing a restaurant on your website. It would be a good idea to link the restaurant name with a Map Popup that displays the location of that restaurant.
-* **Social Media Sharing Tooltip:** Let your visitors share any content/links you want to their social media accounts. By linking your keywords to a social media sharing tooltip, the keyword link will prompt the visitor with a tooltip that contains variant social media networks to share your content on.
-
-=== Linking Categories and Custom Taxonomies ===
-You can auto link your website categories and custom taxonomies.  Categories terms will be linked to their archive pages whenever they appear in posts or pages.
-
-=== Limits Per Post ===
-Limit the number of times that the keyword will be converted to a link per post if you don’t need your pages to be overwhelmed with links 🙂
-
-=== Comprehensive Stats ===
-Even if the link was external or a popup, the plugin will be able to track the link and provides you with many statistics (Visits per day, Countries, Browsers, Operating Systems and languages ). I will add more features in the statistics page in order to provide the plugin user of the maximum benefits of statistics and tracking. Moreover, each keyword has its own stats in the keyword editing page.
-
-[Upgrade to Affiliate Butler Pro](https://wpruby.com/plugin/affiliate-butler-pro/ "Upgrade to Affiliate Butler Pro")
-
-
+[Affiliate Butler Pro](https://wpruby.com/plugin/affiliate-butler-pro/) adds links to your own posts and pages, popups, image galleries, videos, maps and share boxes, click stats per day, country and post, URL rotation for split tests, QR codes, import and export, and more. It uses the same links: activate it and everything you made here keeps working.
 
 == Installation ==
 
+1. Go to **Plugins → Add New Plugin** and search for "Keywords to Links Converter".
+2. Click **Install Now**, then **Activate**.
+3. Go to **Auto Links → Add New**, type a keyword, paste the URL and click **Publish**.
 
-= Using The WordPress Dashboard =
+== Frequently Asked Questions ==
 
-1. Navigate to the 'Add New' in the plugins dashboard
-2. Search for 'Links Auto Replacer'
-3. Click 'Install Now'
-4. Activate the plugin on the Plugin dashboard
+= What's new in 3.0? =
 
-= Uploading in WordPress Dashboard =
-1. Navigate to the 'Add New' in the plugins dashboard
-2. Navigate to the 'Upload' area
-3. Select `lar-links-auto-replacer.zip` from your computer
-4. Click 'Install Now'
-5. Activate the plugin in the Plugin dashboard
+A new admin with a faster editor, a much faster linking engine, click counts for short links, `rel="sponsored"`, and a block editor panel to disable the auto links of a post. Your links and settings are kept as they are. 3.0 needs WordPress 6.6 and PHP 7.4; older sites keep version 2.2.5.
 
-= Using FTP =
-1. Download `lar-links-auto-replacer.zip`
-2. Extract the `lar-links-auto-replacer` directory to your computer
-3. Upload the `lar-links-auto-replacer` directory to the `/wp-content/plugins/` directory
-4. Activate the plugin in the Plugin dashboard
+= Why isn't my keyword linked? =
 
+Check that the link is published, that "Link the keywords" is on in **Auto Links → Settings**, and that the keyword is written the same way in the post (including the letter case when "Case sensitive" is on). Keywords inside links, code blocks, excluded HTML tags and posts where auto links are disabled are not linked.
+
+= My short links show a "page not found" error. =
+
+Go to **Settings → Permalinks** in WordPress and click **Save Changes** without changing anything.
+
+= Does the plugin change my posts? =
+
+No. The links are added when a post is shown, and your content stays as you wrote it.
+
+= What does the plugin save about visitors? =
+
+Only a number: how many times each short link was clicked. No IP address, cookie or anything else about the visitor.
+
+= What happens when I install Affiliate Butler Pro? =
+
+Your links keep working, Pro brings over your settings and click counts, and this plugin pauses itself while Pro is active. You can then deactivate it.
+
+= Are my links deleted when I delete the plugin? =
+
+Its settings are deleted, but your links are kept, so they're there if you install it again or move to Affiliate Butler Pro.
 
 == Screenshots ==
-1. Add link page.
-2. Links management.
-3. The auto replacement of the keywords in the post.
+
+1. The keywords linked in a post.
+2. All your auto links, with their short links and clicks.
+3. The link editor.
+4. The settings.
+5. Disable the auto links of a post in the block editor.
 
 == Changelog ==
+
+= 3.0.0 =
+* New: A new admin under **Auto Links**: a links list with search, filters and click counts, a link editor and a settings page. The old screens open the new ones.
+* New: Short links count their clicks (bots aren't counted, nothing about the visitor is saved).
+* New: `rel="sponsored"` for affiliate links, as a link option and a default for new links. Links that open in a new window get `rel="noopener"`.
+* New: A "Disable auto links in this post" panel in the block editor (the classic editor keeps its box).
+* New: When Affiliate Butler Pro is active, this plugin pauses itself instead of linking every keyword twice; Pro takes over its links, settings and click counts.
+* Improved: A much faster linking engine: one pass over the post, cached until a link or a setting changes. When keywords overlap, the longest one wins.
+* Improved: Short links redirect without an extra step and are kept out of search results; the post type has no public pages any more.
+* Removed: The bundled CMB2 library and the jQuery script that was loaded on every page of the site.
+* Changed: Requires WordPress 6.6 and PHP 7.4.
 
 = 2.2.5 =
 * Security: Escaped text in posts is no longer turned into HTML when keywords are linked.
@@ -202,6 +194,9 @@ Even if the link was external or a popup, the plugin will be able to track the l
 * Initial release.
 
 == Upgrade Notice ==
+
+= 3.0.0 =
+A new admin, a much faster linking engine and click counts for short links. Requires WordPress 6.6 and PHP 7.4. Your links and settings are kept.
 
 = 2.2.5 =
 Security release, please update: fixes stored XSS in linked posts and several admin checks.

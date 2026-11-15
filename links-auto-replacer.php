@@ -3,7 +3,7 @@
  * Plugin Name:       Keywords to Links Converter
  * Plugin URI:        https://wpruby.com/plugin/affiliate-butler-pro/
  * Description:       Link your keywords to URLs automatically, with short links and click counts.
- * Version:           2.2.5
+ * Version:           3.0.0
  * Author:            Waseem Senjer
  * Author URI:        https://wpruby.com
  * License:           GPL-2.0+
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LAR_VERSION', '2.2.5' );
+define( 'LAR_VERSION', '3.0.0' );
 define( 'LAR_URL', plugin_dir_url( __FILE__ ) );
 define( 'LAR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LAR_LITE_PLUGIN_PREFIX', '_lar_links_' );
