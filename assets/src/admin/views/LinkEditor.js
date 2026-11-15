@@ -381,6 +381,68 @@ export default function LinkEditor( { linkId } ) {
 							/>
 						</CardBody>
 					</Card>
+
+					<Card className="lar-pro-card">
+						<CardHeader>
+							<h2>
+								{ __(
+									'Upgrade to Pro',
+									'links-auto-replacer'
+								) }
+							</h2>
+						</CardHeader>
+						<CardBody>
+							<p>
+								{ __(
+									'Affiliate Butler Pro does more with the same links:',
+									'links-auto-replacer'
+								) }
+							</p>
+							<ul>
+								<li>
+									{ __(
+										'Link keywords to your own posts and pages',
+										'links-auto-replacer'
+									) }
+								</li>
+								<li>
+									{ __(
+										'Popups, images, videos and maps',
+										'links-auto-replacer'
+									) }
+								</li>
+								<li>
+									{ __(
+										'Clicks per day, country and post',
+										'links-auto-replacer'
+									) }
+								</li>
+								<li>
+									{ __(
+										'URL rotation and split tests',
+										'links-auto-replacer'
+									) }
+								</li>
+								<li>
+									{ __(
+										'QR codes, import and export',
+										'links-auto-replacer'
+									) }
+								</li>
+							</ul>
+							<Button
+								variant="secondary"
+								href={ proUrl }
+								target="_blank"
+								rel="noreferrer"
+							>
+								{ __(
+									'Get Affiliate Butler Pro',
+									'links-auto-replacer'
+								) }
+							</Button>
+						</CardBody>
+					</Card>
 				</div>
 			</div>
 		</>
