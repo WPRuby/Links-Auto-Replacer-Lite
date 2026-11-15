@@ -286,7 +286,7 @@ export default function LinkEditor( { linkId } ) {
 						</CardBody>
 					</Card>
 
-					{ linkId && link.short_link && (
+					{ linkId > 0 && link.short_link && (
 						<Card>
 							<CardHeader>
 								<h2>
