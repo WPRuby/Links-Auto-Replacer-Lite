@@ -36,6 +36,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 define('LAR_LITE_PLUGIN_PREFIX','_lar_links_');
 
+require_once LAR_DIR . 'src/autoload.php';
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-lar-activator.php

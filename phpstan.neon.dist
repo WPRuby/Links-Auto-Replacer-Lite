@@ -12,6 +12,7 @@ parameters:
 		- admin/partials
 		- includes
 		- public
+		- src
 		- uninstall.php
 	scanDirectories:
 		# The bundled CMB2 library, removed in 3.0.

@@ -18,6 +18,8 @@ Requires PHP 7.4+ for the tools (the plugin itself still runs on PHP 5.6 in 2.x)
 
 The tests need an empty MySQL database that they can wipe. CI passes it through the `WP_TESTS_DB_*` environment variables. Locally, copy `tests/wp-tests-config-local.php.example` to `tests/wp-tests-config-local.php` and fill in the database (Local by Flywheel sites use a socket, the example shows the format).
 
+Keywords are linked by `src/Links/Replacer.php` in one pass over the content, from the keyword map of `src/Links/KeywordMap.php` (a transient, rebuilt when a link, its meta or the settings change). The output is cached in the object cache, keyed by the content and the map version. Both are trimmed-down ports of Affiliate Butler Pro's engine; keep them in step. `src/` uses the `LinksAutoReplacer` namespace, loaded by `src/autoload.php`.
+
 `tests/integration/ReplacerTest.php` describes how keywords are linked today. Keep it passing when changing the replacement engine, and update a test only when the change in behaviour is intended.
 
 CI also runs WordPress.org's [Plugin Check](https://wordpress.org/plugins/plugin-check/) on the files that ship. Locally: `wp plugin check Links-Auto-Replacer-Lite` with the Plugin Check plugin active.

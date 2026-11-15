@@ -89,6 +89,37 @@ abstract class TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Render a post again in the same request. Unlike render() it keeps the object cache,
+	 * which go_to() flushes, so the output cache is used.
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return string The rendered content.
+	 */
+	protected function render_again( $post_id ) {
+		$GLOBALS['post'] = get_post( $post_id );
+		setup_postdata( $GLOBALS['post'] );
+
+		return apply_filters( 'the_content', get_post_field( 'post_content', $post_id ) );
+	}
+
+	/**
+	 * The text of each anchor.
+	 *
+	 * @param \DOMElement[] $links The anchors.
+	 *
+	 * @return string[]
+	 */
+	protected function texts( array $links ) {
+		return array_map(
+			function ( $a ) {
+				return $a->textContent;
+			},
+			$links
+		);
+	}
+
+	/**
 	 * Save the plugin settings (the `lar_settings` option).
 	 *
 	 * CMB2 keeps the options in memory for the whole process, so they are saved through it.
