@@ -10,8 +10,6 @@ parameters:
 		- admin/class-lar-admin.php
 		- admin/classes
 		- admin/partials
-		- includes
-		- public
 		- src
 		- uninstall.php
 	scanDirectories:

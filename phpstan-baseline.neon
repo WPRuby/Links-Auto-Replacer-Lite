@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method Links_Auto_Replacer_Admin\:\:lar_columns_content\(\) should return array but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: admin/class-lar-admin.php
-
-		-
 			message: '#^PHPDoc tag @param has invalid value \(StdObject the post object\)\: Unexpected token "the", expected variable at offset 68 on line 3$#'
 			identifier: phpDoc.parseError
 			count: 1
@@ -14,12 +8,6 @@ parameters:
 
 		-
 			message: '#^PHPDoc tag @param has invalid value \(array default admin colums heads\.\)\: Unexpected token "default", expected variable at offset 88 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: admin/class-lar-admin.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(array default admin colums\.\)\: Unexpected token "default", expected variable at offset 82 on line 3$#'
 			identifier: phpDoc.parseError
 			count: 1
 			path: admin/class-lar-admin.php
@@ -65,81 +53,3 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: admin/partials/settings.php
-
-		-
-			message: '#^Method Links_Auto_Replacer_Loader\:\:add\(\) has invalid return type type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^Method Links_Auto_Replacer_Loader\:\:add\(\) should return type but returns array\.$#'
-			identifier: return.type
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(int      Optional    \$accepted_args    The number of arguments that should be passed to the \$callback\.\)\: Unexpected token "Optional", expected variable at offset 585 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(int      Optional    \$accepted_args    The number of arguments that should be passed to the \$callback\.\)\: Unexpected token "Optional", expected variable at offset 587 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(int      Optional    \$accepted_args    The number of arguments that should be passed to the \$callback\.\)\: Unexpected token "Optional", expected variable at offset 770 on line 12$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(int      Optional    \$priority         The priority at which the function should be fired\.\)\: Unexpected token "Optional", expected variable at offset 478 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(int      Optional    \$priority         The priority at which the function should be fired\.\)\: Unexpected token "Optional", expected variable at offset 480 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(int      Optional    \$priority         The priority at which the function should be fired\.\)\: Unexpected token "Optional", expected variable at offset 663 on line 11$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^Property Links_Auto_Replacer_Loader\:\:\$actions \(array\) does not accept type\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^Property Links_Auto_Replacer_Loader\:\:\$filters \(array\) does not accept type\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: includes/class-lar-loader.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(array  The original rules\.\)\: Unexpected token "The", expected variable at offset 95 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: public/class-lar-public.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(array  original vars\.\)\: Unexpected token "original", expected variable at offset 149 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: public/class-lar-public.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(string the original content\)\: Unexpected token "the", expected variable at offset 151 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: public/class-lar-public.php

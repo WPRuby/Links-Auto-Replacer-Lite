@@ -13,7 +13,9 @@ abstract class TestCase extends WP_UnitTestCase {
 		parent::set_up();
 		$this->set_permalink_structure( '/%postname%/' );
 		// CMB2 keeps the options in memory: forget them so every test reads its own database.
-		( new \ReflectionClass( 'CMB2_Options' ) )->setStaticPropertyValue( 'option_sets', array() );
+		if ( class_exists( 'CMB2_Options' ) ) {
+			( new \ReflectionClass( 'CMB2_Options' ) )->setStaticPropertyValue( 'option_sets', array() );
+		}
 	}
 
 	/**
@@ -122,7 +124,6 @@ abstract class TestCase extends WP_UnitTestCase {
 	/**
 	 * Save the plugin settings (the `lar_settings` option).
 	 *
-	 * CMB2 keeps the options in memory for the whole process, so they are saved through it.
 	 *
 	 * @param array $settings Settings without the `_lar_links_` prefix.
 	 */
@@ -131,7 +132,7 @@ abstract class TestCase extends WP_UnitTestCase {
 		foreach ( $settings as $key => $value ) {
 			$values[ LAR_LITE_PLUGIN_PREFIX . $key ] = $value;
 		}
-		cmb2_options( 'lar_settings' )->set( $values );
+		update_option( 'lar_settings', $values );
 	}
 
 	/**

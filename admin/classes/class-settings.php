@@ -48,7 +48,6 @@ class Lar_Lite_Settings{
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
 		add_action('cmb2_init',array($this,'add_main_settings_page_metabox'));
-		add_action( 'cmb2_save_options-page_fields', array( $this, 'remember_settings_saved' ), 10, 2 );
 		foreach($this->tabs as $tab){
 			if($tab['metabox_callback'] !== false){
 				add_action( 'cmb2_init',  $tab['metabox_callback']);
@@ -62,7 +61,7 @@ class Lar_Lite_Settings{
 	* @since     2.0.0
 	**/
 	public function init() {
-		register_setting( $this->key, $this->key, array( $this, 'sanitize' ) );
+		register_setting( $this->key, $this->key, array( lar(), 'sanitize' ) );
 	}
 
 
@@ -208,81 +207,13 @@ class Lar_Lite_Settings{
 	}
 
 	/**
-	 * Sanitize the settings before they are saved.
-	 *
-	 * @since 2.2.5
-	 * @param mixed $values The settings.
-	 * @return array
-	 */
-	public function sanitize( $values ) {
-		if ( ! is_array( $values ) ) {
-			return array();
-		}
-		$clean = array();
-		foreach ( $values as $key => $value ) {
-			$name = (string) preg_replace( '/^' . preg_quote( LAR_LITE_PLUGIN_PREFIX, '/' ) . '/', '', (string) $key );
-			switch ( $name ) {
-				case 'enable':
-				case 'do_follow':
-				case 'shrink':
-				case 'is_sensitive':
-					$clean[ $key ] = $value === 'off' ? 'off' : ( $value ? 'on' : '' );
-					break;
-				case 'open_in':
-					$clean[ $key ] = $value === '_blank' ? '_blank' : '_self';
-					break;
-				case 'per_post_limit':
-					$clean[ $key ] = absint( $value );
-					break;
-				case 'settings_saved':
-					$clean[ $key ] = $value === 'yes' ? 'yes' : '';
-					break;
-				default:
-					$clean[ $key ] = is_scalar( $value ) ? sanitize_text_field( (string) $value ) : '';
-			}
-		}
-		return $clean;
-	}
-
-	/**
-	 * Whether keywords are linked.
-	 *
-	 * An unchecked checkbox saves nothing, so "Enable" is off when the settings form was saved
-	 * without it. Before 2.2.5 the form didn't remember being saved: those sites stay enabled
-	 * unless the option is `off`, as before.
-	 *
-	 * @since 2.2.5
-	 * @return bool
-	 */
-	public function is_enabled() {
-		$enable = $this->get_option( LAR_LITE_PLUGIN_PREFIX . 'enable' );
-		if ( $this->get_option( LAR_LITE_PLUGIN_PREFIX . 'settings_saved' ) === 'yes' ) {
-			return $enable === 'on';
-		}
-		return $enable !== 'off';
-	}
-
-	/**
-	 * Remember that the settings form was saved, see is_enabled().
-	 *
-	 * @since 2.2.5
-	 * @param string $object_id The option key.
-	 * @param string $cmb_id    The metabox ID.
-	 */
-	public function remember_settings_saved( $object_id, $cmb_id ) {
-		if ( $object_id === $this->key && $cmb_id === 'lar_settings' ) {
-			cmb2_options( $this->key )->update( LAR_LITE_PLUGIN_PREFIX . 'settings_saved', 'yes', true );
-		}
-	}
-
-	/**
 	 * The default of the "Enable" checkbox: checked until the settings are saved.
 	 *
 	 * @since 2.2.5
 	 * @return string
 	 */
 	public function enable_default() {
-		if ( $this->get_option( LAR_LITE_PLUGIN_PREFIX . 'settings_saved' ) === 'yes' || $this->get_option( LAR_LITE_PLUGIN_PREFIX . 'enable' ) ) {
+		if ( lar()->get_option( LAR_LITE_PLUGIN_PREFIX . 'settings_saved' ) === 'yes' || lar()->get_option( LAR_LITE_PLUGIN_PREFIX . 'enable' ) ) {
 			return '';
 		}
 		return 'on';

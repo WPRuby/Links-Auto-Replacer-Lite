@@ -87,48 +87,6 @@ class Links_Auto_Replacer_Admin {
 
 	}
 
-	/**
-	 * The plugin use this method to register the main custom post type of the links.
-	 * 
-	 * @since    2.0.0
-	 */
-	public function register_links_post_type(){
-		$labels = array(
-			'name'               => _x( 'Auto Links', 'post type general name', 'links-auto-replacer' ),
-			'singular_name'      => _x( 'Auto Link', 'post type singular name', 'links-auto-replacer' ),
-			'menu_name'          => _x( 'Auto Links', 'admin menu', 'links-auto-replacer' ),
-			'name_admin_bar'     => _x( 'Auto Link', 'add new on admin bar', 'links-auto-replacer' ),
-			'add_new'            => _x( 'Add New Auto Link', 'book', 'links-auto-replacer' ),
-			'add_new_item'       => __( 'Add New Auto Link', 'links-auto-replacer' ),
-			'new_item'           => __( 'New Auto Link', 'links-auto-replacer' ),
-			'edit_item'          => __( 'Edit Auto Link', 'links-auto-replacer' ),
-			'view_item'          => __( 'View Auto Link', 'links-auto-replacer' ),
-			'all_items'          => __( 'All Auto Links', 'links-auto-replacer' ),
-			'search_items'       => __( 'Search Auto Links', 'links-auto-replacer' ),
-			'parent_item_colon'  => __( 'Parent Auto Links:', 'links-auto-replacer' ),
-			'not_found'          => __( 'No links found.', 'links-auto-replacer' ),
-			'not_found_in_trash' => __( 'No links found in Trash.', 'links-auto-replacer' )
-		);
-
-		$args = array(
-			'labels'             => $labels,
-			'public'             => true,
-			'publicly_queryable' => false,
-			'show_ui'            => true,
-			'show_in_menu'       => true,
-			'query_var'          => true,
-			'rewrite'            => array( 'slug' => 'lar_link' ),
-			'capability_type'    => 'post',
-			'has_archive'        => true,
-			'hierarchical'       => false,
-			'menu_position'      => null,
-			'supports'           => array(  'author' ),
-			'menu_icon'			 => 'dashicons-editor-unlink',
-			
-		);
-
-		register_post_type( 'lar_link', $args );
-	}
 
 
 	
@@ -489,11 +447,13 @@ class Links_Auto_Replacer_Admin {
 	}
 		 
 	/**
-	* Change the default Wordpress colums for links post types.
-	* @param	 array default admin colums.
-	* @return	 array altered colums.
-	* @since    2.0.0
-	**/
+	 * Print the content of the plugin's columns in the links list.
+	 *
+	 * @param string $column_name The column.
+	 * @param int    $post_ID     The link ID.
+	 * @return void
+	 * @since    2.0.0
+	 */
 	public function lar_columns_content($column_name, $post_ID) {
 
 		    if($column_name == 'link'){

@@ -6,7 +6,7 @@ The user documentation and the changelog are in [README.txt](README.txt), the Wo
 
 ## Development
 
-Requires PHP 7.4+ for the tools (the plugin itself still runs on PHP 5.6 in 2.x) and Composer. `composer install` adds the dev tools; none of them ship (see `.distignore`).
+Requires PHP 7.4+ and Composer. From 3.0 the plugin needs WordPress 6.6+ and PHP 7.4+ (2.2.5 was the last release for PHP 5.6). `composer install` adds the dev tools; none of them ship (see `.distignore`).
 
 | Command | What it does |
 | --- | --- |
@@ -18,7 +18,21 @@ Requires PHP 7.4+ for the tools (the plugin itself still runs on PHP 5.6 in 2.x)
 
 The tests need an empty MySQL database that they can wipe. CI passes it through the `WP_TESTS_DB_*` environment variables. Locally, copy `tests/wp-tests-config-local.php.example` to `tests/wp-tests-config-local.php` and fill in the database (Local by Flywheel sites use a socket, the example shows the format).
 
-Keywords are linked by `src/Links/Replacer.php` in one pass over the content, from the keyword map of `src/Links/KeywordMap.php` (a transient, rebuilt when a link, its meta or the settings change). The output is cached in the object cache, keyed by the content and the map version. Both are trimmed-down ports of Affiliate Butler Pro's engine; keep them in step. `src/` uses the `LinksAutoReplacer` namespace, loaded by `src/autoload.php`.
+`links-auto-replacer.php` defines the constants and `lar()` (the settings, `src/Settings.php`, saved in the `lar_settings` option) and boots `src/Plugin.php`, which registers every hook. `src/` uses the `LinksAutoReplacer` namespace, loaded by `src/autoload.php` since Composer isn't shipped:
+
+| Class | What it does |
+| --- | --- |
+| `Links\PostType` | The `lar_link` post type (no public pages) |
+| `Links\ContentFilter` | Links the keywords of `the_content` |
+| `Links\KeywordMap`, `Links\Replacer` | The keyword map and the one-pass engine |
+| `Links\ShortLinks` | `/go/{slug}` redirects and the click counts (`_lar_links_clicks` meta) |
+| `Links\Repository` | Reads, validates and saves links |
+| `Rest\Controller` | The REST API under `links-auto-replacer/v1` (links and settings) |
+| `Activation` | Imports the links of version 1 and flushes the rewrite rules |
+
+`admin/` still holds the CMB2 link editor and settings page, loaded in the admin only; the new admin replaces them.
+
+Keywords are linked by `src/Links/Replacer.php` in one pass over the content, from the keyword map of `src/Links/KeywordMap.php` (a transient, rebuilt when a link, its meta or the settings change). The output is cached in the object cache, keyed by the content and the map version. Both are trimmed-down ports of Affiliate Butler Pro's engine; keep them in step.
 
 `tests/integration/ReplacerTest.php` describes how keywords are linked today. Keep it passing when changing the replacement engine, and update a test only when the change in behaviour is intended.
 
