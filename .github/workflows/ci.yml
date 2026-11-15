@@ -22,9 +22,7 @@ jobs:
           tools: composer:v2
       - run: composer install --no-interaction --no-progress
       - run: composer lint
-      # The 2.2.4 code has known security findings, fixed in 2.2.5; until then PHPCS only reports.
       - run: composer phpcs
-        continue-on-error: true
       - run: composer phpstan -- --no-progress
 
   plugin-check:

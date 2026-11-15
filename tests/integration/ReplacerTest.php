@@ -47,8 +47,7 @@ class ReplacerTest extends TestCase {
 	}
 
 	public function test_case_insensitive_keywords_without_the_exact_case_in_the_post() {
-		$this->markTestIncomplete( 'Known bug in 2.2.4: a case-sensitive pre-check skips the post when the keyword is not also written in its exact case. Fixed by the engine rewrite.' );
-
+		// 2.2.4 skipped the post: its pre-check was case sensitive.
 		$this->create_link( array( 'kindle' ) );
 
 		$this->assertCount( 1, $this->plugin_links( $this->render( $this->create_post( 'My Kindle.' ) ) ) );
@@ -162,7 +161,7 @@ class ReplacerTest extends TestCase {
 		$links = $this->plugin_links( $html );
 
 		$this->assertCount( 1, $links );
-		// Non-ASCII characters come back as HTML entities, which display the same.
-		$this->assertStringContainsString( 'd&eacute;j&agrave; vu', $html );
+		$this->assertSame( 'café', $links[0]->textContent );
+		$this->assertStringContainsString( 'déjà vu', $html, 'UTF-8 text is kept as is (2.2.4 turned it into HTML entities).' );
 	}
 }

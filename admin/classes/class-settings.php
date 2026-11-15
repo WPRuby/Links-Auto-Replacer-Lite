@@ -18,7 +18,7 @@ class Lar_Lite_Settings{
 		$this->tabs = apply_filters('lar_settings_tabs',array(
 			'lar_settings' => array(
 						'id' => 'lar_settings',
-						'title' => __('Settings','links-auto-replacer-pro'),
+						'title' => __('Settings','links-auto-replacer'),
 						'metabox_callback' => false,
 						'callback' => array($this , 'admin_page_display')
 					),
@@ -48,6 +48,7 @@ class Lar_Lite_Settings{
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
 		add_action('cmb2_init',array($this,'add_main_settings_page_metabox'));
+		add_action( 'cmb2_save_options-page_fields', array( $this, 'remember_settings_saved' ), 10, 2 );
 		foreach($this->tabs as $tab){
 			if($tab['metabox_callback'] !== false){
 				add_action( 'cmb2_init',  $tab['metabox_callback']);
@@ -61,7 +62,7 @@ class Lar_Lite_Settings{
 	* @since     2.0.0
 	**/
 	public function init() {
-		register_setting( $this->key, $this->key );
+		register_setting( $this->key, $this->key, array( $this, 'sanitize' ) );
 	}
 
 
@@ -112,43 +113,6 @@ class Lar_Lite_Settings{
 
 
 	/**
-	* Include upgrade page template
-	* @since     2.0.0
-	**/
-	public function display_upgrade_page(){
-		require_once LAR_DIR . 'admin/partials/upgrade.php';
-
-	}
-
-
-
-
-
-
-	/**
-	* The meta box fields of the upgrade settings page
-	* @since     2.0.0
-	**/
-	public function add_upgrade_settings_page_metabox(){
-
-		$cmb = new_cmb2_box( array(
-			'id'      => 'lar_upgrade_settings',
-			'hookup'  => false,
-			'show_on' => array(
-				// These are important, don't remove
-				'key'   => 'options-page',
-				'value' => array( $this->key, )
-			),
-		) );
-
-		
-
-
-	}
-
-
-
-	/**
 	* The meta box fields of the main settings page
 	* @since     2.0.0
 	**/
@@ -173,11 +137,12 @@ class Lar_Lite_Settings{
 			'name'    => __( 'Enable Auto Replcement', 'links-auto-replacer' ),
 			'id'      => LAR_LITE_PLUGIN_PREFIX . 'enable',
 			'type'    => 'checkbox',
-			'default' => $this->get_if_enabled( true )
+			// A callback, so the default is decided when the field is shown, after a save in the same request.
+			'default' => array( $this, 'enable_default' ),
 		) );
 
 		$cmb->add_field( array(
-			'name'    => __( '<h2>"Add Auto Link" Defaults</h2>', 'links-auto-replacer' ),
+			'name'    => '<h2>' . esc_html__( '"Add Auto Link" Defaults', 'links-auto-replacer' ) . '</h2>',
 			'id'	  => 'title',
 			'type'    => 'title',
 			//'default' => 'yes',
@@ -242,8 +207,85 @@ class Lar_Lite_Settings{
 		return cmb2_get_option( $this->key, $key );
 	}
 
-	private function get_if_enabled( $default ){
-		return  ($this->get_option(LAR_LITE_PLUGIN_PREFIX . 'enable'))  ? '' : ( $default ? (string) $default : '' );
+	/**
+	 * Sanitize the settings before they are saved.
+	 *
+	 * @since 2.2.5
+	 * @param mixed $values The settings.
+	 * @return array
+	 */
+	public function sanitize( $values ) {
+		if ( ! is_array( $values ) ) {
+			return array();
+		}
+		$clean = array();
+		foreach ( $values as $key => $value ) {
+			$name = (string) preg_replace( '/^' . preg_quote( LAR_LITE_PLUGIN_PREFIX, '/' ) . '/', '', (string) $key );
+			switch ( $name ) {
+				case 'enable':
+				case 'do_follow':
+				case 'shrink':
+				case 'is_sensitive':
+					$clean[ $key ] = $value === 'off' ? 'off' : ( $value ? 'on' : '' );
+					break;
+				case 'open_in':
+					$clean[ $key ] = $value === '_blank' ? '_blank' : '_self';
+					break;
+				case 'per_post_limit':
+					$clean[ $key ] = absint( $value );
+					break;
+				case 'settings_saved':
+					$clean[ $key ] = $value === 'yes' ? 'yes' : '';
+					break;
+				default:
+					$clean[ $key ] = is_scalar( $value ) ? sanitize_text_field( (string) $value ) : '';
+			}
+		}
+		return $clean;
+	}
+
+	/**
+	 * Whether keywords are linked.
+	 *
+	 * An unchecked checkbox saves nothing, so "Enable" is off when the settings form was saved
+	 * without it. Before 2.2.5 the form didn't remember being saved: those sites stay enabled
+	 * unless the option is `off`, as before.
+	 *
+	 * @since 2.2.5
+	 * @return bool
+	 */
+	public function is_enabled() {
+		$enable = $this->get_option( LAR_LITE_PLUGIN_PREFIX . 'enable' );
+		if ( $this->get_option( LAR_LITE_PLUGIN_PREFIX . 'settings_saved' ) === 'yes' ) {
+			return $enable === 'on';
+		}
+		return $enable !== 'off';
+	}
+
+	/**
+	 * Remember that the settings form was saved, see is_enabled().
+	 *
+	 * @since 2.2.5
+	 * @param string $object_id The option key.
+	 * @param string $cmb_id    The metabox ID.
+	 */
+	public function remember_settings_saved( $object_id, $cmb_id ) {
+		if ( $object_id === $this->key && $cmb_id === 'lar_settings' ) {
+			cmb2_options( $this->key )->update( LAR_LITE_PLUGIN_PREFIX . 'settings_saved', 'yes', true );
+		}
+	}
+
+	/**
+	 * The default of the "Enable" checkbox: checked until the settings are saved.
+	 *
+	 * @since 2.2.5
+	 * @return string
+	 */
+	public function enable_default() {
+		if ( $this->get_option( LAR_LITE_PLUGIN_PREFIX . 'settings_saved' ) === 'yes' || $this->get_option( LAR_LITE_PLUGIN_PREFIX . 'enable' ) ) {
+			return '';
+		}
+		return 'on';
 	}
 
 	public function __get( $field ) {
@@ -252,7 +294,7 @@ class Lar_Lite_Settings{
 			return $this->{$field};
 		}
 
-		throw new Exception( 'Invalid property: ' . $field );
+		throw new Exception( 'Invalid property: ' . esc_html( $field ) );
 	}
 
 

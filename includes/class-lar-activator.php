@@ -50,16 +50,21 @@ class Links_Auto_Replacer_Activator {
 		global $wpdb;
 		$table_name = $wpdb->prefix .'lar_links';
 
-		$old_links = $wpdb->get_results('SELECT * FROM '.$table_name);
-		
-		if($old_links === null) return;
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table_name ) ) ) !== $table_name ) {
+			add_option( LAR_LITE_PLUGIN_PREFIX . 'old_data_imported', 'yes' );
+			return;
+		}
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- the table name only.
+		$old_links = $wpdb->get_results( 'SELECT * FROM ' . $table_name );
+
+		if ( empty( $old_links ) ) return;
 
 		foreach ($old_links as $link){
 			$args = array();
 			$args['post_title'] = $link->keyword;
 			$args['post_status'] = 'publish';
 			$args['post_type'] = 'lar_link';
-			$args['post_date'] = date('Y-m-d H:i:s', $link->created);
+			$args['post_date'] = gmdate( 'Y-m-d H:i:s', (int) $link->created );
 			$link_id = wp_insert_post($args);
 			add_post_meta($link_id, LAR_LITE_PLUGIN_PREFIX . 'keywords', explode(',', $link->keyword));
 			add_post_meta($link_id, LAR_LITE_PLUGIN_PREFIX . 'url', $link->keyword_url);

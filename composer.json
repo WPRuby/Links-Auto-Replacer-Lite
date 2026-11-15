@@ -36,7 +36,10 @@
         "lint": "find . -name '*.php' -not -path './vendor/*' -not -path './node_modules/*' -not -path './admin/cmb/*' -print0 | xargs -0 -n1 -P4 php -l > /dev/null",
         "phpcs": "phpcs",
         "phpstan": "phpstan analyse --memory-limit=1G",
-        "test": "phpunit",
+        "test": [
+            "phpunit",
+            "phpunit --group ajax"
+        ],
         "check": [
             "@lint",
             "@phpcs",

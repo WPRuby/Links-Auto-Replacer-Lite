@@ -102,130 +102,107 @@ class Links_Auto_Replacer_Public {
 	 * @since    1.0.0
 	 */
 	public function lar_auto_replace_links( $content ){
-		
-		$lar_global_enabled = lar()->get_option(LAR_LITE_PLUGIN_PREFIX.'enable');
-		if($lar_global_enabled === 'off') return $content;
-		
+
+		if ( ! lar()->is_enabled() ) {
+			return $content;
+		}
+
 		global $post;
+		if ( $post instanceof WP_Post && get_post_meta( $post->ID, 'lar_disabled', true ) === 'on' ) {
+			return $content;
+		}
+		$post_id = $post instanceof WP_Post ? $post->ID : 0;
 
-		$is_disabled =  get_post_meta( $post->ID, 'lar_disabled'  , true );
-		
-		if($is_disabled == 'on') return $content;
-
-
-		$links = get_posts('post_type=lar_link&post_status=publish&posts_per_page=-1');
+		$links = get_posts( array(
+			'post_type'      => 'lar_link',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+		) );
 
 		foreach ($links as $link) {
 			$link_meta = get_post_meta($link->ID);
-			
-			$dofollow = '';
-			$link_dofollow = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'do_follow'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'do_follow'][0]:'';
-			if($link_dofollow != 'on'){
-				$dofollow = 'rel="nofollow"';
+			$meta = function ( $key ) use ( $link_meta ) {
+				return isset( $link_meta[ LAR_LITE_PLUGIN_PREFIX . $key ][0] ) ? $link_meta[ LAR_LITE_PLUGIN_PREFIX . $key ][0] : '';
+			};
+
+			// Lite links are external links. Other types come from Affiliate Butler Pro.
+			$link_type = $meta( 'link_type' );
+			if ( $link_type !== 'external' && $link_type !== '' ) {
+				continue;
 			}
 
-			$link_type = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]))?$link_meta[LAR_LITE_PLUGIN_PREFIX.'link_type'][0]:'';
-			if($link_type == 'external' OR $link_type ==''){
-				if ( get_option('permalink_structure') != '' ) {
-					$url = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]) && $link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]!= '')? site_url().'/go/'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] : $link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0];
-				
-				}else{
-					$url = (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0]) && $link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] != '')? site_url().'/index.php?go='.$link_meta[LAR_LITE_PLUGIN_PREFIX.'slug'][0] : $link_meta[LAR_LITE_PLUGIN_PREFIX.'url'][0];
-				
-				}
-			}elseif($link_type == 'internal'){ // if internal link
-					$url = get_permalink($link_meta[LAR_LITE_PLUGIN_PREFIX.'internal_url'][0]);
-			}elseif($link_type == 'popup'){ // if internal link
-					$url = '#lar_popup_'. $link->ID;
-			}elseif($link_type == 'popup_image'){
-					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_image'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_image'][0]:'';
-			}elseif($link_type == 'popup_gallery'){
-					$url = 'javascript:void(0)';
-			}elseif($link_type == 'popup_video'){
-					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_videourl'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_videourl'][0]:'';
-			}elseif($link_type == 'popup_map'){
-					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_mapurl'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_mapurl'][0]:'';
-			}elseif($link_type == 'sharing_tip'){
-					$url = isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'sharing_tip'][0])?$link_meta[LAR_LITE_PLUGIN_PREFIX.'sharing_tip'][0]:'javascript:void(0)';
+			$slug = $meta( 'slug' );
+			if ( $slug !== '' ) {
+				$url = get_option( 'permalink_structure' ) != '' ? site_url() . '/go/' . rawurlencode( $slug ) : site_url() . '/index.php?go=' . rawurlencode( $slug );
+			} else {
+				$url = $meta( 'url' );
 			}
-			
-			$keywords = unserialize( $link_meta[LAR_LITE_PLUGIN_PREFIX.'keywords'][0] );
-			
-			// if the keywords not really inserted
-			if($keywords === false) continue;
+			$url = esc_url( $url );
+			if ( $url === '' ) {
+				continue;
+			}
+
+			$keywords = get_post_meta( $link->ID, LAR_LITE_PLUGIN_PREFIX . 'keywords', true );
+			if ( ! is_array( $keywords ) ) {
+				continue;
+			}
+
+			$rel    = $meta( 'do_follow' ) !== 'on' ? ' rel="nofollow"' : '';
+			$target = $meta( 'open_in' ) === '_blank' ? '_blank' : '_self';
+
+			/**
+			 * Filters extra attributes of the link, as an HTML attributes string.
+			 * Before 2.2.5 the filter was given the link ID as its value, so an unfiltered ID is ignored.
+			 *
+			 * @param string|int $attributes The attributes.
+			 * @param int        $post_id    The ID of the post being displayed.
+			 */
+			$extra_attrs = apply_filters( 'lar_add_extra_atts', $link->ID, $post_id );
+			$extra_attrs = ( is_string( $extra_attrs ) && ! preg_match( '/^\d*$/', trim( $extra_attrs ) ) ) ? ' ' . trim( $extra_attrs ) : '';
+
+			$final_url = '<a class="lar-automated-link" href="' . $url . '"' . $extra_attrs . $rel . ' target="' . $target . '">${1}</a>';
+
+			// Not case sensitive unless the link says so.
+			$i = $meta( 'is_sensitive' ) === 'on' ? '' : 'i';
+
 			libxml_use_internal_errors(true);
-			$doc = new DOMDocument();
-			@$doc->loadHTML('<?xml encoding="UTF-8">'.$content);
-			$doc->encoding = 'UTF-8';
 			foreach ($keywords as $keyword) {
-
-				$keyword = html_entity_decode(stripslashes(wptexturize($keyword)));
-				$post_content = html_entity_decode(($content));
-
-				if ($this->count_occurencies($post_content, $keyword) === 0) {
+				if ( ! is_string( $keyword ) || trim( $keyword ) === '' ) {
 					continue;
 				}
 
-				$extra_attrs = apply_filters('lar_add_extra_atts',$link->ID, $post->ID);
+				$keyword = html_entity_decode( stripslashes( wptexturize( $keyword ) ), ENT_QUOTES, 'UTF-8' );
+				$post_content = html_entity_decode( $content, ENT_QUOTES, 'UTF-8' );
 
-				$final_url = '<a class="lar-automated-link" href="'.$url.'" '.$extra_attrs.' '.$dofollow.' target="'.$link_meta[LAR_LITE_PLUGIN_PREFIX.'open_in'][0].'">${1}</a>';
-
-
-				// sensitivity modifier
-				if(!isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0])){
-					$i = 'i';
-				}elseif(isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0]) && $link_meta[LAR_LITE_PLUGIN_PREFIX.'is_sensitive'][0] !== 'on'){
-					$i = '';
-				}else{
-					$i = '';
+				if ($this->count_occurencies($post_content, preg_quote($keyword, '/'), $i) === 0) {
+					continue;
 				}
 
-				$keyword = preg_quote($keyword, '/');
+				$doc = new DOMDocument();
+				@$doc->loadHTML('<?xml encoding="UTF-8"><body>'.$content.'</body>');
+				$doc->encoding = 'UTF-8';
+
 				$per_post_limit = intval(lar()->get_option(LAR_LITE_PLUGIN_PREFIX.'per_post_limit'));
 				if ($per_post_limit === 0) { $per_post_limit = -1; }
-				$changed =  $this->showDOMNode($doc,$keyword,$final_url,$i, $per_post_limit);
 				$this->happened = 0;
-				$mock = new DOMDocument;
-			    $body = $changed->getElementsByTagName('body')->item(0);
-				if (isset($body->childNodes)) {
-					foreach ($body->childNodes as $child){
-			    		$mock->appendChild($mock->importNode($child, true));
-					}
+				$this->showDOMNode($doc, preg_quote($keyword, '/'), $final_url, $i, $per_post_limit);
+
+				// Serialize node by node, so UTF-8 text is kept as is and escaped text stays escaped.
+				$body = $doc->getElementsByTagName('body')->item(0);
+				if ( $body === null ) {
+					continue;
 				}
-
-				$content = htmlspecialchars_decode($mock->SaveHTML());
-
-				// @since 2.1 adding the popup div
-				if($link_type == 'popup'){
-					$content .= '<div id="lar_popup_'. $link->ID.'" class="white-popup mfp-hide">';
-					$content .= (isset($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_content'][0]))?$link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_content'][0]:'';
-					$content .= '</div>';
-				}elseif($link_type == 'popup_gallery'){
-					$content .= '<div class="lar-gallery" id="lar_gallery_'.$link->ID.'">';
-					$images  = unserialize($link_meta[LAR_LITE_PLUGIN_PREFIX.'popup_gallery'][0]);
-					foreach($images as $image){
-
-						$content .= '<a href="'. $image .'"></a>';
-					}
-					$content .= '</div>';
-				}elseif($link_type == 'sharing_tip'){
-					$content .= '<div id="grabMe" style="display:none;">';
-					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/facebook.png" /> ';
-					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/twitter.png" /> ';
-					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/linkedin.png" /> ';
-					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/gplus.png" /> ';
-					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/tumblr.png" /> ';
-					$content .= ' <img class="lar_social_share_icon" src="'.LARPRO_URL.'public/images/share/style01/reddit.png" /> ';
-					$content .= '</div>';
+				$content = '';
+				foreach ($body->childNodes as $child){
+					$content .= $doc->saveHTML($child);
 				}
 			}
-			
-			
+			libxml_clear_errors();
 		}
-		
+
 		// Replace Content Filter
 		$content = apply_filters('lar_replace_content', $content);
-		
+
 		return $content;
 	}
 
@@ -233,34 +210,30 @@ class Links_Auto_Replacer_Public {
 	 * Helper function that is used to get text nodes from the DomNode and replace the keywords
 	 * It's used in $this -> lar_auto_replace_links()
 	 *
-	 * @param DOMNode $domNode
-	 * @param $word
-	 * @param $replacement
-	 * @param $case_sensitive
-	 *
-	 * @param int $per_post_limit
+	 * @param DOMNode $domNode        The node.
+	 * @param string  $word           The keyword, quoted for a regular expression.
+	 * @param string  $replacement    The link markup, `${1}` is the matched keyword.
+	 * @param string  $case_sensitive `i` for a case insensitive match.
+	 * @param int     $per_post_limit Max links, -1 for no limit.
 	 *
 	 * @return     DOMNode The replaced Node.
 	 * @since    1.5.0
 	 */
-
 	public function showDOMNode(DOMNode $domNode,$word,$replacement,$case_sensitive, $per_post_limit = -1) {
-		$excluded_html_tags = lar()->get_option(LAR_LITE_PLUGIN_PREFIX.'excluded_html_tags');
-		$excluded_html_tags = explode(',', $excluded_html_tags);
-		/** @var DOMNode $node */
-		foreach ($domNode->childNodes as $node)
+		$excluded_html_tags = array_map( 'trim', explode( ',', (string) lar()->get_option( LAR_LITE_PLUGIN_PREFIX . 'excluded_html_tags' ) ) );
+		// The nodes change while they are replaced, so iterate over a copy.
+		foreach ( iterator_to_array( $domNode->childNodes ) as $node )
 		{
-			// Pass the nodes which already linked.
-			if($node->nodeName == 'a') continue;
-			if( in_array($node->nodeName, $excluded_html_tags) ) continue;
+			// Pass the nodes which already linked, and code blocks.
+			if ( $node->nodeName == 'a' || $node->nodeName == 'pre' ) continue;
+			if( in_array($node->nodeName, $excluded_html_tags, true) ) continue;
 
 			if($node->nodeName == '#text'){
-				$occurencies = $this->count_occurencies ( strtoupper( $node->nodeValue ), strtoupper( $word ),$case_sensitive );
+				$occurencies = $this->count_occurencies ( $node->nodeValue, $word, $case_sensitive );
 				$limit = ($per_post_limit != -1)?$per_post_limit - $this->happened:$per_post_limit;
-				if($this->happened < $per_post_limit || $per_post_limit === -1){
+				if($occurencies > 0 && ($this->happened < $per_post_limit || $per_post_limit === -1)){
 					$replacement = $this->clean_replacement($replacement);
-					$replacement_pattern = $this->get_replacement_pattern($word, $case_sensitive);
-					$node->nodeValue =  @preg_replace($replacement_pattern, $replacement, $node->nodeValue, $limit);
+					$this->replace_text_node( $node, $this->get_replacement_pattern( $word, $case_sensitive ), $replacement, $limit );
 				}
 				if($occurencies > 0){
 					$this->happened  = $this->happened + $occurencies;
@@ -270,12 +243,48 @@ class Links_Auto_Replacer_Public {
 						return $domNode;
 					}
 				}
-			}
-			if($node->hasChildNodes()) {
+			} elseif ( $node->hasChildNodes() ) {
 				$this->showDOMNode($node,$word,$replacement,$case_sensitive, $per_post_limit);
 			}
 		}
 		return $domNode;
+	}
+
+	/**
+	 * Replace the keyword matches in a text node with real DOM nodes.
+	 * The text around the matches is escaped, so the post content is never decoded back into HTML.
+	 *
+	 * @param DOMNode $node        The text node.
+	 * @param string  $pattern     The keyword pattern.
+	 * @param string  $replacement The link markup, `${1}` is replaced by the matched keyword.
+	 * @param int     $limit       Max replacements, -1 for unlimited.
+	 *
+	 * @since    2.2.5
+	 */
+	private function replace_text_node( DOMNode $node, $pattern, $replacement, $limit ) {
+		$parts = @preg_split( $pattern, $node->nodeValue, -1, PREG_SPLIT_DELIM_CAPTURE );
+		if ( ! is_array( $parts ) || count( $parts ) < 2 ) {
+			return;
+		}
+
+		$xml      = '';
+		$replaced = 0;
+		foreach ( $parts as $index => $part ) {
+			$escaped_part = htmlspecialchars( $part, ENT_QUOTES | ENT_XML1, 'UTF-8' );
+			// Odd indexes are the captured keyword matches.
+			if ( $index % 2 === 1 && ( $limit === -1 || $replaced < $limit ) ) {
+				$xml .= str_replace( '${1}', $escaped_part, $replacement );
+				$replaced++;
+			} else {
+				$xml .= $escaped_part;
+			}
+		}
+
+		$fragment = $node->ownerDocument->createDocumentFragment();
+		if ( ! @$fragment->appendXML( $xml ) || is_null( $node->parentNode ) ) {
+			return;
+		}
+		$node->parentNode->replaceChild( $fragment, $node );
 	}
 
 	/**
@@ -317,17 +326,34 @@ class Links_Auto_Replacer_Public {
 	public function lar_redirect(){
 		global $wp_query;
 		
-		if(isset($wp_query->query_vars['go'])){
-			$link = get_posts('post_type=lar_link&meta_key='.LAR_LITE_PLUGIN_PREFIX.'slug&meta_value='.$wp_query->query_vars['go']);
-			$link_url = get_post_meta($link[0]->ID, LAR_LITE_PLUGIN_PREFIX.'url',true);
-
-			if(!is_null($link_url)){
-				do_action('lar_link_redirected', $link[0]->ID);
-				wp_redirect($link_url);
-				exit;
-			}
-			
+		if ( ! isset( $wp_query->query_vars['go'] ) || ! is_string( $wp_query->query_vars['go'] ) || $wp_query->query_vars['go'] === '' ) {
+			return;
 		}
+
+		$link = get_posts( array(
+			'post_type'      => 'lar_link',
+			'post_status'    => 'publish',
+			'posts_per_page' => 1,
+			'meta_key'       => LAR_LITE_PLUGIN_PREFIX . 'slug', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+			'meta_value'     => sanitize_text_field( $wp_query->query_vars['go'] ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+		) );
+		if ( empty( $link ) ) {
+			return;
+		}
+
+		$link_url = esc_url_raw( (string) get_post_meta( $link[0]->ID, LAR_LITE_PLUGIN_PREFIX . 'url', true ), array( 'http', 'https' ) );
+		if ( $link_url === '' ) {
+			return;
+		}
+
+		do_action( 'lar_link_redirected', $link[0]->ID );
+		// Every visit reaches the site, and the short links stay out of search results.
+		nocache_headers();
+		if ( ! headers_sent() ) {
+			header( 'X-Robots-Tag: noindex, nofollow' );
+		}
+		wp_redirect( $link_url ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- short links redirect to external URLs by design.
+		exit;
 		
 	}
 

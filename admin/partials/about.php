@@ -1,9 +1,14 @@
-<div class="wrap cmb2-options-page <?php echo $this->key; ?>">
+<?php
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
+<div class="wrap cmb2-options-page <?php echo esc_attr( $this->key ); ?>">
 	<?php include plugin_dir_path(__FILE__).'menu.php'; ?>
 
 		<div id="lar_about">
 			
-			<!-- <img class="plugin_img" src="http://plugins.svn.wordpress.org/links-auto-replacer/assets/banner-1544x500.png"> -->
 			
 			
 			<div id="details">
@@ -13,20 +18,20 @@
 		<table class="wp-list-table widefat">
 			<thead>
 				<tr>
-					<th><?php _e('Autor Info','links-auto-replacer'); ?></th>
+					<th><?php esc_html_e( 'Author Info', 'links-auto-replacer' ); ?></th>
 				</tr>
 			</thead>	
 			<tr>
 				<td>
 
-					<img class="wes" src="<?php echo LAR_URL . 'admin/images/wpruby.jpg' ?>" />
+					<img class="wes" src="<?php echo esc_url( LAR_URL . 'admin/images/wpruby.jpg' ); ?>" alt="WPRuby" />
 					<ul>
 						<li><strong>WPRuby</strong> </li>
 						<li><strong>Website:</strong><a target="_blank" href="https://wpruby.com">wpruby.com</a></li>
 						<li><strong>Social: 
-											<a target="_blank" href="https://www.facebook.com/WPRuby/"><img class="social_img" src="<?php echo LAR_URL.'admin/images/social/facebook-24.png'; ?>"></a>
-											<a target="_blank" href="https://twitter.com/wprubyplugins"><img class="social_img" src="<?php echo LAR_URL.'admin/images/social/twitter-24.png'; ?>"></a>
-											<a target="_blank" href="https://instagram.com/wpruby_hq"><img class="social_img" src="<?php echo LAR_URL.'admin/images/social/instagram-24.png'; ?>"></a>
+											<a target="_blank" href="https://www.facebook.com/WPRuby/"><img class="social_img" src="<?php echo esc_url( LAR_URL . 'admin/images/social/facebook-24.png' ); ?>" alt="Facebook"></a>
+											<a target="_blank" href="https://twitter.com/wprubyplugins"><img class="social_img" src="<?php echo esc_url( LAR_URL . 'admin/images/social/twitter-24.png' ); ?>" alt="Twitter"></a>
+											<a target="_blank" href="https://instagram.com/wpruby_hq"><img class="social_img" src="<?php echo esc_url( LAR_URL . 'admin/images/social/instagram-24.png' ); ?>" alt="Instagram"></a>
 
 						</strong></li>
 					</ul>
@@ -50,17 +55,16 @@
 					<table class="wp-list-table widefat">
 						<thead>
 							<tr>
-								<th><?php _e('Plugin Info','links-auto-replacer'); ?></th>
+								<th><?php esc_html_e( 'Plugin Info', 'links-auto-replacer' ); ?></th>
 							</tr>
 						</thead>	
 						<tr>
 							<td>
 
-								<img class="wes" src="http://plugins.svn.wordpress.org/links-auto-replacer/assets/icon-128x128.png" />
 								<ul>
-									<li><?php echo apply_filters('lar_plugin_name','Links Auto Replacer'); ?><span></span></li>
-									<li><strong><?php _e('Version','links-auto-replacer'); ?>:</strong> <?php echo LAR_VERSION; ?></li>
-									<li><a href="https://wpruby.com/plugin/affiliate-butler-pro/">Website</a> | <a href="https://wpruby.com/knowledgebase_category/affiliate-butler-pro/">Documentation</a> | <a href="<?php echo admin_url('admin.php?page=lar_main_settings'); ?>">Settings</a></li>
+									<li><?php echo esc_html( apply_filters( 'lar_plugin_name', 'Keywords to Links Converter' ) ); ?><span></span></li>
+									<li><strong><?php esc_html_e( 'Version', 'links-auto-replacer' ); ?>:</strong> <?php echo esc_html( LAR_VERSION ); ?></li>
+									<li><a href="https://wpruby.com/plugin/affiliate-butler-pro/">Website</a> | <a href="https://wpruby.com/knowledgebase_category/affiliate-butler-pro/">Documentation</a> | <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=lar_link&page=lar_settings' ) ); ?>"><?php esc_html_e( 'Settings', 'links-auto-replacer' ); ?></a></li>
 									
 								</ul>
 							</td>
@@ -78,13 +82,13 @@
 					<table class="wp-list-table widefat">
 						<thead>
 							<tr>
-								<th><?php _e('Help and Support','links-auto-replacer'); ?></th>
+								<th><?php esc_html_e( 'Help and Support', 'links-auto-replacer' ); ?></th>
 							</tr>
 						</thead>	
 						<tr>
 							<td>
 								<p>
-								If you encountered any problem or if you have a feature in mind that you want me to implement in the next release. Please do not hesitate <a target="_blank" href="https://wpruby.com/submit-ticket/">submitting a support ticket</a>.
+								<?php esc_html_e( 'Found a problem, or have a feature in mind for the next release?', 'links-auto-replacer' ); ?> <a target="_blank" rel="noopener" href="https://wpruby.com/submit-ticket/"><?php esc_html_e( 'Submit a support ticket', 'links-auto-replacer' ); ?></a>.
 								</p>
 							</td>
 						</tr>

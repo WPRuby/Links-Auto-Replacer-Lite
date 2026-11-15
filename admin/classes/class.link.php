@@ -21,13 +21,13 @@ class Lar_Link{
 		if( $link_type == 'external' OR $link_type == ''){
 				if ( get_option('permalink_structure') != '' ) {
 					$url = ($link_slug!= '')? site_url().'/go/'.$link_slug : $link_url;
-					return '<input disabled type="text" value="'. $url .'" />';
+					return '<input disabled type="text" value="'. esc_attr( $url ) .'" />';
 				}else{
 					$url =  ($link_slug != '')? site_url().'/index.php?go='.$link_slug : $link_url;
-					return '<input disabled type="text" value="'. $url .'" />';
+					return '<input disabled type="text" value="'. esc_attr( $url ) .'" />';
 				}
 		}elseif($link_type == 'internal'){ // if internal link
-				return '<input disabled type="text" value="'. get_permalink($link_internal_url) .'" />';
+				return '<input disabled type="text" value="'. esc_attr( (string) get_permalink( (int) $link_internal_url ) ) .'" />';
 		}else{
 			return '-';
 		}

@@ -1,10 +1,10 @@
 === Keywords to Links Converter ===
 Contributors: waseem_senjer, wprubyplugins
 Donate link: https://wpruby.com/plugin/affiliate-butler-pro/
-Tags: affiliate, links, automation,keywords,marketing, convert keywords, online marketing
-Requires at least: 3.0.1
-Tested up to: 6.6
-Stable tag: 2.2.4
+Tags: affiliate, links, keywords, automation, marketing
+Requires at least: 4.1
+Tested up to: 7.1
+Stable tag: 2.2.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -94,6 +94,20 @@ Even if the link was external or a popup, the plugin will be able to track the l
 3. The auto replacement of the keywords in the post.
 
 == Changelog ==
+
+= 2.2.5 =
+* Security: Escaped text in posts is no longer turned into HTML when keywords are linked.
+* Security: The link check in the editor needs the right capability, and its input is sanitized and its messages escaped.
+* Security: The "Disable for this post" box checks its nonce and the user's capability.
+* Security: Short links only redirect published links to http(s) URLs, and are kept out of search results.
+* Security: Admin screens escape their output.
+* Fixed: Unchecking "Enable" in the settings now stops linking keywords.
+* Fixed: Keywords that are not case sensitive are linked even when the post never writes them in the case you typed.
+* Fixed: Links no longer get a stray attribute with their ID.
+* Fixed: Accented letters stay as they are in linked posts.
+* Fixed: Keywords in code blocks are not linked.
+* Fixed: Wrong text domain in a few strings.
+* Removed: The About page no longer loads the plugin icon from WordPress.org.
 
 = 2.2.4 =
 * Added: WordPress 6.6 compatibility.
@@ -188,4 +202,6 @@ Even if the link was external or a popup, the plugin will be able to track the l
 * Initial release.
 
 == Upgrade Notice ==
-* Complete rewrite, please upgrade.
+
+= 2.2.5 =
+Security release, please update: fixes stored XSS in linked posts and several admin checks.

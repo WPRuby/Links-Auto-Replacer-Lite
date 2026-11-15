@@ -183,7 +183,7 @@ class Links_Auto_Replacer_Admin {
 					  'popup_map_pro' => __('Google Map (Pro)','links-auto-replacer'),
 					  'url_share_pro' => __('Shared URL (Pro)','links-auto-replacer'),
 				),
-			'description' => __('','links-auto-replacer'),
+
 		) );
 
 		$add_links_box->add_field( array(
@@ -257,13 +257,17 @@ class Links_Auto_Replacer_Admin {
 	 */
 	public function pre_submit_link_validation(){
 		$errors = array();
-	    //simple Security check
 	    check_ajax_referer( 'my_pre_submit_validation', 'security' );
+	    if ( ! current_user_can( 'edit_posts' ) ) {
+	        wp_die( -1, 403 );
+	    }
 
-	   
-	    parse_str($_POST['form_data'], $link);
-	    $keywords = array_filter($link[LAR_LITE_PLUGIN_PREFIX.'keywords']);
-	    $keywords = array_map('trim', $keywords);
+	    $link = array();
+	    parse_str( isset( $_POST['form_data'] ) ? wp_unslash( (string) $_POST['form_data'] ) : '', $link ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- each field is sanitized below.
+	    $link['post_ID'] = isset( $link['post_ID'] ) ? absint( $link['post_ID'] ) : 0;
+	    $keywords = isset( $link[ LAR_LITE_PLUGIN_PREFIX . 'keywords' ] ) ? (array) $link[ LAR_LITE_PLUGIN_PREFIX . 'keywords' ] : array();
+	    $keywords = array_filter( array_map( 'trim', array_map( 'sanitize_text_field', array_filter( $keywords, 'is_string' ) ) ) );
+	    $link[ LAR_LITE_PLUGIN_PREFIX . 'keywords' ] = $keywords;
 	    if( count(array_unique($keywords)) < count($keywords) ){
 	    	$errors['keywords'] = __('Please, remove the repetition from the keywords','links-auto-replacer');
 	    }
@@ -274,8 +278,8 @@ class Links_Auto_Replacer_Admin {
 	    {
 	    	$errors['keywords'] = __('Please provide keyword/s','links-auto-replacer');
 	    }
-	    $link_type = isset($link[LAR_LITE_PLUGIN_PREFIX . 'link_type'])?$link[LAR_LITE_PLUGIN_PREFIX . 'link_type']:'';
-	    $link_url = isset($link[LAR_LITE_PLUGIN_PREFIX . 'url'])?$link[LAR_LITE_PLUGIN_PREFIX . 'url']:'';
+	    $link_type = isset( $link[ LAR_LITE_PLUGIN_PREFIX . 'link_type' ] ) && is_string( $link[ LAR_LITE_PLUGIN_PREFIX . 'link_type' ] ) ? sanitize_key( $link[ LAR_LITE_PLUGIN_PREFIX . 'link_type' ] ) : '';
+	    $link_url = isset( $link[ LAR_LITE_PLUGIN_PREFIX . 'url' ] ) && is_string( $link[ LAR_LITE_PLUGIN_PREFIX . 'url' ] ) ? trim( $link[ LAR_LITE_PLUGIN_PREFIX . 'url' ] ) : '';
 	    if($link_type == 'external' OR $link_type ==''){
 			if($link_url == '' OR filter_var($link_url, FILTER_VALIDATE_URL) === false)
 			{
@@ -288,28 +292,30 @@ class Links_Auto_Replacer_Admin {
 	    // we don't want to touch the DB unless the user fill all the data right.
 	    if(empty($errors)){
 
-		    $keywords = $this->get_meta_values(LAR_LITE_PLUGIN_PREFIX . 'keywords', 'lar_link','publish',$link['post_ID']);
-		    foreach ($keywords as $key => $value) {
-		   		$intersect = array_intersect($link[LAR_LITE_PLUGIN_PREFIX.'keywords'], unserialize($value));
+		    $used_keywords = $this->get_meta_values(LAR_LITE_PLUGIN_PREFIX . 'keywords', 'lar_link','publish',$link['post_ID']);
+		    foreach ( $used_keywords as $value ) {
+		   		$intersect = array_intersect( $keywords, (array) maybe_unserialize( $value ) );
 		   		if(!empty($intersect)){
-		   			$errors['keywords'] = 'keyword\s ( '. implode(',', $intersect) .' ) is already exist';
+		   			/* translators: %s: the keywords. */
+		   			$errors['keywords'] = sprintf( __( 'These keywords are used by another link: %s', 'links-auto-replacer' ), implode( ', ', $intersect ) );
 		   			break;
 		   		}
 		    }
 
 		
 		    $urls = $this->get_meta_values(LAR_LITE_PLUGIN_PREFIX . 'url', 'lar_link','publish',$link['post_ID']);
-		    if($link[LAR_LITE_PLUGIN_PREFIX . 'link_type'] == 'external'){
-			    if(in_array($link[LAR_LITE_PLUGIN_PREFIX . 'url'], $urls)){
+		    if($link_type == 'external'){
+			    if(in_array($link_url, $urls, true)){
 			    	$errors['url'] = __('URL is already exist','links-auto-replacer');
 			    }
 			}
 		    
-			$link_slug = (isset($link[LAR_LITE_PLUGIN_PREFIX . 'slug']))?$link[LAR_LITE_PLUGIN_PREFIX . 'slug']:'';
+			$link_slug = isset( $link[ LAR_LITE_PLUGIN_PREFIX . 'slug' ] ) && is_string( $link[ LAR_LITE_PLUGIN_PREFIX . 'slug' ] ) ? sanitize_title( $link[ LAR_LITE_PLUGIN_PREFIX . 'slug' ] ) : '';
 			if(trim($link_slug)!=''){    
 			    $slugs = $this->get_meta_values(LAR_LITE_PLUGIN_PREFIX . 'slug', 'lar_link','publish',$link['post_ID']);
 			    if(in_array($link_slug, $slugs)){
-			    	$errors['slugs'] = sprintf(__( 'Slug (%s) is already exist','links-auto-replacer'),$link_slug);
+			    	/* translators: %s: the short link slug. */
+			    	$errors['slugs'] = sprintf( __( 'Slug (%s) is already exist', 'links-auto-replacer' ), $link_slug );
 			    }
 			}
 		} //empty($errors)
@@ -321,26 +327,29 @@ class Links_Auto_Replacer_Admin {
 
 
 	    if(!empty($errors)){
-	    	echo 'Please correct the following errors: <ul id="lar_errors"><li>';
-	    	echo implode('</li><li>', $errors);
+	    	echo esc_html__( 'Please correct the following errors:', 'links-auto-replacer' ) . ' <ul id="lar_errors"><li>';
+	    	echo implode( '</li><li>', array_map( 'esc_html', $errors ) );
 	    	echo '</li></ul>';
 	    }else{
-	    	add_option('last_lar_link_id',$link['post_ID']) or update_option('last_lar_link_id',$link['post_ID']);
+	    	if ( $link['post_ID'] && current_user_can( 'edit_post', $link['post_ID'] ) ) {
+	    		update_option( 'last_lar_link_id', $link['post_ID'] );
+	    	}
 	    	echo '1';
 	    }
 
-	    die();
+	    wp_die();
 	}
 
 
 
 	/**
-	 * A helper method to get all the values sored in wp_postmeta table that has one key.
-	 * @param	 string the meta key.
-	 * @param	 string the post type
-	 * @param	 string the post status
-	 * @param	 number the post ID to exlude from the query
-	 * @return 	 stdObject	All the rows with the specified key.
+	 * A helper method to get all the values stored in the postmeta table for one key.
+	 *
+	 * @param string $key     The meta key.
+	 * @param string $type    The post type.
+	 * @param string $status  The post status.
+	 * @param int    $post_ID The post ID to exclude from the query.
+	 * @return string[] The meta values, serialized as stored.
 	 * @since    2.0.0
 	 */
 	public function get_meta_values( $key = '', $type = 'post', $status = 'publish', $post_ID = 0 ) {
@@ -348,16 +357,16 @@ class Links_Auto_Replacer_Admin {
 	    global $wpdb;
 
 	    if( empty( $key ) )
-	        return;
+	        return array();
 
 	    $r = $wpdb->get_col( $wpdb->prepare( "
 	        SELECT pm.meta_value FROM {$wpdb->postmeta} pm
 	        LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-	        WHERE pm.meta_key = '%s' 
-	        AND p.post_status = '%s' 
-	        AND p.post_type = '%s'
-	        AND p.ID <> ".$post_ID
-	        , $key, $status, $type ) );
+	        WHERE pm.meta_key = %s
+	        AND p.post_status = %s
+	        AND p.post_type = %s
+	        AND p.ID <> %d",
+	        $key, $status, $type, absint( $post_ID ) ) );
 	    
 	    return $r;
 	}
@@ -368,21 +377,17 @@ class Links_Auto_Replacer_Admin {
 	 * @since    2.0.0
 	 */
 	public function insert_validation_nonce(){
-		if(isset($_GET['post'])){
-	 		$link_slug = get_post_meta($_GET['post'], LAR_LITE_PLUGIN_PREFIX.'slug',true);
-		}
-		
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only reads which link is edited.
+		$post_id   = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0;
+		$link_slug = $post_id ? (string) get_post_meta( $post_id, LAR_LITE_PLUGIN_PREFIX . 'slug', true ) : '';
+
 	 	?>
 		 	<script type="text/javascript">
 		 		<?php do_action('lar_add_js_variables'); ?>
-		 		var validation_nonce = '<?php echo wp_create_nonce( 'my_pre_submit_validation' ); ?>'; 
-		 		var plugin_prefix = '<?php echo LAR_LITE_PLUGIN_PREFIX; ?>';
-		 		<?php if(isset($link_slug)): ?>
-		 			var last_link_id = '<?php echo $link_slug; ?>'; 
-		 		<?php else: ?>
-		 			var last_link_id = '<?php echo $this->last_link_id; ?>'; 
-		 		<?php endif; ?>
-		 		var home_url = '<?php echo home_url(); ?>'; 
+		 		var validation_nonce = <?php echo wp_json_encode( wp_create_nonce( 'my_pre_submit_validation' ) ); ?>;
+		 		var plugin_prefix = <?php echo wp_json_encode( LAR_LITE_PLUGIN_PREFIX ); ?>;
+		 		var last_link_id = <?php echo wp_json_encode( $post_id ? $link_slug : (string) $this->last_link_id ); ?>;
+		 		var home_url = <?php echo wp_json_encode( home_url() ); ?>;
 		 	</script>
 	 	<?php 
 	 	wp_enqueue_script( $this->Links_Auto_Replacer.'-validation', plugin_dir_url( __FILE__ ) . 'js/lar-links-validation.js', array( 'jquery' ), $this->version, false );	 	
@@ -402,7 +407,8 @@ class Links_Auto_Replacer_Admin {
 		$screens = apply_filters('lar_disable_box_screens',array( 'post', 'page' ));
 
 	    foreach ( $screens as $screen ) {
-	        add_meta_box( 'lar_meta', __( 'Disable '. $lar_name .' for this post', 'links-auto-replacer' ), array($this,'lar_meta_callback'), $screen );
+	        /* translators: %s: the plugin name. */
+	        add_meta_box( 'lar_meta', sprintf( __( 'Disable %s for this post', 'links-auto-replacer' ), $lar_name ), array($this,'lar_meta_callback'), $screen );
 	    }
 	}
 
@@ -414,14 +420,11 @@ class Links_Auto_Replacer_Admin {
 	public function lar_meta_callback( $post ) {
 	    wp_nonce_field( basename( __FILE__ ), 'lar_nonce' );
 
-	    $lar_disabled_meta = get_post_meta( $post->ID );
-	    
+	    $disabled = get_post_meta( $post->ID, 'lar_disabled', true ) === 'on';
 	    ?>
-	 
 	    <p>
-	        
-	        <input type="checkbox" name="lar_disabled" id="lar_disabled" <?php if (   $lar_disabled_meta['lar_disabled'][0] == 'on' ) echo 'checked="checked"'; ?> />
-	   		<label for="lar_disabled" class="lar-row-title"><?php _e( 'Disable', 'lar-links-auto-replacer' )?></label>
+	        <input type="checkbox" name="lar_disabled" id="lar_disabled" <?php checked( $disabled ); ?> />
+	   		<label for="lar_disabled" class="lar-row-title"><?php esc_html_e( 'Disable', 'links-auto-replacer' ); ?></label>
 	    </p>
 	 
 	    <?php  
@@ -440,10 +443,10 @@ class Links_Auto_Replacer_Admin {
 	    // Checks save status
 	    $is_autosave = wp_is_post_autosave( $post_id );
 	    $is_revision = wp_is_post_revision( $post_id );
-	    $is_valid_nonce = ( isset( $_POST[ 'lar_nonce' ] ) && wp_verify_nonce( $_POST[ 'lar_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
-	 
+	    $is_valid_nonce = isset( $_POST['lar_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['lar_nonce'] ) ), basename( __FILE__ ) );
+
 	    // Exits script depending on save status
-	    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+	    if ( $is_autosave || $is_revision || ! $is_valid_nonce || ! current_user_can( 'edit_post', $post_id ) ) {
 	        return;
 	    }
 	 
@@ -494,10 +497,10 @@ class Links_Auto_Replacer_Admin {
 	public function lar_columns_content($column_name, $post_ID) {
 
 		    if($column_name == 'link'){
-		    	echo Lar_Link::get_final_url($post_ID);
+		    	echo Lar_Link::get_final_url($post_ID); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by get_final_url().
 		    }
 		    if($column_name == 'lite_total_clicks'){
-		    	echo '<a href="https://wpruby.com/plugin/affiliate-butler-pro/" target="_blank">(PRO Feature)</a>';
+		    	echo '<a href="https://wpruby.com/plugin/affiliate-butler-pro/" target="_blank" rel="noopener">' . esc_html__( '(PRO Feature)', 'links-auto-replacer' ) . '</a>';
 		    }
 
 		    if($column_name == 'keywords'){
@@ -506,11 +509,11 @@ class Links_Auto_Replacer_Admin {
 
 		    	if(!empty($keywords)){
 		    		?>
-		    		<strong><a class="row-title" href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit"><?php echo implode(' | ',$keywords); ?></a></strong>
+		    		<strong><a class="row-title" href="<?php echo esc_url( get_edit_post_link( $post_ID ) ); ?>"><?php echo esc_html( implode( ' | ', array_filter( (array) $keywords, 'is_string' ) ) ); ?></a></strong>
 			    		<div class="row-actions">
-				    		<span class="edit"><a href="<?php echo get_edit_post_link($post_ID);  ?>" title="Edit this item">Edit</a> | </span>	
-				    		<span class="trash"><a class="submitdelete" title="Move this item to the Trash" href="<?php echo get_delete_post_link($post_ID); ?>">Trash</a>  </span>
-				    		<span class="quick_stats" class="edit"> | <a href="<?php echo admin_url('admin.php?page=lar_upgrade_settings'); ?>"><?php _e('Stats (PRO)','links-auto-replacer'); ?></a> </span>	
+				    		<span class="edit"><a href="<?php echo esc_url( get_edit_post_link( $post_ID ) ); ?>"><?php esc_html_e( 'Edit', 'links-auto-replacer' ); ?></a> | </span>
+				    		<span class="trash"><a class="submitdelete" href="<?php echo esc_url( get_delete_post_link( $post_ID ) ); ?>"><?php esc_html_e( 'Trash', 'links-auto-replacer' ); ?></a>  </span>
+				    		<span class="quick_stats"> | <a href="https://wpruby.com/plugin/affiliate-butler-pro/" target="_blank" rel="noopener"><?php esc_html_e( 'Stats (PRO)', 'links-auto-replacer' ); ?></a> </span>
 				    		<?php do_action('lar_add_quick_links', $post_ID); ?>
 
 			    		</div>
@@ -535,7 +538,7 @@ class Links_Auto_Replacer_Admin {
 	}
 
 	public function meta_pro_callback($post){
-		echo '<a href="https://wpruby.com/plugin/affiliate-butler-pro/" target="_blank"><img style="width:100%;" src="'.LAR_URL.'admin/images/upgrade_to_pro.png" /></a>';
+		echo '<a href="https://wpruby.com/plugin/affiliate-butler-pro/" target="_blank" rel="noopener"><img style="width:100%;" src="' . esc_url( LAR_URL . 'admin/images/upgrade_to_pro.png' ) . '" alt="' . esc_attr__( 'Upgrade to Affiliate Butler Pro', 'links-auto-replacer' ) . '" /></a>';
 	}
 
 	public function remove_row_actions( $actions, $post )

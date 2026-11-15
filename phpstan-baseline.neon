@@ -1,24 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Iterating over an object of an unknown class stdObject\.$#'
-			identifier: class.notFound
-			count: 1
-			path: admin/class-lar-admin.php
-
-		-
-			message: '#^Method Links_Auto_Replacer_Admin\:\:get_meta_values\(\) has invalid return type stdObject\.$#'
-			identifier: class.notFound
-			count: 1
-			path: admin/class-lar-admin.php
-
-		-
-			message: '#^Method Links_Auto_Replacer_Admin\:\:get_meta_values\(\) should return stdObject but empty return statement found\.$#'
-			identifier: return.empty
-			count: 1
-			path: admin/class-lar-admin.php
-
-		-
 			message: '#^Method Links_Auto_Replacer_Admin\:\:lar_columns_content\(\) should return array but return statement is missing\.$#'
 			identifier: return.missing
 			count: 2
@@ -49,37 +31,13 @@ parameters:
 			path: admin/class-lar-admin.php
 
 		-
-			message: '#^PHPDoc tag @param has invalid value \(number the post ID to exlude from the query\)\: Unexpected token "the", expected variable at offset 211 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: admin/class-lar-admin.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(string the meta key\.\)\: Unexpected token "the", expected variable at offset 110 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: admin/class-lar-admin.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(string the post status\)\: Unexpected token "the", expected variable at offset 176 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: admin/class-lar-admin.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(string the post type\)\: Unexpected token "the", expected variable at offset 143 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: admin/class-lar-admin.php
-
-		-
 			message: '#^Method Lar_Lite_Settings\:\:get_option\(\) should return string but returns array\.$#'
 			identifier: return.type
 			count: 1
 			path: admin/classes/class-settings.php
 
 		-
-			message: '#^PHPDoc tag @param has invalid value \(string the option''s key\.\)\: Unexpected token "the", expected variable at offset 53 on line 3$#'
+			message: '#^PHPDoc tag @param has invalid value \(string the option''s key\.\)\: Unexpected token "the", expected variable at offset 51 on line 3$#'
 			identifier: phpDoc.parseError
 			count: 1
 			path: admin/classes/class-settings.php
@@ -99,26 +57,14 @@ parameters:
 		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
-			count: 3
-			path: admin/partials/license.php
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: admin/partials/menu.php
 
 		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
-			count: 3
+			count: 2
 			path: admin/partials/settings.php
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: admin/partials/upgrade.php
 
 		-
 			message: '#^Method Links_Auto_Replacer_Loader\:\:add\(\) has invalid return type type\.$#'
@@ -181,18 +127,6 @@ parameters:
 			path: includes/class-lar-loader.php
 
 		-
-			message: '#^Call to an undefined method DOMNode\:\:getElementsByTagName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: public/class-lar-public.php
-
-		-
-			message: '#^Constant LARPRO_URL not found\.$#'
-			identifier: constant.notFound
-			count: 6
-			path: public/class-lar-public.php
-
-		-
 			message: '#^PHPDoc tag @param has invalid value \(array  The original rules\.\)\: Unexpected token "The", expected variable at offset 95 on line 3$#'
 			identifier: phpDoc.parseError
 			count: 1
@@ -207,11 +141,5 @@ parameters:
 		-
 			message: '#^PHPDoc tag @param has invalid value \(string the original content\)\: Unexpected token "the", expected variable at offset 151 on line 4$#'
 			identifier: phpDoc.parseError
-			count: 1
-			path: public/class-lar-public.php
-
-		-
-			message: '#^Variable \$url might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: public/class-lar-public.php

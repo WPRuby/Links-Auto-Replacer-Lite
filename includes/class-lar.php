@@ -189,8 +189,12 @@ class Links_Auto_Replacer {
 		$this->loader->add_action( 'wp_ajax_my_pre_submit_validation', $plugin_admin, 'pre_submit_link_validation' );
 		
 
-		if(isset($_GET['post_type']) OR isset($_GET['post'])){
-			if( (isset($_GET['post_type']) && $_GET['post_type'] == 'lar_link') OR (isset($_GET['post']) && get_post_type($_GET['post'])=='lar_link')){
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- only reads which screen is opened.
+		$screen_post_type = isset( $_GET['post_type'] ) ? sanitize_key( $_GET['post_type'] ) : '';
+		$screen_post      = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		if ( $screen_post_type !== '' || $screen_post ) {
+			if ( $screen_post_type === 'lar_link' || ( $screen_post && get_post_type( $screen_post ) === 'lar_link' ) ) {
 				$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'insert_validation_nonce' );
 			}
 		}
@@ -230,7 +234,8 @@ class Links_Auto_Replacer {
 
 		$this->loader->add_filter( 'rewrite_rules_array', $plugin_public, 'lar_setup_rewrite_rules' );
 		$this->loader->add_filter( 'query_vars', $plugin_public, 'add_go_variable' );
-		$this->loader->add_action( 'template_redirect', $plugin_public, 'lar_redirect' );
+		// Before redirect_canonical(), which would add a trailing slash redirect first.
+		$this->loader->add_action( 'template_redirect', $plugin_public, 'lar_redirect', 1 );
 
 
 
