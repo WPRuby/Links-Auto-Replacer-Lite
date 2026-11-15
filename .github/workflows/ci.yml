@@ -25,11 +25,29 @@ jobs:
       - run: composer phpcs
       - run: composer phpstan -- --no-progress
 
+  js:
+    name: JS lint and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint:js
+      - run: npm run build
+
   plugin-check:
     name: Plugin Check (WordPress.org)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci && npm run build
       # Check what ships: the plugin without the files listed in .distignore.
       - run: |
           mkdir -p /tmp/dist/links-auto-replacer
@@ -39,7 +57,6 @@ jobs:
         continue-on-error: true
         with:
           build-dir: /tmp/dist/links-auto-replacer
-          exclude-directories: admin/cmb
 
   tests:
     name: Tests (PHP ${{ matrix.php }})

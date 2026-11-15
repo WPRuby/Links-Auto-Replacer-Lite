@@ -12,10 +12,6 @@ abstract class TestCase extends WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		$this->set_permalink_structure( '/%postname%/' );
-		// CMB2 keeps the options in memory: forget them so every test reads its own database.
-		if ( class_exists( 'CMB2_Options' ) ) {
-			( new \ReflectionClass( 'CMB2_Options' ) )->setStaticPropertyValue( 'option_sets', array() );
-		}
 	}
 
 	/**

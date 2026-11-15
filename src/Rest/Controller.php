@@ -241,7 +241,19 @@ final class Controller {
 			return $post;
 		}
 
-		$link_id = Repository::save( $this->link_fields( $request ), $post->ID );
+		$fields = $this->link_fields( $request );
+		// Links made with Affiliate Butler Pro can't be edited here, but they can be restored from the Trash.
+		if ( Repository::to_array( $post )['pro_type'] !== '' && array_keys( $fields ) === array( 'status' ) && in_array( $fields['status'], Repository::STATUSES, true ) ) {
+			wp_update_post(
+				array(
+					'ID'          => $post->ID,
+					'post_status' => $fields['status'],
+				)
+			);
+			return new WP_REST_Response( Repository::to_array( get_post( $post->ID ) ) );
+		}
+
+		$link_id = Repository::save( $fields, $post->ID );
 		if ( is_wp_error( $link_id ) ) {
 			return $link_id;
 		}

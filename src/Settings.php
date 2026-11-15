@@ -2,9 +2,9 @@
 /**
  * The plugin settings, saved in the `lar_settings` option.
  *
- * The option keeps the format of the CMB2 settings page: every key has the `_lar_links_`
- * prefix and a checked checkbox is `on`. An unchecked checkbox saves nothing, so the
- * "Enable" switch also relies on the `settings_saved` marker, see is_enabled().
+ * The option keeps the format of the CMB2 settings page of 2.x: every key has the
+ * `_lar_links_` prefix and a checked checkbox is `on`. "Enable" also relies on the
+ * `settings_saved` marker, see is_enabled().
  *
  * @package Links_Auto_Replacer
  */
@@ -35,7 +35,7 @@ final class Settings {
 	);
 
 	/**
-	 * A saved setting, as the CMB2 settings page saved it: false when it isn't set.
+	 * A saved setting, as saved: false when it isn't set.
 	 *
 	 * @param string $key The setting, with the prefix. Empty for all of them.
 	 *
@@ -158,24 +158,5 @@ final class Settings {
 			}
 		}
 		return $clean;
-	}
-
-	/**
-	 * Remember that the CMB2 settings form was saved, see is_enabled().
-	 *
-	 * @param string $object_id The option key.
-	 * @param string $cmb_id    The metabox ID.
-	 */
-	public function remember_settings_saved( $object_id, $cmb_id ): void {
-		if ( $object_id !== self::OPTION || $cmb_id !== 'lar_settings' ) {
-			return;
-		}
-		$options = $this->get_option();
-		$options[ LAR_LITE_PLUGIN_PREFIX . 'settings_saved' ] = 'yes';
-		update_option( self::OPTION, $options );
-		// The CMB2 form reads its own copy of the option.
-		if ( function_exists( 'cmb2_options' ) ) {
-			cmb2_options( self::OPTION )->update( LAR_LITE_PLUGIN_PREFIX . 'settings_saved', 'yes', false );
-		}
 	}
 }

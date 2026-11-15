@@ -15,8 +15,6 @@ tests_add_filter(
 	'muplugins_loaded',
 	function () {
 		require dirname( __DIR__ ) . '/links-auto-replacer.php';
-		// The tests don't run in the admin, where the CMB2 screens are loaded.
-		( new \LinksAutoReplacer\Plugin( dirname( __DIR__ ) . '/links-auto-replacer.php' ) )->boot_admin();
 	}
 );
 

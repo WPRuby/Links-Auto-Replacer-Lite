@@ -59,7 +59,7 @@ class ClicksTest extends TestCase {
 		$this->assertFalse( $type->public );
 		$this->assertFalse( $type->publicly_queryable );
 		$this->assertFalse( $type->has_archive );
-		$this->assertTrue( $type->show_ui, 'The CMB2 screens need it until the new admin.' );
+		$this->assertFalse( $type->show_ui );
 	}
 
 	public function test_the_upgrade_routine_runs_once_per_version() {

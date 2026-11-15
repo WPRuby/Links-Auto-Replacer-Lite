@@ -12,7 +12,7 @@ Requires PHP 7.4+ and Composer. From 3.0 the plugin needs WordPress 6.6+ and PHP
 | --- | --- |
 | `composer lint` | PHP syntax check |
 | `composer phpcs` | Security, i18n and PHP compatibility checks (`phpcs.xml.dist`) |
-| `composer phpstan` | Static analysis (`phpstan.neon.dist`); `phpstan-baseline.neon` lists the errors of the 2.2.4 code |
+| `composer phpstan` | Static analysis (`phpstan.neon.dist`) |
 | `composer test` | Integration tests against the WordPress test suite |
 | `composer check` | All of the above |
 
@@ -28,14 +28,18 @@ The tests need an empty MySQL database that they can wipe. CI passes it through 
 | `Links\ShortLinks` | `/go/{slug}` redirects and the click counts (`_lar_links_clicks` meta) |
 | `Links\Repository` | Reads, validates and saves links |
 | `Rest\Controller` | The REST API under `links-auto-replacer/v1` (links and settings) |
+| `Admin\AdminPage`, `Admin\DisableOption` | The admin menu and app, the per-post switch |
 | `Activation` | Imports the links of version 1 and flushes the rewrite rules |
 
-`admin/` still holds the CMB2 link editor and settings page, loaded in the admin only; the new admin replaces them.
+The admin is a React app in `assets/src/admin` (links list, link editor, settings), mounted by `src/Admin/AdminPage.php` and talking to the REST API. `assets/src/editor` is the "Disable auto links in this post" panel of the block editor (`src/Admin/DisableOption.php`, which also has the classic editor box). They are built into `build/` (not in git): run `npm install && npm run build` (Node 22, see `.nvmrc`). `assets/src` ships with the plugin, as WordPress.org asks for the source of built scripts.
+
+| Command | What it does |
+| --- | --- |
+| `npm run build` | Build `build/` (`npm start` rebuilds on changes) |
+| `npm run lint:js` | ESLint |
 
 Keywords are linked by `src/Links/Replacer.php` in one pass over the content, from the keyword map of `src/Links/KeywordMap.php` (a transient, rebuilt when a link, its meta or the settings change). The output is cached in the object cache, keyed by the content and the map version. Both are trimmed-down ports of Affiliate Butler Pro's engine; keep them in step.
 
 `tests/integration/ReplacerTest.php` describes how keywords are linked today. Keep it passing when changing the replacement engine, and update a test only when the change in behaviour is intended.
 
 CI also runs WordPress.org's [Plugin Check](https://wordpress.org/plugins/plugin-check/) on the files that ship. Locally: `wp plugin check Links-Auto-Replacer-Lite` with the Plugin Check plugin active.
-
-`admin/cmb/` is a bundled copy of CMB2 2.0.4. It is excluded from the checks and will be removed.

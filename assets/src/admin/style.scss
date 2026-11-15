@@ -1,0 +1,184 @@
+.lar-admin-wrap {
+	.components-card {
+		margin-bottom: 16px;
+	}
+
+	.components-card__header h2 {
+		margin: 0;
+		font-size: 14px;
+	}
+
+	.components-base-control,
+	.components-toggle-control,
+	.components-form-token-field {
+		margin-bottom: 16px;
+	}
+
+	.components-notice {
+		margin: 12px 0;
+	}
+}
+
+.lar-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 16px;
+	margin-bottom: 12px;
+
+	&__back {
+		flex-basis: 100%;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 8px;
+	}
+
+	.wp-header-end {
+		flex-basis: 100%;
+		margin: 0;
+		visibility: hidden;
+	}
+}
+
+.lar-intro {
+	max-width: 760px;
+	color: #50575e;
+}
+
+.lar-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	margin: 12px 0;
+
+	.components-search-control {
+		min-width: 260px;
+	}
+}
+
+.lar-filters {
+	display: flex;
+	gap: 4px;
+}
+
+.lar-links-table {
+	.column-primary {
+		width: 35%;
+	}
+
+	.lar-col-url code {
+		word-break: break-all;
+	}
+}
+
+.lar-col-number {
+	width: 80px;
+	text-align: right;
+}
+
+.lar-row-actions {
+	display: flex;
+	gap: 12px;
+	margin-top: 4px;
+	font-size: 13px;
+	visibility: hidden;
+
+	tr:hover &,
+	tr:focus-within & {
+		visibility: visible;
+	}
+}
+
+.lar-badge {
+	display: inline-block;
+	margin-left: 8px;
+	padding: 0 8px;
+	border-radius: 999px;
+	background: #f0f0f1;
+	color: #50575e;
+	font-size: 12px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+
+.lar-muted {
+	color: #646970;
+}
+
+.lar-empty {
+	padding: 24px 0;
+	color: #646970;
+}
+
+.lar-pagination {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 8px;
+	margin: 12px 0;
+}
+
+.lar-editor {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 320px;
+	gap: 16px;
+	align-items: start;
+
+	@media (max-width: 960px) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.lar-save-actions {
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.lar-field-help,
+.lar-field-error {
+	margin: -8px 0 16px;
+	font-size: 12px;
+	color: #757575;
+}
+
+.lar-field-error {
+	color: #cc1818;
+}
+
+.lar-big-number {
+	margin: 0 0 4px;
+	font-size: 32px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.lar-modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+// Two columns that stack their cards, so a short card leaves no gap.
+.lar-settings {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0 16px;
+	align-items: start;
+
+	@media (max-width: 960px) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	&__column {
+		min-width: 0;
+	}
+}
+
+.lar-pro-card .components-card__body p {
+	margin-top: 0;
+}

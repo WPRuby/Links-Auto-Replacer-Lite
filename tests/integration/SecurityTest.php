@@ -118,13 +118,6 @@ class SecurityTest extends TestCase {
 		$this->assertSame( array(), lar()->sanitize( 'nope' ) );
 	}
 
-	public function test_saving_the_settings_form_is_remembered() {
-		do_action( 'cmb2_save_options-page_fields', 'lar_settings', 'lar_settings', array(), null );
-
-		$this->assertSame( 'yes', lar()->get_option( LAR_LITE_PLUGIN_PREFIX . 'settings_saved' ) );
-		$this->assertFalse( lar()->is_enabled(), 'The form was saved without "Enable".' );
-	}
-
 	/**
 	 * @dataProvider redirects_that_do_not_happen
 	 *
@@ -164,28 +157,28 @@ class SecurityTest extends TestCase {
 
 	public function test_the_disable_box_needs_a_valid_nonce_and_the_capability() {
 		$post_id = $this->create_post( 'amazon' );
-		$admin   = new \Links_Auto_Replacer_Admin( 'links-auto-replacer', LAR_VERSION );
+		$admin   = new \LinksAutoReplacer\Admin\DisableOption( LAR_DIR . 'links-auto-replacer.php' );
 		$nonce   = function () {
-			return wp_create_nonce( 'class-lar-admin.php' );
+			return wp_create_nonce( \LinksAutoReplacer\Admin\DisableOption::NONCE );
 		};
 
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'editor' ) ) );
 		$_POST = array( 'lar_disabled' => 'on' );
-		$admin->lar_meta_save( $post_id );
+		$admin->save_meta_box( $post_id );
 		$this->assertSame( '', get_post_meta( $post_id, 'lar_disabled', true ), 'No nonce.' );
 
-		$_POST['lar_nonce'] = 'wrong';
-		$admin->lar_meta_save( $post_id );
+		$_POST[ \LinksAutoReplacer\Admin\DisableOption::NONCE ] = 'wrong';
+		$admin->save_meta_box( $post_id );
 		$this->assertSame( '', get_post_meta( $post_id, 'lar_disabled', true ), 'A wrong nonce (2.2.4 accepted it).' );
 
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'subscriber' ) ) );
-		$_POST['lar_nonce'] = $nonce();
-		$admin->lar_meta_save( $post_id );
+		$_POST[ \LinksAutoReplacer\Admin\DisableOption::NONCE ] = $nonce();
+		$admin->save_meta_box( $post_id );
 		$this->assertSame( '', get_post_meta( $post_id, 'lar_disabled', true ), 'A user who cannot edit the post.' );
 
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'editor' ) ) );
-		$_POST['lar_nonce'] = $nonce();
-		$admin->lar_meta_save( $post_id );
+		$_POST[ \LinksAutoReplacer\Admin\DisableOption::NONCE ] = $nonce();
+		$admin->save_meta_box( $post_id );
 		$this->assertSame( 'on', get_post_meta( $post_id, 'lar_disabled', true ) );
 		$_POST = array();
 	}

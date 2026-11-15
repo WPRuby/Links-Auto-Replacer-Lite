@@ -2,7 +2,8 @@
 /**
  * The auto links post type.
  *
- * Links are only edited in the admin: they have no public pages or archives.
+ * Links are edited in the plugin's admin app: they have no public pages, archives or
+ * WordPress screens.
  *
  * @package Links_Auto_Replacer
  */
@@ -41,8 +42,8 @@ final class PostType {
 					'not_found_in_trash' => __( 'No links found in Trash.', 'links-auto-replacer' ),
 				),
 				'public'              => false,
-				'show_ui'             => true,
-				'show_in_menu'        => true,
+				'show_ui'             => false,
+				'show_in_menu'        => false,
 				'show_in_rest'        => false,
 				'exclude_from_search' => true,
 				'has_archive'         => false,

@@ -38,13 +38,10 @@
         "sort-packages": true
     },
     "scripts": {
-        "lint": "find . -name '*.php' -not -path './vendor/*' -not -path './node_modules/*' -not -path './admin/cmb/*' -print0 | xargs -0 -n1 -P4 php -l > /dev/null",
+        "lint": "find . -name '*.php' -not -path './vendor/*' -not -path './node_modules/*' -print0 | xargs -0 -n1 -P4 php -l > /dev/null",
         "phpcs": "phpcs",
         "phpstan": "phpstan analyse --memory-limit=1G",
-        "test": [
-            "phpunit",
-            "phpunit --group ajax"
-        ],
+        "test": "phpunit",
         "check": [
             "@lint",
             "@phpcs",

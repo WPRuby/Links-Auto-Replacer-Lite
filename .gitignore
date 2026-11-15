@@ -5,3 +5,4 @@ links-auto-replacer.zip
 /node_modules/
 .phpunit.result.cache
 /tests/wp-tests-config-local.php
+/build/

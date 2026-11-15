@@ -1,0 +1,465 @@
+# Copyright (C) 2026 Waseem Senjer
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Keywords to Links Converter 2.2.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/links-auto-replacer\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-15T12:44:22+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: links-auto-replacer\n"
+
+#. Plugin Name of the plugin
+#: links-auto-replacer.php
+#: src/Admin/DisableOption.php:116
+#: assets/src/editor/index.js:28
+msgid "Keywords to Links Converter"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: links-auto-replacer.php
+msgid "https://wpruby.com/plugin/affiliate-butler-pro/"
+msgstr ""
+
+#. Description of the plugin
+#: links-auto-replacer.php
+msgid "Link your keywords to URLs automatically, with short links and click counts."
+msgstr ""
+
+#. Author of the plugin
+#: links-auto-replacer.php
+msgid "Waseem Senjer"
+msgstr ""
+
+#. Author URI of the plugin
+#: links-auto-replacer.php
+msgid "https://wpruby.com"
+msgstr ""
+
+#: src/Admin/AdminPage.php:72
+#: assets/src/admin/views/LinksList.js:86
+msgid "Auto Links"
+msgstr ""
+
+#: src/Admin/AdminPage.php:73
+#: src/Links/PostType.php:39
+msgid "All Auto Links"
+msgstr ""
+
+#: src/Admin/AdminPage.php:74
+#: src/Links/PostType.php:34
+#: src/Links/PostType.php:35
+#: assets/src/admin/views/LinkEditor.js:111
+#: assets/src/admin/views/LinksList.js:88
+msgid "Add New Auto Link"
+msgstr ""
+
+#: src/Admin/AdminPage.php:74
+msgid "Add New"
+msgstr ""
+
+#: src/Admin/AdminPage.php:75
+#: src/Admin/AdminPage.php:97
+#: assets/src/admin/views/Settings.js:65
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/AdminPage.php:86
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: src/Admin/AdminPage.php:181
+msgid "The admin app is not built. Run `npm install && npm run build` in the plugin folder."
+msgstr ""
+
+#: src/Admin/DisableOption.php:137
+#: assets/src/editor/index.js:32
+msgid "Disable auto links in this post"
+msgstr ""
+
+#: src/Links/PostType.php:30
+msgctxt "post type general name"
+msgid "Auto Links"
+msgstr ""
+
+#: src/Links/PostType.php:31
+msgctxt "post type singular name"
+msgid "Auto Link"
+msgstr ""
+
+#: src/Links/PostType.php:32
+msgctxt "admin menu"
+msgid "Auto Links"
+msgstr ""
+
+#: src/Links/PostType.php:33
+msgctxt "add new on admin bar"
+msgid "Auto Link"
+msgstr ""
+
+#: src/Links/PostType.php:36
+msgid "New Auto Link"
+msgstr ""
+
+#: src/Links/PostType.php:37
+#: assets/src/admin/views/LinkEditor.js:110
+msgid "Edit Auto Link"
+msgstr ""
+
+#: src/Links/PostType.php:38
+msgid "View Auto Link"
+msgstr ""
+
+#: src/Links/PostType.php:40
+msgid "Search Auto Links"
+msgstr ""
+
+#: src/Links/PostType.php:41
+#: assets/src/admin/views/LinksList.js:232
+msgid "No links found."
+msgstr ""
+
+#: src/Links/PostType.php:42
+msgid "No links found in Trash."
+msgstr ""
+
+#: src/Links/Repository.php:131
+#: assets/src/admin/views/LinkEditor.js:59
+msgid "This link was made with Affiliate Butler Pro. Edit it with Affiliate Butler Pro."
+msgstr ""
+
+#: src/Links/Repository.php:141
+msgid "Please correct the link fields."
+msgstr ""
+
+#: src/Links/Repository.php:212
+msgid "Please add at least one keyword."
+msgstr ""
+
+#: src/Links/Repository.php:214
+msgid "Please remove the repeated keywords."
+msgstr ""
+
+#. translators: %s: the keywords.
+#: src/Links/Repository.php:219
+msgid "These keywords are used by another link: %s"
+msgstr ""
+
+#: src/Links/Repository.php:225
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: src/Links/Repository.php:227
+msgid "Another link already uses this URL."
+msgstr ""
+
+#. translators: %s: the short link slug.
+#: src/Links/Repository.php:232
+msgid "Another link already uses the slug %s."
+msgstr ""
+
+#: src/Rest/Controller.php:334
+msgid "Link not found."
+msgstr ""
+
+#: assets/src/admin/App.js:27
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: assets/src/admin/components/Confirm.js:27
+msgid "Cancel"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:92
+msgid "Link saved."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:93
+msgid "Draft saved."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:115
+msgid "← All Auto Links"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:140
+#: assets/src/admin/views/LinksList.js:244
+msgid "Keywords"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:146
+msgid "Keywords to link"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:164
+msgid "Type a keyword and press Enter. Every keyword is linked in your posts."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:171
+#: assets/src/admin/views/Settings.js:208
+msgid "Case sensitive"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:175
+msgid "Link the keywords only when they are written with the same letter case."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:189
+msgid "Link"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:196
+msgid "URL"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:206
+#: assets/src/admin/views/Settings.js:199
+msgid "Short link"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:210
+msgid "Use a short link on your site that redirects to the URL, hides it, and counts its clicks."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:222
+msgid "Slug"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:231
+msgid "Leave it empty to get one."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:247
+msgid "Save"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:252
+msgid "Published: the keywords are linked."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:256
+msgid "Draft: the keywords are not linked yet."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:267
+msgid "Save draft"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:279
+msgid "Update"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:280
+msgid "Publish"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:293
+#: assets/src/admin/views/LinksList.js:248
+msgid "Clicks"
+msgstr ""
+
+#. translators: %d: number of clicks.
+#: assets/src/admin/views/LinkEditor.js:303
+msgid "%d visit of the short link, bots not counted."
+msgid_plural "%d visits of the short link, bots not counted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/src/admin/views/LinkEditor.js:312
+msgid "Clicks per day, country and post with Affiliate Butler Pro"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:324
+msgid "Options"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:330
+#: assets/src/admin/views/Settings.js:220
+msgid "Open in"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:335
+#: assets/src/admin/views/Settings.js:225
+msgid "Same window"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:342
+#: assets/src/admin/views/Settings.js:232
+msgid "New window"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:354
+#: assets/src/admin/views/Settings.js:177
+msgid "Nofollow"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:358
+msgid "Ask search engines not to follow the link, recommended for affiliate links."
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:369
+#: assets/src/admin/views/Settings.js:188
+msgid "Sponsored"
+msgstr ""
+
+#: assets/src/admin/views/LinkEditor.js:373
+msgid "Mark it as a paid or affiliate link (rel=\"sponsored\"), as Google asks."
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:17
+msgid "All"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:18
+msgid "Published"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:19
+msgid "Drafts"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:20
+#: assets/src/admin/views/LinksList.js:374
+msgid "Trash"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:60
+msgid "Link moved to the Trash."
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:68
+msgid "Link restored as a draft."
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:75
+msgid "Link deleted permanently."
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:93
+msgid "An auto link is one or more keywords and the URL they link to. Once published, the keywords are linked in every post and page where they appear."
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:135
+msgid "Search links"
+msgstr ""
+
+#. translators: %d: number of links.
+#: assets/src/admin/views/LinksList.js:161
+msgid "%d link"
+msgid_plural "%d links"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/src/admin/views/LinksList.js:178
+msgid "Previous"
+msgstr ""
+
+#. translators: 1: current page, 2: number of pages.
+#: assets/src/admin/views/LinksList.js:183
+msgid "Page %1$d of %2$d"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:196
+msgid "Next"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:203
+msgid "Delete the link?"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:204
+#: assets/src/admin/views/LinksList.js:349
+msgid "Delete permanently"
+msgstr ""
+
+#. translators: %s: the keywords of the link.
+#: assets/src/admin/views/LinksList.js:216
+msgid "Delete the link \"%s\" and its click count? This cannot be undone."
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:246
+msgid "Links to"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:250
+msgid "Date"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:267
+msgid "(no keywords)"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:276
+msgid "Draft"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:280
+#: assets/src/admin/views/Settings.js:141
+msgid "Affiliate Butler Pro"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:317
+msgid "A link type of Affiliate Butler Pro, edit it there."
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:342
+msgid "Restore"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:359
+#: assets/src/admin/views/Settings.js:155
+msgid "About Affiliate Butler Pro"
+msgstr ""
+
+#: assets/src/admin/views/LinksList.js:366
+msgid "Edit"
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:55
+msgid "Settings saved."
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:80
+msgid "Linking"
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:85
+msgid "Link the keywords"
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:89
+msgid "Turn it off to stop linking keywords everywhere. Your links are kept."
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:101
+msgid "Links per keyword in a post"
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:105
+msgid "0 for no limit."
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:122
+msgid "Excluded HTML tags"
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:126
+msgid "Keywords inside these tags are not linked, separated by commas, e.g. h1,h2,strong"
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:149
+msgid "Link keywords to your own posts, popups, images, videos and maps, see clicks per day, country and post, rotate short links between offers, and import or export your links."
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:168
+msgid "New link defaults"
+msgstr ""
+
+#: assets/src/admin/views/Settings.js:248
+msgid "Save settings"
+msgstr ""
