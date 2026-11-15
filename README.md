@@ -31,6 +31,8 @@ The tests need an empty MySQL database that they can wipe. CI passes it through 
 | `Admin\AdminPage`, `Admin\DisableOption` | The admin menu and app, the per-post switch |
 | `Activation` | Imports the links of version 1 and flushes the rewrite rules |
 
+`Plugin` boots on `plugins_loaded`: when Affiliate Butler Pro is active (`ABUTLERPRO_VERSION`, or the `lar_pro_active` filter), Lite registers nothing but a notice on the Plugins screen. Pro links the same posts, and its `Lite\Takeover` brings over Lite's settings, the `_lar_links_clicks` counts and the `lar_disabled` posts when it's activated or updated.
+
 The admin is a React app in `assets/src/admin` (links list, link editor, settings), mounted by `src/Admin/AdminPage.php` and talking to the REST API. `assets/src/editor` is the "Disable auto links in this post" panel of the block editor (`src/Admin/DisableOption.php`, which also has the classic editor box). They are built into `build/` (not in git): run `npm install && npm run build` (Node 22, see `.nvmrc`). `assets/src` ships with the plugin, as WordPress.org asks for the source of built scripts.
 
 | Command | What it does |

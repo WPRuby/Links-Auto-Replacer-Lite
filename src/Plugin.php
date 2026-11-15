@@ -43,9 +43,29 @@ final class Plugin {
 	}
 
 	/**
-	 * Register the hooks.
+	 * Whether Affiliate Butler Pro is active. It links the same `lar_link` posts, so Lite
+	 * pauses instead of linking every keyword twice.
+	 *
+	 * @return bool
+	 */
+	public static function pro_is_active(): bool {
+		/**
+		 * Filters whether Affiliate Butler Pro is active, which pauses this plugin.
+		 *
+		 * @param bool $active Whether Affiliate Butler Pro is loaded.
+		 */
+		return (bool) apply_filters( 'lar_pro_active', defined( 'ABUTLERPRO_VERSION' ) || function_exists( 'abutler_pro' ) );
+	}
+
+	/**
+	 * Register the hooks. Runs on plugins_loaded, when Affiliate Butler Pro is loaded if active.
 	 */
 	public function boot(): void {
+		if ( self::pro_is_active() ) {
+			add_action( 'admin_notices', array( $this, 'paused_notice' ) );
+			return;
+		}
+
 		add_action( 'init', array( PostType::class, 'register' ) );
 		add_action( 'init', array( $this, 'maybe_upgrade' ), 99 );
 		add_action( 'rest_api_init', array( new Controller(), 'register_routes' ) );
@@ -64,6 +84,20 @@ final class Plugin {
 	 */
 	private function boot_admin(): void {
 		( new AdminPage( $this->file ) )->register_hooks();
+	}
+
+	/**
+	 * Tell the admins on the Plugins screen that Affiliate Butler Pro does the linking now.
+	 */
+	public function paused_notice(): void {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || $screen->id !== 'plugins' || ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+		printf(
+			'<div class="notice notice-info"><p>%s</p></div>',
+			esc_html__( 'Affiliate Butler Pro is active and links your keywords, with the same links and settings, so Keywords to Links Converter is paused. You can deactivate Keywords to Links Converter.', 'links-auto-replacer' )
+		);
 	}
 
 	/**

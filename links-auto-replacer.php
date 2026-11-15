@@ -43,6 +43,7 @@ function lar() {
 
 register_activation_hook( __FILE__, array( \LinksAutoReplacer\Activation::class, 'activate' ) );
 
-( new \LinksAutoReplacer\Plugin( __FILE__ ) )->boot();
+// On plugins_loaded, so the plugin can tell whether Affiliate Butler Pro is active.
+add_action( 'plugins_loaded', array( new \LinksAutoReplacer\Plugin( __FILE__ ), 'boot' ) );
 
 $GLOBALS['lar_name'] = 'Keywords to Links Converter';
